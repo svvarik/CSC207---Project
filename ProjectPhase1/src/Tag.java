@@ -17,7 +17,7 @@ public class Tag {
     public Tag(String tagName) {
         if (Pattern.matches("^[@][a-zA-Z_0-9]*", tagName)) {
             this.tag = tagName;
-            TagManager.add_tag(this);
+            TagManager.addTag(this);
         }
     }
 
