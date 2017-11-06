@@ -6,7 +6,7 @@ public class Tag {
 
     private String tag;
 
-    private Tag(String tagName) {
+    public Tag(String tagName) {
         this.tag = tagName;
     }
 
