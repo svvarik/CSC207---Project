@@ -10,7 +10,7 @@ import java.util.regex.Matcher;
 public class Tag {
 
     // List of all images that this tag is used in
-    ArrayList<ImageFile> imagesAssociated;
+    private ArrayList<ImageFile> imagesAssociated = new ArrayList<>();
 
     private String tag;
 
@@ -35,7 +35,11 @@ public class Tag {
         return this.tag;
     }
 
-    void add_image(ImageFile file) {
-        imagesAssociated.add(file);
+    void addImage(ImageFile file) {
+        this.imagesAssociated.add(file);
+    }
+
+    void removeImage(ImageFile file) {
+        this.imagesAssociated.remove(file);
     }
 }
