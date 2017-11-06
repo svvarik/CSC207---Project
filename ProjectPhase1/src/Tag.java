@@ -34,4 +34,8 @@ public class Tag {
     public String toString() {
         return this.tag;
     }
+
+    void add_image(ImageFile file) {
+        imagesAssociated.add(file);
+    }
 }
