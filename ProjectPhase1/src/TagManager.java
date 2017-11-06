@@ -7,12 +7,12 @@ public class TagManager {
     public TagManager(){
     }
 
-    public void add_tag(Tag tagToBeAdded) {
+    public static void addTag(Tag tagToBeAdded) {
         TagManager.tagsUsed.add(tagToBeAdded);
     }
 
     // This might be messy,
-    public void remove_tag(Tag tagToBeRemoved) {
+    public static void removeTag(Tag tagToBeRemoved) {
         tagsUsed.remove(tagToBeRemoved);
     }
 
