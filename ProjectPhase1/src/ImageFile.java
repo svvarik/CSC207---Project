@@ -4,7 +4,7 @@ import java.util.ArrayList;
 public class ImageFile {
     private ArrayList<Tag> tags;
     private String fileName;
-    private String name;
+    private String taggedName;
 
     public ImageFile(String fileName){
         this.tags = new ArrayList<Tag>();
@@ -14,23 +14,18 @@ public class ImageFile {
 
     private void addTag(String newTag) {
         //Find tag in TagManager?
-        Tag imageTag = TagManager.tagsUsed.findTag(newTag);
-        if (TagManager.tagsUsed.contains(imageTag)) {
-            int tagIndex = TagManager.tagsUsed.indexOf(imageTag);
-            Tag existingTag = TagManager.tagsUsed.get(tagIndex);
-            existingTag.addImage(this.name???);
-            this.tags.add(existingTag);
-        }
-        else{
-            Tag imageTag = new Tag(newTag);
+        Tag imageTag = TagManager.findTag(newTag);
+        if (imageTag == null) {
+            imageTag = new Tag(newTag);
         }
         this.tags.add(imageTag);
-        imageTag.add_image(this);
+        imageTag.addImage(this);
         this.rename();
     }
 
-    private void removeTag(Tag deletedTag) {
+    private void removeImageTag(Tag deletedTag) {
         this.tags.remove(deletedTag);
+        deletedTag.removeImage(this);
         this.rename();
     }
 
@@ -39,7 +34,7 @@ public class ImageFile {
         for (Tag tag : this.tags) {
             tagsName.append(tag.toString());
         }
-        this.name = this.fileName + tagsName;
+        this.taggedName = this.fileName + tagsName;
     }
 
 
