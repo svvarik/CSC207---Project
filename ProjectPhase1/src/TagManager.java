@@ -4,7 +4,7 @@ public class TagManager {
 
     public static ArrayList<Tag> tagsUsed;
 
-    public TagManager(){
+    public TagManager() {
     }
 
     public static void addTag(Tag tagToBeAdded) {
@@ -13,7 +13,15 @@ public class TagManager {
 
     // This might be messy,
     public static void removeTag(Tag tagToBeRemoved) {
-        tagsUsed.remove(tagToBeRemoved);
+        TagManager.tagsUsed.remove(tagToBeRemoved);
     }
 
+    public static Object findTag(String tagToBeFound) {
+        for (int i = 0; i < TagManager.tagsUsed.size(); i = i + 1) {
+            if (TagManager.tagsUsed.get(i).toString().equals(tagToBeFound)) {
+                return TagManager.tagsUsed.get(i);
+            }
+        }
+        return false;
+    }
 }
