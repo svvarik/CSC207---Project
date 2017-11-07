@@ -23,7 +23,7 @@ public class ImageFile {
         this.rename();
     }
 
-    private void removeImageTag(Tag deletedTag) {
+    void removeImageTag(Tag deletedTag) {
         this.tags.remove(deletedTag);
         deletedTag.removeImage(this);
         this.rename();
@@ -37,5 +37,15 @@ public class ImageFile {
         this.taggedName = this.fileName + tagsName;
     }
 
+    String getTaggedName(){
+        return this.taggedName;
+    }
 
+    String getFileName() {
+        return this.fileName;
+    }
+
+    ArrayList<Tag> getTags() {
+        return this.tags;
+    }
 }
