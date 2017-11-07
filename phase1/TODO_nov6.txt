@@ -1,0 +1,55 @@
+November 6th, 2017
+
+CSC207 Phase 1
+
+- File Manager
+——————————
+	- The user wants to be able to choose a directory and view a list of all image files anywhere under that directory, and also show a list of images in that directory.
+
+- ImageViewer
+——————————
+	- When viewing an image, the user can select tags from the currently-existing tags, and the user can also add new tags and delete existing ones from the currently-existing ones.
+
+- ImageManager
+——————————
+ 	- TBD
+
+- ImageFile
+——————————
+	- Legwork for images, keeps track of tags, removes tags from images, adds tags for images, keeps track of filename attributes, renames files, keeps track of pre tag and after tag names.
+
+- Tag
+—————————-
+	- Keeps track of images under each tag, creates tag
+
+- TagManager
+—————————-
+	- Keeps track of all tags used, is used to remove tags and add tags from usedTags
+
+
+LogManager 
+—————————
+	- Log renaming 
+	- Switch back to older version, undoing tags etc. 
+
+
+
+TODO
+=============================================================================
+
+FIleChooser - figure out how to filter images
+
+JavaFX - figure out how to create UI 
+	     - figure out how to connect UI with logic code
+              - figure out FXML script vs running design in .java file
+
+Rough Sketch - Wireframes
+
+
+BY WEDNESDAY 
+=============================================================================
+
+- Have a good idea of JavaFX
+- Work on our classes, ensure Javadocs are completed for our classes that we’ve worked on 
+- Betty is still wondering where a log would go: 
+
