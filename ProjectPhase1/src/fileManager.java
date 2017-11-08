@@ -4,7 +4,7 @@ import java.io.File;
 
 
 /** Manages the image files in the opened directory */
-public class fileManager {
+public class FileManager {
 
 
     /** The current directory that the user has opened */
@@ -17,7 +17,7 @@ public class fileManager {
     public ArrayList<String> images;
 
 
-    public fileManager(String directory){
+    public FileManager(String directory){
         this.currentDirectory = directory;
     }
 
