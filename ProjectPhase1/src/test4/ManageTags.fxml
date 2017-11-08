@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import java.net.URL?>
+<Pane prefHeight="275.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="test4.Controller"
+      styleClass = "root">
+    <children>
+        <HBox layoutX="0" layoutY="215.0" prefHeight="60.0" prefWidth="300.0">
+            <children>
+                <Button fx:id="viewImage" layoutX="0" layoutY="215.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="60.0" prefWidth="100.0" text="View Image" wrapText="true" styleClass = "Button"/>
+                <Button fx:id="manageTags" layoutX="100.0" layoutY="215.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="60.0" prefWidth="100.0" text="Manage Tags" wrapText="true" styleClass = "Button"/>
+                <Button fx:id="chooseDirectory" layoutX="200.0" layoutY="215.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="60.0" prefWidth="100.0" text="Choose Directory" wrapText="true" styleClass = "Button"/>
+            </children></HBox>
+        <Pane prefHeight="215.0" prefWidth="300.0" styleClass="root">
+            <children>
+                <Label layoutX="119.0" layoutY="99.0" text="SUP PRE" styleClass="label"/>
+            </children>
+        </Pane>
+    </children>
+    <stylesheets>
+        <URL value = "@Styler.css"/>
+    </stylesheets>
+</Pane>
