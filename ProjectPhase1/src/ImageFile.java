@@ -13,11 +13,16 @@ public class ImageFile {
     /** the image file's name with the added tags*/
     private String taggedName;
 
+    /** The filepath for this Image **/
+    private String filePath;
+
     /** Construct a new ImageFile object*/
-    public ImageFile(String fileName){
+    public ImageFile(String filePath){
         this.tags = new ArrayList<Tag>();
-        this.fileName = fileName;
-        this.rename();
+        this.filePath = filePath;
+        this.rename();   //when the class is initialized, this adds nothing..im assuming
+        String[] parts = filePath.split("/");
+        fileName = parts[-1];  // add just the file name
     }
 
     /** Add a new tag to the ImageFile and rename the ImageFile to include the tag
@@ -33,6 +38,7 @@ public class ImageFile {
         this.tags.add(imageTag);
         imageTag.addImage(this);
         this.rename();
+
     }
 
     /** Remove an existing tag from ImageFile.
