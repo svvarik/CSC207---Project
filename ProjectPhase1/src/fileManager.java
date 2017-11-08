@@ -17,7 +17,8 @@ public class fileManager {
     public ArrayList<String> images;
 
 
-    public fileManager(){
+    public fileManager(String directory){
+        this.currentDirectory = directory;
     }
 
     /** Recursively looks through and finds all the image and image files in the selected current directory */
@@ -28,13 +29,28 @@ public class fileManager {
 
     public void findFiles(File[] files){
         for (File file : files) {
-            if (file.isDirectory()) {
-                findFiles(file.listFiles());
-            } else {
+            String fileName = file.getAbsolutePath();
+            if (file.isDirectory() && containsImages(file)) {
+                imageFiles.add(fileName);
+            } else if (fileName.endsWith(".jpeg")){
                 imageFiles.add(file.getAbsolutePath());
             }
         }
     }
+
+    public boolean containsImages(File file){
+        boolean status = false;
+        File[] Files = new File(currentDirectory).listFiles();
+        for (File file2 : Files ){
+            if (file2.getAbsolutePath().endsWith(".jpeg"));
+            status = true;
+            break;
+        }
+        return status;
+    }
+
+
+
     /** Switches directories to the next directory the user has inputted. */
     public void Open(String userInput){
         this.nextDirectory = userInput;
