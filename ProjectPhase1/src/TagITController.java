@@ -7,7 +7,6 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.image.Image;
 import javafx.stage.DirectoryChooser;
-import javafx.stage.FileChooser;
 
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
@@ -19,6 +18,7 @@ import java.io.File;
 import java.io.FileFilter;
 import java.io.FilenameFilter;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class TagITController {
     @FXML
@@ -44,29 +44,26 @@ public class TagITController {
         DirectoryChooser fl = new DirectoryChooser();
         File dir = fl.showDialog(null);
 
-//        FileChooser fc = new FileChooser();
-//        File dir = fc.showOpenDialog(null);
-
         if (dir != null) {
-            File[] jpgF = dir.listFiles(new FileFilter() {
-                @Override
-                public boolean accept(File pathname) {
-                    return (pathname.isDirectory() || pathname.toString().endsWith(".jpg"));
-                }
-            });
+            FileManager manager = new FileManager(dir.getAbsolutePath());
+            manager.manageCurrent();
 
-//            File[] jpgF = dir.listFiles(new FilenameFilter() {
+//        if (dir != null) {
+//            File[] jpgF = dir.listFiles(new FileFilter() {
 //                @Override
-//                public boolean accept(File dir, String name) {
-//                    return (name.toLowerCase().endsWith(".jpg"));
+//                public boolean accept(File pathname) {
+//                    return (pathname.isDirectory() || pathname.toString().endsWith(".jpg"));
 //                }
 //            });
-            for (File f : jpgF) {
-                dirImages.getItems().add(f.getAbsolutePath());
-            }
-        }
+//            for (File f : jpgF) {
+//                dirImages.getItems().add(f.getAbsolutePath());
+//            }
+            for (String path : manager.imageFiles) {
+                dirImages.getItems().add(path);
+            }}
         dirImages.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
     }
+
 
     public void previewImageAction(ActionEvent event) {
         String imagePath = dirImages.getSelectionModel().getSelectedItem();
