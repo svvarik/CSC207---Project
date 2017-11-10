@@ -1,0 +1,49 @@
+-	Name image files
+-	Choose directory
+-	Choose directory and View all image files anywhere under that directory
+o	File.listfiles(FileNameFilter filter)
+-	List of images in that directory
+-	Select tags from existing tags
+-	Add new tags
+-	Delete existing tags
+-	Rename image file to include tags
+-	Search for image files
+-	Open directory containing current image file
+-	Move file to another directory
+-	Go back to older sets of tags for particular file
+-	List of available tags persists when application is quit and reopened
+-	Log of all renaming
+-	Create configuration files it needs, if deleted, recreate them the next time it is run
+
+Image
+-	Attributes: tags, name
+-	Add tag
+-	Remove tag
+File manager
+-	Choose directory and view image files under it
+-	Open directory containing current image file
+Tag
+-	Store Images tagged with this tag
+o	Getter
+Tag manager
+-	Store collection of tags
+-	Getter for all tags
+Logger
+-	Timestamp changes
+
+
+Particularly Useful JavaFX UI Controls:
+
+TreeItem / TreeView
+
+Separator
+
+Label
+
+TextField
+
+Menu
+
+FileChooser
+
+ImageView

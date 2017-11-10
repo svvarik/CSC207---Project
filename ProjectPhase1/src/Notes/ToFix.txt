@@ -1,0 +1,9 @@
+=== To Fix ===
+
+- Choose Directory: If I click on choose directory and open one, and do the same
+  thing again, I get repeated pictures in the ListView.
+
+- Preview Image: Image needs to be previewed when clicked on
+
+- UI: Panes don't re-size automatically
+
