@@ -60,7 +60,8 @@ public class TagITController {
 //            }
             for (String path : manager.imageFiles) {
                 dirImages.getItems().add(path);
-            }}
+            }
+        }
         dirImages.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
     }
 
@@ -76,7 +77,7 @@ public class TagITController {
         }
     }
 
-    public void selectImageAction(ActionEvent event) throws IOException{
+    public void selectImageAction(ActionEvent event) throws IOException {
         String imagePath = dirImages.getSelectionModel().getSelectedItem();
         File f = new File(imagePath);
         if (f.isDirectory()) {
@@ -85,13 +86,29 @@ public class TagITController {
             Parent root2 = FXMLLoader.load(getClass().getResource("scene2.fxml"));
             Image image = new Image(f.toURI().toString());
             imageToTag.setImage(image);
-            Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Scene scene2 = new Scene(root2);
             window.setScene(scene2);
         }
     }
 
+    public void handleSelectImageAction(ActionEvent event) throws IOException {
+        Stage stage;
+        Parent root;
+        // Get reference to the stage that we're going to next
+        stage = (Stage) selectImage.getScene().getWindow();
+        // Load up SelectImage FXML Document
+        root = FXMLLoader.load(getClass().getResource("SelectImage.fxml"));
+        // Create a new scene
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+
+}
+
     // Go to photo. Start new scene- create imageFile in this step- associate with path?
     // Tags...
-}
+
 
