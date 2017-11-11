@@ -21,22 +21,16 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class TagITController {
-    @FXML
-    public Button selectDir;
 
+    // SelectDirectory scene objects
+    @FXML
+    public Button selectDirectory;
     @FXML
     public ListView<String> dirImages;
-
-    //Preview? then another button with "Select Image", open new scene with tagging
-    @FXML
-    public Button submit;
-
     @FXML
     public javafx.scene.image.ImageView imageView;
-
     @FXML
     public Button selectImage;
-
     @FXML
     public javafx.scene.image.ImageView imageToTag;
 
@@ -92,20 +86,19 @@ public class TagITController {
         }
     }
 
-    public void handleSelectImageAction(ActionEvent event) throws IOException {
+    @FXML
+    private void handleSelectImageAction(ActionEvent event) throws IOException{
         Stage stage;
         Parent root;
-        // Get reference to the stage that we're going to next
+        //get reference to the button's stage
         stage = (Stage) selectImage.getScene().getWindow();
-        // Load up SelectImage FXML Document
+        //load up OTHER FXML document
         root = FXMLLoader.load(getClass().getResource("SelectImage.fxml"));
-        // Create a new scene
+        //create a new scene with root and set the stage
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
     }
-
-
 }
 
     // Go to photo. Start new scene- create imageFile in this step- associate with path?
