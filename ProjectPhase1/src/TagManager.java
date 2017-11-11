@@ -8,6 +8,24 @@ public class TagManager {
     }
 
     /**
+     * Take in a user inputted string and split it using String regex based on
+     * spaces and commas. Create a Tag for each object, add it to the list of
+     * all tags, and to the specified image.
+     * 
+     * @param userInputtedTags A user inputted String with one or more Tags, 
+     *                         separated by commas. 
+     */
+    static void inputTags(String userInputtedTags, ImageFile thisImage) {
+        String[] arrayOfTags = userInputtedTags.split(" ,");
+        
+        for(int i = 0; i < arrayOfTags.length; i = i + 1) {
+            Tag newTag = new Tag(arrayOfTags[i]);
+            tagsUsed.add(newTag);
+            thisImage.addTag(newTag);
+        }
+    }
+
+    /**
      * Add a tag to tagsUsed, a list of all Tags used in the program.
      *
      * @param tagToBeAdded a Tag that is to be added into tagsUsed
