@@ -8,7 +8,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TagITController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SelectImageViewController">
    <children>
       <MenuBar AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
         <menus>
@@ -26,7 +26,7 @@
           </Menu>
         </menus>
       </MenuBar>
-      <ImageView fitHeight="300.0" fitWidth="560.0" layoutX="20.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="51.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="49.0" />
+      <ImageView fitHeight="300.0" fitWidth="560.0" layoutX="20.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="51.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="49.0" fx:id="imageToBeTagged"/>
       <Label layoutX="20.0" layoutY="362.0" prefHeight="17.0" text="\@SherlockHolmes, @DrWatson" AnchorPane.bottomAnchor="21.0" AnchorPane.leftAnchor="20.0" />
       <Button layoutX="537.0" layoutY="358.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" text="+" AnchorPane.leftAnchor="537.0" AnchorPane.rightAnchor="38.0" />
       <Button layoutX="562.0" layoutY="358.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" text="-" AnchorPane.rightAnchor="12.0" />
