@@ -18,12 +18,13 @@ public class ImageFile {
     String filePath;
 
     /** Construct a new ImageFile object*/
-    public ImageFile(String filePath){
+    public ImageFile(String filePath) {
         this.tags = new ArrayList<Tag>();
         this.filePath = filePath;
-        this.rename();   //when the class is initialized, this adds nothing..im assuming
-        String[] parts = filePath.split("/");
-        fileName = parts[parts.length - 1];  // add just the file name
+        int start = this.filePath.lastIndexOf("\\") + 1;
+        int end = this.filePath.lastIndexOf(".");
+        this.fileName = this.filePath.substring(start, end);
+        //this.rename();   //when the class is initialized, this adds nothing..im assuming
     }
 
     /** Add a new tag to the ImageFile and rename the ImageFile to include the tag
@@ -58,19 +59,19 @@ public class ImageFile {
         for (Tag tag : this.tags) {
             tagsName.append(tag.toString());
         }
+        System.out.println(this.fileName);
         //Still trying to figure this portion out with the renaming/changing filepath
-//        int name = this.fileName.lastIndexOf(".");
-//        this.taggedName = this.fileName.substring(0, name) + tagsName + this.fileName.substring(name,
-//                this.fileName.length());
-//        System.out.println(this.taggedName);
-//        int firstSplit = this.filePath.lastIndexOf("/");
-//        int secondSplit = this.filePath.lastIndexOf(".");
-//        File thisImage = new File(this.filePath);
-//        System.out.println(thisImage.getAbsolutePath());
-//        this.filePath = this.filePath.substring(0, firstSplit + 1) + this.taggedName +
-//                this.filePath.substring(secondSplit, this.filePath.length());
-//        System.out.println(this.filePath);
-//        thisImage.renameTo(new File(this.filePath));
+        //int name = this.fileName.lastIndexOf('.');
+        this.taggedName = this.fileName + tagsName;
+        System.out.println(this.taggedName);
+        int firstSplit = this.filePath.lastIndexOf("\\");
+        int secondSplit = this.filePath.lastIndexOf(".");
+        File thisImage = new File(this.filePath);
+        System.out.println(thisImage.getAbsolutePath());
+        this.filePath = this.filePath.substring(0, firstSplit + 1) + this.taggedName +
+                this.filePath.substring(secondSplit, this.filePath.length());
+        System.out.println(this.filePath);
+        thisImage.renameTo(new File(this.filePath));
     }
 
     /** Return the taggedName of the ImageFile.
