@@ -1,3 +1,4 @@
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -27,7 +28,6 @@ public class TagITController implements Initializable {
     @FXML
     public ListView<String> dirImages;
 
-    //Preview? then another button with "Select Image", open new scene with tagging
     @FXML
     public Button submit;
 
@@ -62,13 +62,8 @@ public class TagITController implements Initializable {
         File dir = fl.showDialog(null);
 
         if (dir != null) {
-            File[] jpgF = dir.listFiles(new FileFilter() {
-                @Override
-                public boolean accept(File pathname) {
-                    return (pathname.isDirectory() || pathname.toString().endsWith(".jpg"));
-                }
-            });
-            for (File f : jpgF) {
+            File[] imageList = FileManager.imageFilesFilter(dir);
+            for (File f : imageList) {
                 dirImages.getItems().add(f.getAbsolutePath());
             }
         }
@@ -85,9 +80,10 @@ public class TagITController implements Initializable {
         } else {
             Image image = new Image(f.toURI().toString());
             ImageFile thisImage= ImageManager.findImage(imagePath, f.getName());
-            System.out.println(ImageManager.findImage(imagePath, f.getName()).filePath);
+            for (Tag t : TagManager.tagsUsed){
+                allTags.getItems().add(t.getTag());
+            }
             ImageManager.currentImage = thisImage;
-            System.out.println(ImageManager.currentImage);
             ArrayList<Tag> imageTags = ImageManager.currentImage.getTags();
             for (Tag t : imageTags){
                 currentTags.getItems().add(t.getTag());
@@ -111,8 +107,6 @@ public class TagITController implements Initializable {
             window.setScene(scene2);
             window.show();
             imageToTag.setImage(image);
-//        EditBox ctr = new EditBox();
-//        ctr.display();
         }}
 
 
@@ -135,12 +129,14 @@ public class TagITController implements Initializable {
 //    }
 
     public void enterTagAction(){
-        System.out.println(tagInput.getText());
         String addedTag = tagInput.getText();
-        currentTags.getItems().add(addedTag);
-        System.out.println(ImageManager.currentImage);
-        (ImageManager.currentImage).addTag(addedTag);
-        System.out.println(ImageManager.currentImage.getTags());
+        if (!TagManager.tagsUsed.contains(addedTag)){
+            allTags.getItems().add(addedTag);
+        }
+        if (!ImageManager.currentImage.getTags().contains(addedTag)){
+            currentTags.getItems().add(addedTag);
+            (ImageManager.currentImage).addTag(addedTag);
+        }
         tagInput.clear();
     }
 }
