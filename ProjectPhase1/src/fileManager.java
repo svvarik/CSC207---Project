@@ -1,3 +1,4 @@
+import java.io.FileFilter;
 import java.util.*;
 import java.io.File;
 
@@ -8,13 +9,15 @@ public class FileManager {
 
 
     /** The current directory that the user has opened */
-    private String currentDirectory = "Desktop";
+    private String currentDirectory;
     /** The next directory the user wishes to open */
     private String nextDirectory;
     /** A list of all the image file names contained in files within the current directory */
     public ArrayList<String> imageFiles;
     /** A list of all the image names in the current directory */
     public ArrayList<String> images;
+
+    public static String selectedImage;
 
 
     public FileManager(String directory){
@@ -23,30 +26,39 @@ public class FileManager {
 
     /** Recursively looks through and finds all the image and image files in the selected current directory */
     public void manageCurrent(){
-        File[] listOfFiles = new File(currentDirectory).listFiles();
-        findFiles(listOfFiles);
+            File[] listOfFiles = new File(currentDirectory).listFiles(new FileFilter() {
+                @Override
+                public boolean accept(File pathname) {
+                    return (pathname.isDirectory() || pathname.toString().endsWith(".jpg"));
+                }
+            });
+            for (File f : listOfFiles) {
+                imageFiles.add(f.getAbsolutePath());
+            }
+            //findFiles(listOfFiles);
     }
 
-    public void findFiles(File[] files){
-        for (File file : files) {
-            String fileName = file.getAbsolutePath();
-            if (file.isDirectory() && containsImages(file)) {
-                imageFiles.add(fileName);
-            } else if (fileName.endsWith(".jpeg")){
-                imageFiles.add(file.getAbsolutePath());
-            }
-        }
-    }
+//    public void findFiles(File[] files){
+//        for (File file : files) {
+//            //String fileName = file.getAbsolutePath();
+//            if (file.isDirectory()) {
+//                imageFiles.add(file.getAbsolutePath());
+//            } else if (file.getAbsolutePath().endsWith(".jpg")){
+//                imageFiles.add(file.getAbsolutePath());
+//            }
+//        }
+//    }
 
     public boolean containsImages(File file){
-        boolean status = false;
-        File[] Files = new File(currentDirectory).listFiles();
-        for (File file2 : Files ){
-            if (file2.getAbsolutePath().endsWith(".jpeg"));
-            status = true;
-            break;
+        File[] files = file.listFiles();
+        for (File file2 : files ){
+            if (file2.getAbsolutePath().endsWith(".jpg")){
+                return true;}
+            else {
+                containsImages(file);
+            }
         }
-        return status;
+        return false;
     }
 
 

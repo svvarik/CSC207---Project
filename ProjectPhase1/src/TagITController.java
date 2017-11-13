@@ -38,23 +38,23 @@ public class TagITController {
         DirectoryChooser fl = new DirectoryChooser();
         File dir = fl.showDialog(null);
 
-        if (dir != null) {
-            FileManager manager = new FileManager(dir.getAbsolutePath());
-            manager.manageCurrent();
-
 //        if (dir != null) {
-//            File[] jpgF = dir.listFiles(new FileFilter() {
-//                @Override
-//                public boolean accept(File pathname) {
-//                    return (pathname.isDirectory() || pathname.toString().endsWith(".jpg"));
-//                }
-//            });
-//            for (File f : jpgF) {
-//                dirImages.getItems().add(f.getAbsolutePath());
-//            }
-            for (String path : manager.imageFiles) {
-                dirImages.getItems().add(path);
+//            FileManager manager = new FileManager(dir.getAbsolutePath());
+//            manager.manageCurrent();
+//
+        if (dir != null) {
+            File[] jpgF = dir.listFiles(new FileFilter() {
+                @Override
+                public boolean accept(File pathname) {
+                    return (pathname.isDirectory() || pathname.toString().endsWith(".jpg"));
+                }
+            });
+            for (File f : jpgF) {
+                dirImages.getItems().add(f.getAbsolutePath());
             }
+//            for (String path : manager.imageFiles) {
+//                dirImages.getItems().add(path);
+//            }
         }
         dirImages.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
     }
@@ -86,19 +86,19 @@ public class TagITController {
         }
     }
 
-    @FXML
-    private void handleSelectImageAction(ActionEvent event) throws IOException{
-        Stage stage;
-        Parent root;
-        //get reference to the button's stage
-        stage = (Stage) selectImage.getScene().getWindow();
-        //load up OTHER FXML document
-        root = FXMLLoader.load(getClass().getResource("SelectImage.fxml"));
-        //create a new scene with root and set the stage
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
+//    @FXML
+//    private void handleSelectImageAction(ActionEvent event) throws IOException{
+//        Stage stage;
+//        Parent root;
+//        //get reference to the button's stage
+//        stage = (Stage) selectImage.getScene().getWindow();
+//        //load up OTHER FXML document
+//        root = FXMLLoader.load(getClass().getResource("SelectImage.fxml"));
+//        //create a new scene with root and set the stage
+//        Scene scene = new Scene(root);
+//        stage.setScene(scene);
+//        stage.show();
+//    }
 }
 
     // Go to photo. Start new scene- create imageFile in this step- associate with path?

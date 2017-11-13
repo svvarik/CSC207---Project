@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class TagManager {
 
-    private static ArrayList<Tag> tagsUsed;
+    private static ArrayList<Tag> tagsUsed = new ArrayList<Tag>();
 
     public TagManager() {
     }
@@ -21,7 +21,7 @@ public class TagManager {
         for(int i = 0; i < arrayOfTags.length; i = i + 1) {
             Tag newTag = new Tag(arrayOfTags[i]);
             tagsUsed.add(newTag);
-            thisImage.addTag(newTag);
+            //thisImage.addTag(newTag);
         }
     }
 
