@@ -1,4 +1,7 @@
+import javax.imageio.ImageIO;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.FileFilter;
+import java.lang.reflect.Array;
 import java.util.*;
 import java.io.File;
 
@@ -81,5 +84,21 @@ public class FileManager {
         this.currentDirectory = this.nextDirectory;
         this.nextDirectory = null;
     }
+
+    static File[] imageFilesFilter(File directory) {
+        String[] imageSuffix = ImageIO.getReaderFileSuffixes();
+        FileFilter imageFilter = new FileFilter() {
+            @Override
+            public boolean accept(File pathname) {
+                for (String suffix : imageSuffix){
+                    if (pathname.toString().endsWith(suffix)) {
+                        return true;
+                    }
+                }
+                return (pathname.isDirectory());
+            }};
+        return directory.listFiles(imageFilter);
+    }
+
 
 }

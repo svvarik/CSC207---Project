@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class TagManager {
 
-    private static ArrayList<Tag> tagsUsed = new ArrayList<Tag>();
+    static ArrayList<Tag> tagsUsed = new ArrayList<Tag>();
 
     public TagManager() {
     }
