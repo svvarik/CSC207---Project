@@ -72,16 +72,18 @@ public class SelectDirectoryController implements Initializable {
 
     @FXML
     public void displayPreviewImage(MouseEvent event) throws IOException {
-        File filePath = new File(listOfImages.getSelectionModel().getSelectedItem());
-        if (filePath.isDirectory()) {
-            listOfImages.getItems().clear();
-            File[] imageList = FileManager.imageFilesFilter(filePath);
-            for (File f : imageList) {
-                listOfImages.getItems().add(f.getAbsolutePath());
+        if (!listOfImages.getSelectionModel().getSelectedItem().isEmpty()) {
+            File filePath = new File(listOfImages.getSelectionModel().getSelectedItem());
+            if (filePath.isDirectory()) {
+                listOfImages.getItems().clear();
+                File[] imageList = FileManager.imageFilesFilter(filePath);
+                for (File f : imageList) {
+                    listOfImages.getItems().add(f.getAbsolutePath());
+                }
+            } else {
+                Image preview = new Image(filePath.toURI().toString());
+                imagePreview.setImage(preview);
             }
-        } else {
-            Image preview = new Image(filePath.toURI().toString());
-            imagePreview.setImage(preview);
         }
     }
 

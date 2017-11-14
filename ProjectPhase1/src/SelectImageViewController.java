@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
@@ -46,30 +47,39 @@ public class SelectImageViewController {
 
         ImageManager.currentImage = ImageManager.findImage(imagePath, f.getName());
 
-        ArrayList<Tag> imageTags = ImageManager.currentImage.getTags();
-        for (Tag t : imageTags){
-            allTagsForCurrPic.getItems().add(t.getTag());
-        }
+        allTagsForCurrPic.setItems(ImageManager.currentImage.stringTags);
+//        ArrayList<Tag> imageTags = ImageManager.currentImage.getTags();
+//        for (Tag t : imageTags){
+//            allTagsForCurrPic.getItems().add(t.getTag());
+//        }
 
         allTagsUsed.setItems(TagManager.allTheTags);
+        allTagsUsed.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
     }
 
     public void enterTagAction(){
-        String addedTag = userInputtedTag.getText();
-//        if (!TagManager.allTheTags.contains(addedTag)){
-//            allTagsUsed.getItems().add(addedTag);
-//        }
-        if (!ImageManager.currentImage.hasTag(addedTag)){
-            allTagsForCurrPic.getItems().add(addedTag);
-            (ImageManager.currentImage).addTag(addedTag);
+        if (!userInputtedTag.getText().trim().isEmpty()) {
+            String addedTag = userInputtedTag.getText();
+            ImageManager.currentImage.addTag(addedTag);
+//            if (!ImageManager.currentImage.hasTag(addedTag)) {
+//                allTagsForCurrPic.getItems().add(addedTag);
+//                (ImageManager.currentImage).addTag(addedTag);
+//            }
+            System.out.println(TagManager.tagsUsed);
+            userInputtedTag.clear();
         }
-        System.out.println(TagManager.tagsUsed);
-        userInputtedTag.clear();
+        if (!allTagsUsed.getSelectionModel().getSelectedItems().isEmpty()) {
+            String selectedTag = allTagsUsed.getSelectionModel().getSelectedItem();
+            if (!ImageManager.currentImage.hasTag(selectedTag)){
+                allTagsForCurrPic.getItems().add(selectedTag);
+                ImageManager.currentImage.addTag(selectedTag);
+            }
+            allTagsUsed.getSelectionModel().clearSelection();
+        }
     }
 
     public void handleMenuClose(ActionEvent event) {
         Platform.exit();
     }
-
 }
 

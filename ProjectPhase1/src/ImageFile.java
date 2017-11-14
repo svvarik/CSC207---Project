@@ -1,3 +1,6 @@
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import javax.swing.text.html.HTML;
 import java.io.File;
 import java.util.ArrayList;
@@ -8,6 +11,8 @@ public class ImageFile {
     /** the tags given to the image */
     private ArrayList<Tag> tags;
 
+    ObservableList<String> stringTags;
+
     /** the original image file's name */
     private String fileName;
 
@@ -15,11 +20,12 @@ public class ImageFile {
     private String taggedName;
 
     /** The filepath for this Image **/
-    String filePath;
+    private String filePath;
 
     /** Construct a new ImageFile object*/
     public ImageFile(String filePath) {
         this.tags = new ArrayList<Tag>();
+        this.stringTags = FXCollections.observableArrayList();
         this.filePath = filePath;
         int start = this.filePath.lastIndexOf("\\") + 1;
         int end = this.filePath.lastIndexOf(".");
@@ -27,20 +33,26 @@ public class ImageFile {
         //this.rename();   //when the class is initialized, this adds nothing..im assuming
     }
 
+    String getFilePath(){
+        return this.filePath;
+    }
+
     /** Add a new tag to the ImageFile and rename the ImageFile to include the tag
      *
      * @param newTag the new Tag to tag the ImageFile with.
      */
     void addTag(String newTag) {
-        //Find tag in TagManager?
-        Tag imageTag = TagManager.findTag(newTag);
-        if (imageTag == null) {
-            imageTag = new Tag(newTag);
+        //Find tag in TagManager
+        if (!this.hasTag(newTag)) {
+            Tag imageTag = TagManager.findTag(newTag);
+            if (imageTag == null) {
+                imageTag = new Tag(newTag);
+            }
+            this.tags.add(imageTag);
+            this.stringTags.add(newTag);
+            imageTag.addImage(this);
+            this.rename();
         }
-        this.tags.add(imageTag);
-        imageTag.addImage(this);
-        this.rename();
-
     }
 
     /** Remove an existing tag from ImageFile.
@@ -59,18 +71,12 @@ public class ImageFile {
         for (Tag tag : this.tags) {
             tagsName.append(tag.toString());
         }
-        System.out.println(this.fileName);
-        //Still trying to figure this portion out with the renaming/changing filepath
-        //int name = this.fileName.lastIndexOf('.');
         this.taggedName = this.fileName + tagsName;
-        System.out.println(this.taggedName);
         int firstSplit = this.filePath.lastIndexOf("\\");
         int secondSplit = this.filePath.lastIndexOf(".");
         File thisImage = new File(this.filePath);
-        System.out.println(thisImage.getAbsolutePath());
         this.filePath = this.filePath.substring(0, firstSplit + 1) + this.taggedName +
                 this.filePath.substring(secondSplit, this.filePath.length());
-        System.out.println(this.filePath);
         thisImage.renameTo(new File(this.filePath));
     }
 
