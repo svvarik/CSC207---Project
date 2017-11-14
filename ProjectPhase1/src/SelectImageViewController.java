@@ -33,6 +33,13 @@ public class SelectImageViewController {
     // Current Path for image we are viewing
     private String currentImagePath;
 
+    /**
+     * Set the ImageView object on this screen to display an image given a
+     * string file path to the desired image.
+     *
+     * @param imagePath A string that is the file path for image that is to be
+     *                  displayed.
+     */
     void initImagePath(String imagePath) {
 
         currentImagePath = imagePath;
@@ -52,6 +59,10 @@ public class SelectImageViewController {
         allTagsUsed.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
     }
 
+    /**
+     * Add a tag to the current image being modified in the screen.
+     *
+     */
     public void enterTagAction(){
         if (!userInputtedTag.getText().trim().isEmpty()) {
             String addedTag = userInputtedTag.getText();
@@ -73,6 +84,11 @@ public class SelectImageViewController {
         }
     }
 
+    /**
+     * Remove a tag from the current Image.
+     *
+     * @param event An event when the Remove Tag button is clicked.
+     */
     public void removeTagAction(ActionEvent event) {
 
         // Get the tag from the listview
@@ -88,6 +104,14 @@ public class SelectImageViewController {
     // TODO: Function currently goes back to SelectDirectory Screen but doesn't
     // TODO: go back to the previous "state". If I was viewing a certian directory
     // TODO: that is not there when I hit back.
+
+    /**
+     * This method allows a user to return to the previous screen when the button
+     * is clicked.
+     *
+     * @param event An event when the Back button is clicked.
+     * @throws IOException
+     */
     public void goBack(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("SelectDirectory.fxml"));
@@ -101,6 +125,11 @@ public class SelectImageViewController {
         window.show();
     }
 
+    /**
+     * Exits the application upon the user clicking close in the Menu bar.
+     *
+     * @param event Event when the user clicks the "close" menu option.
+     */
     public void handleMenuClose(ActionEvent event) {
         Platform.exit();
     }

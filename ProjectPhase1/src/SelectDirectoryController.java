@@ -39,7 +39,7 @@ public class SelectDirectoryController implements Initializable {
      *
      * @param event When the button is clicked on the SelectDirectory button.
      */
-    public void selectDirectoryAction(ActionEvent event) {
+    @FXML public void selectDirectoryAction(ActionEvent event) {
         listOfImages.getItems().clear();
         DirectoryChooser dirChoose = new DirectoryChooser();
         File openedDirectory = dirChoose.showDialog(null);
@@ -53,8 +53,15 @@ public class SelectDirectoryController implements Initializable {
         listOfImages.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
     }
 
-    @FXML
-    public void selectImageAction(ActionEvent event) throws IOException {
+    /**
+     * Moves to the next screen where the user can add / remove Tags for the
+     * selected image.
+     *
+     * @param event Event when the "Select Image" button is clicked.
+     * @throws IOException
+     */
+
+    @FXML public void selectImageAction(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("SelectImage.fxml"));
         Parent selectImageLoad = loader.load();
@@ -70,8 +77,14 @@ public class SelectDirectoryController implements Initializable {
         window.show();
         }
 
-    @FXML
-    public void displayPreviewImage(MouseEvent event) throws IOException {
+    /**
+     * Displays a preview of the image when the user clicks on it in the
+     * listview.
+     *
+     * @param event Event when the user clicks on an item in the listview.
+     * @throws IOException
+     */
+    @FXML public void displayPreviewImage(MouseEvent event) throws IOException {
         if (!listOfImages.getSelectionModel().getSelectedItem().isEmpty()) {
             File filePath = new File(listOfImages.getSelectionModel().getSelectedItem());
             if (filePath.isDirectory()) {
@@ -87,7 +100,12 @@ public class SelectDirectoryController implements Initializable {
         }
     }
 
-    public void handleMenuClose(ActionEvent event){
+    /**
+     * Exits the application upon the user clicking close in the Menu bar.
+     *
+     * @param event Event when the user clicks the "close" menu option.
+     */
+    @FXML public void handleMenuClose(ActionEvent event){
         Platform.exit();
     }
 }
