@@ -21,17 +21,17 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class SelectDirectoryController implements Initializable {
-
+    
     @FXML MenuItem close;
     @FXML public Button selectDirectory;
     @FXML public ListView<String> listOfImages;
     @FXML public javafx.scene.image.ImageView imagePreview;
     @FXML public Button selectImage;
-
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
     }
-
+    
     /**
      * Function opens a window that allows the user to choose a Directory and
      * open it in the program. The application then displays all image files in
@@ -43,7 +43,7 @@ public class SelectDirectoryController implements Initializable {
         listOfImages.getItems().clear();
         DirectoryChooser dirChoose = new DirectoryChooser();
         File openedDirectory = dirChoose.showDialog(null);
-
+        
         if (openedDirectory != null) {
             File[] imageList = FileManager.imageFilesFilter(openedDirectory);
             for (File f : imageList) {
@@ -52,7 +52,7 @@ public class SelectDirectoryController implements Initializable {
         }
         listOfImages.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
     }
-
+    
     /**
      * Moves to the next screen where the user can add / remove Tags for the
      * selected image.
@@ -60,23 +60,25 @@ public class SelectDirectoryController implements Initializable {
      * @param event Event when the "Select Image" button is clicked.
      * @throws IOException
      */
-
+    
     @FXML public void selectImageAction(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("SelectImage.fxml"));
         Parent selectImageLoad = loader.load();
-
+        
         Scene selectImageScene = new Scene(selectImageLoad);
-
+        
         SelectImageViewController controller = loader.getController();
-        controller.initImagePath(listOfImages.getSelectionModel().getSelectedItem());
-
-        Stage window = (Stage) (((Node)event.getSource()).getScene().getWindow());
-
-        window.setScene(selectImageScene);
-        window.show();
+        if(!(listOfImages.getItems().isEmpty())) {
+            controller.initImagePath(listOfImages.getSelectionModel().getSelectedItem());
+            
+            Stage window = (Stage) (((Node) event.getSource()).getScene().getWindow());
+            
+            window.setScene(selectImageScene);
+            window.show();
         }
-
+    }
+    
     /**
      * Displays a preview of the image when the user clicks on it in the
      * listview.
@@ -99,7 +101,7 @@ public class SelectDirectoryController implements Initializable {
             }
         }
     }
-
+    
     /**
      * Exits the application upon the user clicking close in the Menu bar.
      *
@@ -109,10 +111,8 @@ public class SelectDirectoryController implements Initializable {
         Platform.exit();
     }
 }
-        // button listener- when the button is clicked, update screen
-        // configuration file
+// button listener- when the button is clicked, update screen
+// configuration file
 
-    // Go to photo. Start new scene- create imageFile in this step- associate with path?
-    // Tags...
-
-
+// Go to photo. Start new scene- create imageFile in this step- associate with path?
+// Tags..
