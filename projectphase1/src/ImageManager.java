@@ -12,7 +12,7 @@ public class ImageManager {
 
     static boolean containsImage(String imagePath) {
         for (ImageFile i : createdImages) {
-            if (imagePath.equals(i.filePath)) {
+            if (imagePath.equals(i.getFilePath())) {
                 return true;
             }
         }
@@ -21,7 +21,7 @@ public class ImageManager {
 
     static ImageFile findImage(String imagePath, String fileName) {
         for (ImageFile i : createdImages) {
-            if (imagePath.equals(i.filePath)) {
+            if (imagePath.equals(i.getFilePath())) {
                 return i;
             }
         }
