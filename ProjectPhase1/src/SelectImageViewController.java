@@ -11,6 +11,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+
+import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -39,8 +41,12 @@ public class SelectImageViewController {
 
     @FXML ImageView imageToBeTagged;
 
+    // Current Path for image we are viewing
+    private String currentImagePath;
+
     void initImagePath(String imagePath) {
 
+        currentImagePath = imagePath;
         File f = new File(imagePath);
         Image imageNeedsToBeTagged = new Image(f.toURI().toString());
         imageToBeTagged.setImage(imageNeedsToBeTagged);
@@ -76,6 +82,18 @@ public class SelectImageViewController {
             }
             allTagsUsed.getSelectionModel().clearSelection();
         }
+    }
+
+    public void removeTagAction(ActionEvent event) {
+
+        // Get the tag from the listview
+        String tagToRemove = allTagsForCurrPic.getSelectionModel().getSelectedItem();
+
+        // Access tags list for current ImageFile
+        File f = new File(currentImagePath);
+        ImageManager.currentImage = ImageManager.findImage(currentImagePath, f.getName());
+        ImageManager.currentImage.removeImageTag(new Tag(tagToRemove));
+        allTagsForCurrPic.getItems().remove(tagToRemove);
     }
 
     public void handleMenuClose(ActionEvent event) {
