@@ -7,3 +7,11 @@
 - View directories in SelectDirectoryView, and open to view images
 
 - Select tags from Tags already used
+
+- ImageManager findImage method, name not entirely clear on what method does
+
+- Removing Tags doesn't change the actual filename
+
+- Removing Tag removes tags from current tags but adds it to all tags used
+
+
