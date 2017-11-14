@@ -14,4 +14,6 @@
 
 - Removing Tag removes tags from current tags but adds it to all tags used
 
+- Back Button functionality buggy, comments above function describe issue.
 
+- 
