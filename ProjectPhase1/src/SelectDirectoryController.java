@@ -24,7 +24,7 @@ public class SelectDirectoryController implements Initializable {
 
     @FXML MenuItem close;
     @FXML public Button selectDirectory;
-    @FXML public ListView<String> dirImages;
+    @FXML public ListView<String> listOfImages;
     @FXML public javafx.scene.image.ImageView imagePreview;
     @FXML public Button selectImage;
 
@@ -32,18 +32,25 @@ public class SelectDirectoryController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
     }
 
-    public void selectDirAction(ActionEvent event) {
-        dirImages.getItems().clear();
-        DirectoryChooser fl = new DirectoryChooser();
-        File dir = fl.showDialog(null);
+    /**
+     * Function opens a window that allows the user to choose a Directory and
+     * open it in the program. The application then displays all image files in
+     * it along with directories.
+     *
+     * @param event When the button is clicked on the SelectDirectory button.
+     */
+    public void selectDirectoryAction(ActionEvent event) {
+        listOfImages.getItems().clear();
+        DirectoryChooser dirChoose = new DirectoryChooser();
+        File openedDirectory = dirChoose.showDialog(null);
 
-        if (dir != null) {
-            File[] imageList = FileManager.imageFilesFilter(dir);
+        if (openedDirectory != null) {
+            File[] imageList = FileManager.imageFilesFilter(openedDirectory);
             for (File f : imageList) {
-                dirImages.getItems().add(f.getAbsolutePath());
+                listOfImages.getItems().add(f.getAbsolutePath());
             }
         }
-        dirImages.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        listOfImages.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
     }
 
     @FXML
@@ -55,7 +62,7 @@ public class SelectDirectoryController implements Initializable {
         Scene selectImageScene = new Scene(selectImageLoad);
 
         SelectImageViewController controller = loader.getController();
-        controller.initImagePath(dirImages.getSelectionModel().getSelectedItem());
+        controller.initImagePath(listOfImages.getSelectionModel().getSelectedItem());
 
         Stage window = (Stage) (((Node)event.getSource()).getScene().getWindow());
 
@@ -65,7 +72,7 @@ public class SelectDirectoryController implements Initializable {
 
     @FXML
     public void displayPreviewImage(MouseEvent event) throws IOException {
-        File imagePath = new File(dirImages.getSelectionModel().getSelectedItem());
+        File imagePath = new File(listOfImages.getSelectionModel().getSelectedItem());
         Image preview = new Image(imagePath.toURI().toString());
         imagePreview.setImage(preview);
     }
