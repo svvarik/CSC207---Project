@@ -27,11 +27,12 @@
           </Menu>
         </menus>
       </MenuBar>
-      <ImageView fx:id="imageToBeTagged" fitHeight="280.0" fitWidth="420.0" layoutX="20.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="71.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="160.0" AnchorPane.topAnchor="49.0" />
-      <ListView fx:id="allTagsUsed" layoutX="450.0" layoutY="49.0" prefHeight="243.0" prefWidth="130.0" />
+      <ImageView fx:id="imageToBeTagged" fitHeight="260.0" fitWidth="413.0" layoutX="20.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="167.0" AnchorPane.topAnchor="70.0" />
+      <ListView fx:id="allTagsUsed" layoutX="450.0" layoutY="69.0" prefHeight="223.0" prefWidth="130.0" />
       <TextField fx:id="userInputtedTag" layoutX="450.0" layoutY="302.0" prefHeight="27.0" prefWidth="130.0" />
-      <Button fx:id="addTag" onAction="#enterTagAction" layoutX="450.0" layoutY="336.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="130.0" text="Add Tag" />
+      <Button fx:id="addTag" layoutX="450.0" layoutY="336.0" mnemonicParsing="false" onAction="#enterTagAction" prefHeight="27.0" prefWidth="130.0" text="Add Tag" />
       <Button fx:id="removeTag" layoutX="450.0" layoutY="363.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="130.0" text="Remove Tag" />
       <ListView fx:id="allTagsForCurrPic" layoutX="14.0" layoutY="333.0" orientation="HORIZONTAL" prefHeight="60.0" prefWidth="420.0" />
+      <Button fx:id="backButton" onAction="#goBack" layoutX="20.0" layoutY="39.0" mnemonicParsing="false" text="&lt;---" />
    </children>
 </AnchorPane>

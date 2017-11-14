@@ -21,25 +21,14 @@ import java.util.ResourceBundle;
 
 public class SelectImageViewController {
 
-    @FXML
-    public ListView<String> allTagsUsed;
-
-    @FXML
-    public ListView<String> allTagsForCurrPic;
-
-    @FXML
-    TextField userInputtedTag;
-
-    @FXML
-    Button addTag;
-
-    @FXML
-    Button removeTag;
-
-    @FXML
-    public MenuItem close;
-
+    @FXML public ListView<String> allTagsUsed;
+    @FXML public ListView<String> allTagsForCurrPic;
+    @FXML TextField userInputtedTag;
+    @FXML Button addTag;
+    @FXML Button removeTag;
+    @FXML public MenuItem close;
     @FXML ImageView imageToBeTagged;
+    @FXML Button backButton;
 
     // Current Path for image we are viewing
     private String currentImagePath;
@@ -94,6 +83,22 @@ public class SelectImageViewController {
         ImageManager.currentImage = ImageManager.findImage(currentImagePath, f.getName());
         ImageManager.currentImage.removeImageTag(new Tag(tagToRemove));
         allTagsForCurrPic.getItems().remove(tagToRemove);
+    }
+
+    // TODO: Function currently goes back to SelectDirectory Screen but doesn't
+    // TODO: go back to the previous "state". If I was viewing a certian directory
+    // TODO: that is not there when I hit back.
+    public void goBack(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("SelectDirectory.fxml"));
+        Parent selectDirectoryLoad = loader.load();
+
+        Scene selectDirectoryScene = new Scene(selectDirectoryLoad);
+
+        Stage window = (Stage) (((Node)event.getSource()).getScene().getWindow());
+
+        window.setScene(selectDirectoryScene);
+        window.show();
     }
 
     public void handleMenuClose(ActionEvent event) {
