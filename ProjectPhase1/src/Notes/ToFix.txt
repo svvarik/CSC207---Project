@@ -1,8 +1,9 @@
 === Message Board  ===
 
-- Choose Directory: If I click on choose directory and open one, and do the same
-  thing again, I get repeated pictures in the ListView.
-
-- Preview Image: Image needs to be previewed when clicked on
-
 - ImageFile.addTag needs to be package private (no modifier)
+
+- Back button for screens
+
+- View directories in SelectDirectoryView, and open to view images
+
+- Select tags from Tags already used

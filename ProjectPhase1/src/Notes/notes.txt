@@ -1,19 +1,45 @@
--	Name image files
+-	Name image files (Rename including tags)
+    Done
+
 -	Choose directory
+    DONE
+
 -	Choose directory and View all image files anywhere under that directory
-o	File.listfiles(FileNameFilter filter)
+    SORT OF, FIX IN ToFix.txt
+
 -	List of images in that directory
+    DONE
+
 -	Select tags from existing tags
+    IPR
+
 -	Add new tags
+    DONE
+
 -	Delete existing tags
--	Rename image file to include tags
--	Search for image files
+    NO
+
 -	Open directory containing current image file
+    NO
+
 -	Move file to another directory
+    NO
+
 -	Go back to older sets of tags for particular file
+    NO
+
 -	List of available tags persists when application is quit and reopened
+    NO
+
 -	Log of all renaming
+    NO
+
 -	Create configuration files it needs, if deleted, recreate them the next time it is run
+    NO
+
+-   Paul's Email
+    NO
+
 
 Image
 -	Attributes: tags, name

@@ -1,0 +1,13 @@
+=== TODO TONIGHT ===
+
+- Complete HistoryManager
+    - Write to file
+    - Read file on startup
+    - What is serializable???? Better wants to know.
+    - "I hear a lot of talk about serializable," Better says
+
+- Delete Existing Tags from Current Picture
+    - Sai
+
+- Create Configuration files on startup
+

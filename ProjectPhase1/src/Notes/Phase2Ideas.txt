@@ -1,0 +1,5 @@
+=== Ideas for Phase 2 ===
+
+- Preview Image Resolution improvement
+
+-
