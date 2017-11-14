@@ -1,0 +1,15 @@
+=== TODO ===
+
+- Complete HistoryManager
+    - Write to file
+    - Read file on startup
+    - Can use .txt file OR XML file (using imported libraries in Lib directory)
+
+- Delete Existing Tags from Current Picture
+    - Sai
+
+- Create Configuration files on startup
+
+- Create BackUp Files for Storage of All Arrays / Databases in Manager Classes
+    - TagManager - All tags used
+    - ImageManager - Image's individual tag history (Old tags & Current tags)
