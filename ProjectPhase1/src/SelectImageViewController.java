@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class SelectImageViewController {
@@ -37,22 +38,32 @@ public class SelectImageViewController {
 
     @FXML ImageView imageToBeTagged;
 
-    void initImagePath(String string) {
+    void initImagePath(String imagePath) {
 
-        File f = new File(string);
+        File f = new File(imagePath);
         Image imageNeedsToBeTagged = new Image(f.toURI().toString());
         imageToBeTagged.setImage(imageNeedsToBeTagged);
+
+        ImageManager.currentImage = ImageManager.findImage(imagePath, f.getName());
+
+        ArrayList<Tag> imageTags = ImageManager.currentImage.getTags();
+        for (Tag t : imageTags){
+            allTagsForCurrPic.getItems().add(t.getTag());
+        }
+
+        allTagsUsed.setItems(TagManager.allTheTags);
     }
 
     public void enterTagAction(){
         String addedTag = userInputtedTag.getText();
-        if (!TagManager.tagsUsed.contains(addedTag)){
-            allTagsUsed.getItems().add(addedTag);
-        }
-        if (!ImageManager.currentImage.getTags().contains(addedTag)){
+//        if (!TagManager.allTheTags.contains(addedTag)){
+//            allTagsUsed.getItems().add(addedTag);
+//        }
+        if (!ImageManager.currentImage.hasTag(addedTag)){
             allTagsForCurrPic.getItems().add(addedTag);
             (ImageManager.currentImage).addTag(addedTag);
         }
+        System.out.println(TagManager.tagsUsed);
         userInputtedTag.clear();
     }
 

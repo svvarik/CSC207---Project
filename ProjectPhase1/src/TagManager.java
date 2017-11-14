@@ -1,8 +1,13 @@
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.util.ArrayList;
 
 public class TagManager {
 
     static ArrayList<Tag> tagsUsed = new ArrayList<Tag>();
+
+    static ObservableList<String> allTheTags = FXCollections.observableArrayList();
 
     public TagManager() {
     }
@@ -32,6 +37,7 @@ public class TagManager {
      */
     static void addTag(Tag tagToBeAdded) {
         TagManager.tagsUsed.add(tagToBeAdded);
+        TagManager.allTheTags.add(tagToBeAdded.getTag());
     }
 
     /**

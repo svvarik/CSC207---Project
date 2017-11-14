@@ -97,4 +97,12 @@ public class ImageFile {
     ArrayList<Tag> getTags() {
         return this.tags;
     }
+
+    boolean hasTag(String tag){
+        for (Tag t : this.tags) {
+            if (t.toString().equals(tag)){
+                return true;
+            }
+        } return false;
+    }
 }
