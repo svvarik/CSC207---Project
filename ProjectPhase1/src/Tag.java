@@ -22,7 +22,7 @@ public class Tag {
     }
 
     public String getTag() {
-        return tag;
+        return this.tag;
     }
 
     @Override
@@ -32,7 +32,7 @@ public class Tag {
 
     @Override
     public String toString() {
-        return this.tag;
+        return this.getTag();
     }
 
     void addImage(ImageFile file) {

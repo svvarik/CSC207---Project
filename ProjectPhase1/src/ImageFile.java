@@ -9,9 +9,7 @@ import java.util.ArrayList;
 public class ImageFile {
 
     /** the tags given to the image */
-    private ArrayList<Tag> tags;
-
-    ObservableList<String> stringTags;
+    ObservableList<Tag> tags;
 
     /** the original image file's name */
     private String fileName;
@@ -24,8 +22,7 @@ public class ImageFile {
 
     /** Construct a new ImageFile object*/
     public ImageFile(String filePath) {
-        this.tags = new ArrayList<Tag>();
-        this.stringTags = FXCollections.observableArrayList();
+        this.tags = FXCollections.observableArrayList();
         this.filePath = filePath;
         int start = this.filePath.lastIndexOf("\\") + 1;
         int end = this.filePath.lastIndexOf(".");
@@ -42,14 +39,13 @@ public class ImageFile {
      * @param newTag the new Tag to tag the ImageFile with.
      */
     void addTag(String newTag) {
-        //Find tag in TagManager
+
         if (!this.hasTag(newTag)) {
             Tag imageTag = TagManager.findTag(newTag);
             if (imageTag == null) {
                 imageTag = new Tag(newTag);
             }
             this.tags.add(imageTag);
-            this.stringTags.add(newTag);
             imageTag.addImage(this);
             this.rename();
         }
@@ -100,7 +96,7 @@ public class ImageFile {
      *
      * @return all the current tags of the ImageFile.
      */
-    ArrayList<Tag> getTags() {
+    ObservableList<Tag> getTags() {
         return this.tags;
     }
 

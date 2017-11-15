@@ -22,8 +22,8 @@ import java.util.ResourceBundle;
 
 public class SelectImageViewController {
 
-    @FXML public ListView<String> allTagsUsed;
-    @FXML public ListView<String> allTagsForCurrPic;
+    @FXML public ListView<Tag> allTagsUsed;
+    @FXML public ListView<Tag> allTagsForCurrPic;
     @FXML TextField userInputtedTag;
     @FXML Button addTag;
     @FXML Button removeTag;
@@ -53,13 +53,15 @@ public class SelectImageViewController {
 
         ImageManager.currentImage = ImageManager.findImage(imagePath, f.getName());
 
-        allTagsForCurrPic.setItems(ImageManager.currentImage.stringTags);
+        allTagsForCurrPic.setItems(ImageManager.currentImage.tags);
+
+        //allTagsForCurrPic.setItems(ImageManager.currentImage.stringTags);
 //        ArrayList<Tag> imageTags = ImageManager.currentImage.getTags();
 //        for (Tag t : imageTags){
 //            allTagsForCurrPic.getItems().add(t.getTag());
 //        }
 
-        allTagsUsed.setItems(TagManager.allTheTags);
+        allTagsUsed.setItems(TagManager.allTags);
         allTagsUsed.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
     }
 
@@ -83,14 +85,15 @@ public class SelectImageViewController {
 //                allTagsForCurrPic.getItems().add(addedTag);
 //                (ImageManager.currentImage).addTag(addedTag);
 //            }
-            System.out.println(TagManager.tagsUsed);
+            System.out.println(TagManager.allTags);
             userInputtedTag.clear();
         }
         if (!allTagsUsed.getSelectionModel().getSelectedItems().isEmpty()) {
-            String selectedTag = allTagsUsed.getSelectionModel().getSelectedItem();
-            if (!ImageManager.currentImage.hasTag(selectedTag)){
+            Tag selectedTag = allTagsUsed.getSelectionModel().getSelectedItem();
+            // String selectedTag = allTagsUsed.getSelectionModel().getSelectedItem();
+            if (!ImageManager.currentImage.hasTag(selectedTag.toString())){
                 allTagsForCurrPic.getItems().add(selectedTag);
-                ImageManager.currentImage.addTag(selectedTag);
+                ImageManager.currentImage.addTag(selectedTag.toString());
             }
             allTagsUsed.getSelectionModel().clearSelection();
         }
@@ -104,12 +107,12 @@ public class SelectImageViewController {
     public void removeTagAction(ActionEvent event) {
 
         // Get the tag from the listview
-        String tagToRemove = allTagsForCurrPic.getSelectionModel().getSelectedItem();
+        Tag tagToRemove = allTagsForCurrPic.getSelectionModel().getSelectedItem();
 
         // Access tags list for current ImageFile
         File f = new File(currentImagePath);
         ImageManager.currentImage = ImageManager.findImage(currentImagePath, f.getName());
-        ImageManager.currentImage.removeImageTag(new Tag(tagToRemove));
+        ImageManager.currentImage.removeImageTag(new Tag(tagToRemove.toString()));
         allTagsForCurrPic.getItems().remove(tagToRemove);
     }
 

@@ -86,9 +86,9 @@ public class SelectDirectoryController implements Initializable {
     
     /**
      * Displays a preview of the image when the user clicks on it in the
-     * listview.
+     * listView.
      *
-     * @param event Event when the user clicks on an item in the listview.
+     * @param event Event when the user clicks on an item in the listView.
      * @throws IOException
      */
     @FXML public void displayPreviewImage(MouseEvent event) throws IOException {
