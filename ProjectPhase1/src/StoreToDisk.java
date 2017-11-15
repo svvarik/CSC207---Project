@@ -65,7 +65,7 @@ public class StoreToDisk implements Serializable {
     static public void loadImagesUsed() throws ClassNotFoundException, IOException{
 
         InputStream file = new FileInputStream(StoreToDisk.saveFileTagsUsed);
-        InputStream buffer = new BufferedInputStream(file);
+        BufferedInputStream buffer = new BufferedInputStream(file);
         ObjectInput input = new ObjectInputStream(buffer);
 
         //deserialize the ArrayList ofImages

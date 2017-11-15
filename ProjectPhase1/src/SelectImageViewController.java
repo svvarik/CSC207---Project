@@ -141,7 +141,7 @@ public class SelectImageViewController {
      * @param event Event when the user clicks the "close" menu option.
      */
     public void handleMenuClose(ActionEvent event) {
-        Platform.exit();
+        //TODO Figure out how to close ;
     }
 }
 
