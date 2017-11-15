@@ -4,14 +4,24 @@ import java.io.FileFilter;
 import java.lang.reflect.Array;
 import java.util.*;
 import java.io.File;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
+import javax.imageio.ImageIO;
+import java.io.FileFilter;
+import java.util.*;
+import java.io.File;
 
 
 
 /** Manages the image files in the opened directory */
-public class FileManager {
+public class FileManager implements Observer {
 
     /** The current directory that the user has opened */
-    private String currentDirectory;
+    static String currentDirectory;
+
+    static ObservableList<String> currentDirectoryFiles;
+
     /** The next directory the user wishes to open */
     private String nextDirectory;
     /** A list of all the image file names contained in files within the current directory */
@@ -23,21 +33,23 @@ public class FileManager {
 
 
     public FileManager(String directory){
-        this.currentDirectory = directory;
+        currentDirectory = directory;
+        File[] dirFiles = imageFilesFilter(new File(directory));
+        currentDirectoryFiles = FXCollections.observableList(filesToString(dirFiles));
     }
 
     /** Recursively looks through and finds all the image and image files in the selected current directory */
     public void manageCurrent(){
-            File[] listOfFiles = new File(currentDirectory).listFiles(new FileFilter() {
-                @Override
-                public boolean accept(File pathname) {
-                    return (pathname.isDirectory() || pathname.toString().endsWith(".jpg"));
-                }
-            });
-            for (File f : listOfFiles) {
-                imageFiles.add(f.getAbsolutePath());
+        File[] listOfFiles = new File(currentDirectory).listFiles(new FileFilter() {
+            @Override
+            public boolean accept(File pathname) {
+                return (pathname.isDirectory() || pathname.toString().endsWith(".jpg"));
             }
-            //findFiles(listOfFiles);
+        });
+        for (File f : listOfFiles) {
+            imageFiles.add(f.getAbsolutePath());
+        }
+        //findFiles(listOfFiles);
     }
 
 //    public void findFiles(File[] files){
@@ -99,7 +111,23 @@ public class FileManager {
         return directory.listFiles(imageFilter);
     }
 
-    void updateCurrentDirectory(String directoryPath) {
-        this.currentDirectory = directoryPath;
+    static ArrayList<String> filesToString(File[] fileList) {
+        ArrayList<String> dirFilePaths = new ArrayList<String>();
+        for (File f : fileList) {
+            dirFilePaths.add(f.getAbsolutePath());
+        }
+        return dirFilePaths;
+    }
+
+    static void updateCurrentDirectory(String directoryPath) {
+        currentDirectory = directoryPath;
+        File[] dirFiles = imageFilesFilter(new File(directoryPath));
+        currentDirectoryFiles = FXCollections.observableList(filesToString(dirFiles));
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        updateCurrentDirectory(currentDirectory);
+        System.out.println("Updated");
     }
 }

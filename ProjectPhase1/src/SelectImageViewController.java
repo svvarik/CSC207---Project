@@ -32,7 +32,7 @@ public class SelectImageViewController {
     @FXML Button backButton;
 
     // Data from previous screen
-    List<String > prevScreenList;
+    List<String> prevScreenList;
 
     // Current Path for image we are viewing
     private String currentImagePath;
@@ -55,12 +55,6 @@ public class SelectImageViewController {
 
         allTagsForCurrPic.setItems(ImageManager.currentImage.tags);
 
-        //allTagsForCurrPic.setItems(ImageManager.currentImage.stringTags);
-//        ArrayList<Tag> imageTags = ImageManager.currentImage.getTags();
-//        for (Tag t : imageTags){
-//            allTagsForCurrPic.getItems().add(t.getTag());
-//        }
-
         allTagsUsed.setItems(TagManager.allTags);
         allTagsUsed.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
     }
@@ -81,16 +75,12 @@ public class SelectImageViewController {
         if (!userInputtedTag.getText().trim().isEmpty()) {
             String addedTag = userInputtedTag.getText();
             ImageManager.currentImage.addTag(addedTag);
-//            if (!ImageManager.currentImage.hasTag(addedTag)) {
-//                allTagsForCurrPic.getItems().add(addedTag);
-//                (ImageManager.currentImage).addTag(addedTag);
-//            }
+
             System.out.println(TagManager.allTags);
             userInputtedTag.clear();
         }
         if (!allTagsUsed.getSelectionModel().getSelectedItems().isEmpty()) {
             Tag selectedTag = allTagsUsed.getSelectionModel().getSelectedItem();
-            // String selectedTag = allTagsUsed.getSelectionModel().getSelectedItem();
             if (!ImageManager.currentImage.hasTag(selectedTag.toString())){
                 allTagsForCurrPic.getItems().add(selectedTag);
                 ImageManager.currentImage.addTag(selectedTag.toString());

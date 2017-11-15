@@ -50,10 +50,16 @@ public class SelectDirectoryController implements Initializable {
             
             
             if (openedDirectory != null) {
-                File[] imageList = FileManager.imageFilesFilter(openedDirectory);
-                for (File f : imageList) {
-                    listOfImages.getItems().add(f.getAbsolutePath());
-                }
+                FileManager.updateCurrentDirectory(openedDirectory.getAbsolutePath());
+
+                //File[] imageList = FileManager.imageFilesFilter(openedDirectory);
+                listOfImages.setItems(FileManager.currentDirectoryFiles);
+//            ObservableList<String> directoryFiles = FXCollections.observableArrayList();
+//            for (File f : imageList) {
+//                directoryFiles.add(f.getAbsolutePath());
+//                //listOfImages.getItems().add(f.getAbsolutePath());
+//            }
+                //listOfImages.setItems(directoryFiles);
             }
             listOfImages.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
             if(dirChoose.equals(null)) {
