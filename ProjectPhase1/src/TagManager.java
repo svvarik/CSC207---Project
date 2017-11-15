@@ -30,6 +30,15 @@ public class TagManager {
         }
     }
 
+    // GETTER FOR LIST OF ALL TAGS
+    static ObservableList<Tag> getAllTags(){
+        return TagManager.allTags;
+    }
+
+    // SETTER FOR LIST OF ALL AGS
+    static void setAllTags(ObservableList<Tag> list){
+        TagManager.allTags = list;
+    }
     /**
      * Add a tag to tagsUsed, a list of all Tags used in the program.
      *

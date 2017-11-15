@@ -6,6 +6,14 @@ public class ImageManager {
     static ArrayList<ImageFile> createdImages = new ArrayList<ImageFile>();
     static ImageFile currentImage;
 
+    static ArrayList<ImageFile> getCreatedImages(){
+        return ImageManager.createdImages;
+    }
+
+    static void setCreatedImages(ArrayList<ImageFile> list){
+        ImageManager.createdImages = list;
+    }
+
     static void addFile(ImageFile image) {
         createdImages.add(image);
     }

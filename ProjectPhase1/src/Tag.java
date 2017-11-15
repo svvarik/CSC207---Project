@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
@@ -7,7 +8,7 @@ import java.util.regex.Matcher;
  * This class represents the Tag that can be added to Image filenames, in order
  * to sort through and categorize images.
  */
-public class Tag {
+public class Tag implements Serializable {
 
     // List of all images that this tag is used in
     private ArrayList<ImageFile> imagesAssociated = new ArrayList<>();
