@@ -3,11 +3,12 @@ import javafx.collections.ObservableList;
 
 import javax.swing.text.html.HTML;
 import java.io.File;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Observable;
 
 /** Keeps track of tags on a particular image */
-public class ImageFile extends Observable {
+public class ImageFile extends Observable implements Serializable {
 
     /** the tags given to the image */
     ObservableList<Tag> tags;
