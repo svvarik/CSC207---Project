@@ -4,7 +4,7 @@ TASKSTODO
 
 - Buttons for Pre & Betty - DONE
 
-- Going back & forward, changing scenes
+- Going back & forward, changing scenes - DONE
 
 - Change the UI (make bigger) ~ Reorganize UI when I have time
 

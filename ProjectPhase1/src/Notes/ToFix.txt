@@ -20,3 +20,5 @@
 
 - ListView on SelectDirectory screen causes NullPointer exception when clicked on,
   if particular item isn't clicked
+
+- NullPointerException when Removing Tag and nothing is clicked
