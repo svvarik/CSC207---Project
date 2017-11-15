@@ -126,6 +126,6 @@ public class ImageFile extends Observable implements Serializable {
     }
     public String toString(){
         String[] names = this.fileName.split("/");
-        return names[-1];
+        return this.fileName;
     }
 }

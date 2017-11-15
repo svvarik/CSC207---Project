@@ -22,3 +22,5 @@
   if particular item isn't clicked
 
 - NullPointerException when Removing Tag and nothing is clicked
+
+- If you select a directory, and close that directory, you cannot reopen that same directory.

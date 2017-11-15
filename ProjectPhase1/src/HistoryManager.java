@@ -24,7 +24,7 @@ public class HistoryManager {
 
     // Should be instantiated in the main method once the program is exited.
     public HistoryManager() throws IOException {
-        File f1 = new File("history.txt");
+        File f1 = new File((System.getProperty("user.dir")) + "/.history.txt");
         // Check to see if these file already exist, and if not create them
         if (!f1.exists()) {
             f1.createNewFile();
@@ -57,15 +57,15 @@ public class HistoryManager {
         eventLogger.addHandler(consoleHandler);
 
         try {
-            FileHandler fhandler = new FileHandler(history.getAbsolutePath(), true);
+            FileHandler fhandler = new FileHandler(".history.txt", true);
             fhandler.setLevel(Level.ALL);
             fhandler.setFormatter(new SimpleFormatter());
             eventLogger.addHandler(fhandler);
             for (int i = 0; i < renamingList.size(); i++) {
-                eventLogger.info(renamingList.get(i));
+                eventLogger.severe(renamingList.get(i));
             }
         } catch (IOException io) {
-            eventLogger.info("Cannot create a file handler");
+            eventLogger.severe("Cannot create a file handler");
         }
     }
 }

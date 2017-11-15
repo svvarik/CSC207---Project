@@ -15,7 +15,7 @@ public class StoreToDisk implements Serializable {
 
     // Initialize the save file upon startup, create it if it doesn't exist
     // PRECONDITION: tagsOrImages can only equal "tags" or "images"
-    public void initSaveFile(String path, String tagsOrImages) throws IOException {
+    static public void initSaveFile(String path, String tagsOrImages) throws IOException {
         File fileToBeCreated = new File(path);
         if (!fileToBeCreated.exists()) {
             fileToBeCreated.createNewFile();
