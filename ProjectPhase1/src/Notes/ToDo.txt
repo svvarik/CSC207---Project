@@ -4,12 +4,16 @@
     - Write to file
     - Read file on startup
     - Can use .txt file OR XML file (using imported libraries in Lib directory)
+    - Betty says use listener function which is already built in Java
 
 - Delete Existing Tags from Current Picture
     - Sai
 
 - Create Configuration files on startup
+    - Backup files to write to????
 
 - Create BackUp Files for Storage of All Arrays / Databases in Manager Classes
     - TagManager - All tags used
     - ImageManager - Image's individual tag history (Old tags & Current tags)
+
+-
