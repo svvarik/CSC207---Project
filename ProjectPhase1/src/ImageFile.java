@@ -22,6 +22,14 @@ public class ImageFile extends Observable implements Serializable {
     /** The filepath for this Image **/
     private String filePath;
 
+    /** Every name this image has had */
+    private ArrayList<String> thisImageHistory = new ArrayList<>();
+
+    /** The current version of the name being used */
+    private int nameVersion = 0;
+
+
+
     /** Construct a new ImageFile object*/
     public ImageFile(String filePath) {
         this.tags = FXCollections.observableArrayList();
@@ -30,6 +38,7 @@ public class ImageFile extends Observable implements Serializable {
         int end = this.filePath.lastIndexOf(".");
         this.fileName = this.filePath.substring(start, end);
         //this.rename();   //when the class is initialized, this adds nothing..im assuming
+        this.thisImageHistory.add(this.toString());
     }
 
     String getFilePath(){
@@ -50,6 +59,8 @@ public class ImageFile extends Observable implements Serializable {
             this.tags.add(imageTag);
             imageTag.addImage(this);
             this.rename();
+            thisImageHistory.add(this.toString());
+            this.nameVersion += 1;
         }
     }
 
@@ -61,6 +72,8 @@ public class ImageFile extends Observable implements Serializable {
         this.tags.remove(deletedTag);
         deletedTag.removeImage(this);
         this.rename();
+        thisImageHistory.add(this.toString());
+        this.nameVersion += 1;
     }
 
     /** Update the taggedName of the ImageFile to include all its current tags.*/
@@ -110,5 +123,9 @@ public class ImageFile extends Observable implements Serializable {
                 return true;
             }
         } return false;
+    }
+    public String toString(){
+        String[] names = this.fileName.split("/");
+        return names[-1];
     }
 }
