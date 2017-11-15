@@ -16,4 +16,4 @@
 
 - Back Button functionality buggy, comments above function describe issue.
 
-- 
+- SelectDirectory should not be clickable more than once.
