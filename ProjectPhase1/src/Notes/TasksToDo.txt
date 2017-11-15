@@ -1,0 +1,25 @@
+TASKSTODO
+
+=== Sai ===
+
+- Buttons for Pre & Betty
+
+- Going back & forward, changing scenes
+
+- Change the UI (make bigger)
+
+=== Betty ===
+
+- Sorting out directory stuff, update directory
+
+=== Pre ===
+
+- Moving an image to a new directory
+
+- Showing a directory the current image is in
+
+=== Arsh ===
+
+- Design methods to log renaming, specifically just reading and writing to
+  .history.txt file
+
