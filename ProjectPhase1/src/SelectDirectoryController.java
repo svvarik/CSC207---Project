@@ -139,7 +139,7 @@ public class SelectDirectoryController implements Initializable {
      * @param event Event when the user clicks the "close" menu option.
      */
     @FXML public void handleMenuClose(ActionEvent event){
-        Platform.exit();
+        //TODO Figure out how to close properly.
     }
 }
 // button listener- when the button is clicked, update screen
