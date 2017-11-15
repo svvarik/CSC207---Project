@@ -10,7 +10,6 @@ import java.io.File;
 /** Manages the image files in the opened directory */
 public class FileManager {
 
-
     /** The current directory that the user has opened */
     private String currentDirectory;
     /** The next directory the user wishes to open */
@@ -100,7 +99,7 @@ public class FileManager {
         return directory.listFiles(imageFilter);
     }
 
-    void updateCurrentDirectory(String directoryPath){
+    void updateCurrentDirectory(String directoryPath) {
         this.currentDirectory = directoryPath;
     }
 }

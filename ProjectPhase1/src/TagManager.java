@@ -5,9 +5,9 @@ import java.util.ArrayList;
 
 public class TagManager {
 
-    static ArrayList<Tag> tagsUsed = new ArrayList<Tag>();
+    //static ArrayList<Tag> tagsUsed = new ArrayList<Tag>();
 
-    static ObservableList<String> allTheTags = FXCollections.observableArrayList();
+    static ObservableList<Tag> allTags = FXCollections.observableArrayList();
 
     public TagManager() {
     }
@@ -25,7 +25,7 @@ public class TagManager {
         
         for(int i = 0; i < arrayOfTags.length; i = i + 1) {
             Tag newTag = new Tag(arrayOfTags[i]);
-            tagsUsed.add(newTag);
+            allTags.add(newTag);
             //thisImage.addTag(newTag);
         }
     }
@@ -36,8 +36,8 @@ public class TagManager {
      * @param tagToBeAdded a Tag that is to be added into tagsUsed
      */
     static void addTag(Tag tagToBeAdded) {
-        TagManager.tagsUsed.add(tagToBeAdded);
-        TagManager.allTheTags.add(tagToBeAdded.getTag());
+        TagManager.allTags.add(tagToBeAdded);
+        //TagManager.allTheTags.add(tagToBeAdded.getTag());
     }
 
     /**
@@ -47,9 +47,9 @@ public class TagManager {
      * @param tagToBeRemoved The Tag specified to be removed from the list.
      */
     static void removeTag(Tag tagToBeRemoved) {
-        for (int i = 0; i < TagManager.tagsUsed.size(); i = i + 1) {
-            if (TagManager.tagsUsed.get(i).equals(tagToBeRemoved)) {
-                TagManager.tagsUsed.remove(i);
+        for (int i = 0; i < TagManager.allTags.size(); i = i + 1) {
+            if (TagManager.allTags.get(i).equals(tagToBeRemoved)) {
+                TagManager.allTags.remove(i);
             }
         }
     }
@@ -63,9 +63,9 @@ public class TagManager {
      * @return Tag
      */
     static Tag findTag(String tagToBeFound) {
-        for (int i = 0; i < TagManager.tagsUsed.size(); i = i + 1) {
-            if (TagManager.tagsUsed.get(i).toString().equals(tagToBeFound)) {
-                return TagManager.tagsUsed.get(i);
+        for (int i = 0; i < TagManager.allTags.size(); i = i + 1) {
+            if (TagManager.allTags.get(i).toString().equals(tagToBeFound)) {
+                return TagManager.allTags.get(i);
             }
         }
         return null;
