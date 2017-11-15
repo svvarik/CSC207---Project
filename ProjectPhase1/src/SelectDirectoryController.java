@@ -28,6 +28,7 @@ public class SelectDirectoryController implements Initializable {
     @FXML public ListView<String> listOfImages;
     @FXML public javafx.scene.image.ImageView imagePreview;
     @FXML public Button selectImage;
+    private static int num_windows_open = 0;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -42,16 +43,24 @@ public class SelectDirectoryController implements Initializable {
      */
     @FXML public void selectDirectoryAction(ActionEvent event) {
         listOfImages.getItems().clear();
-        DirectoryChooser dirChoose = new DirectoryChooser();
-        File openedDirectory = dirChoose.showDialog(null);
-        
-        if (openedDirectory != null) {
-            File[] imageList = FileManager.imageFilesFilter(openedDirectory);
-            for (File f : imageList) {
-                listOfImages.getItems().add(f.getAbsolutePath());
+        num_windows_open++;
+        if (num_windows_open <= 1) {
+            DirectoryChooser dirChoose = new DirectoryChooser();
+            File openedDirectory = dirChoose.showDialog(null);
+            
+            
+            if (openedDirectory != null) {
+                File[] imageList = FileManager.imageFilesFilter(openedDirectory);
+                for (File f : imageList) {
+                    listOfImages.getItems().add(f.getAbsolutePath());
+                }
+            }
+            listOfImages.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+            if(dirChoose.equals(null)) {
+                num_windows_open = 0;
             }
         }
-        listOfImages.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        
     }
     
     /**
@@ -62,7 +71,7 @@ public class SelectDirectoryController implements Initializable {
      * @throws IOException
      */
     
-    @FXML public void selectImageAction(ActionEvent event) throws IOException {
+    @FXML public void selectImageAction (ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("SelectImage.fxml"));
         Parent selectImageLoad = loader.load();
@@ -70,11 +79,11 @@ public class SelectDirectoryController implements Initializable {
         Scene selectImageScene = new Scene(selectImageLoad);
         
         SelectImageViewController controller = loader.getController();
-        if(!(listOfImages.getItems().isEmpty())) {
-
+        if (!(listOfImages.getItems().isEmpty())) {
+            
             // Send listView over to SelectImageViewController
             controller.initPrevListView(listOfImages);
-
+            
             controller.initImagePath(listOfImages.getSelectionModel().getSelectedItem());
             
             Stage window = (Stage) (((Node) event.getSource()).getScene().getWindow());
@@ -86,13 +95,13 @@ public class SelectDirectoryController implements Initializable {
     
     /**
      * Displays a preview of the image when the user clicks on it in the
-     * listView.
+     * listview.
      *
-     * @param event Event when the user clicks on an item in the listView.
+     * @param event Event when the user clicks on an item in the listview.
      * @throws IOException
      */
-    @FXML public void displayPreviewImage(MouseEvent event) throws IOException {
-        if (!listOfImages.getSelectionModel().getSelectedItem().isEmpty()) {
+    @FXML public void displayPreviewImage (MouseEvent event) throws IOException {
+        if (!listOfImages.getItems().isEmpty()) {
             File filePath = new File(listOfImages.getSelectionModel().getSelectedItem());
             if (filePath.isDirectory()) {
                 listOfImages.getItems().clear();
@@ -106,9 +115,10 @@ public class SelectDirectoryController implements Initializable {
             }
         }
     }
-
-
-
+    
+    
+    
+    
     // TODO: WRITE JAVADOC AFTER, QUICK DESCRIP: TAKES IN LIST FROM OTHER
     // TODO: CONTROLLER AND POPULATES THE LISTVIEW HERE WITH ITS ELEMENTS
     void initRetrievingListView(List<String> list){
