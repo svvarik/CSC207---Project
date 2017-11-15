@@ -17,3 +17,6 @@
 - Back Button functionality buggy, comments above function describe issue.
 
 - SelectDirectory should not be clickable more than once.
+
+- ListView on SelectDirectory screen causes NullPointer exception when clicked on,
+  if particular item isn't clicked

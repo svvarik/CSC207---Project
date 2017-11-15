@@ -2,11 +2,11 @@ TASKSTODO
 
 === Sai ===
 
-- Buttons for Pre & Betty
+- Buttons for Pre & Betty - DONE
 
 - Going back & forward, changing scenes
 
-- Change the UI (make bigger)
+- Change the UI (make bigger) ~ Reorganize UI when I have time
 
 === Betty ===
 

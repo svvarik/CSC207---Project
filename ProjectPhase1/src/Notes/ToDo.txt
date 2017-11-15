@@ -16,4 +16,3 @@
     - TagManager - All tags used
     - ImageManager - Image's individual tag history (Old tags & Current tags)
 
--

@@ -17,6 +17,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class SelectImageViewController {
@@ -29,6 +30,9 @@ public class SelectImageViewController {
     @FXML public MenuItem close;
     @FXML ImageView imageToBeTagged;
     @FXML Button backButton;
+
+    // Data from previous screen
+    List<String > prevScreenList;
 
     // Current Path for image we are viewing
     private String currentImagePath;
@@ -57,6 +61,14 @@ public class SelectImageViewController {
 
         allTagsUsed.setItems(TagManager.allTheTags);
         allTagsUsed.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+    }
+
+    // TODO: ADD JAVADOC, QUICK DESCRIP: TAKES IN A LISTVIEW AND STORES EACH
+    // TODO: EACH OBJECT AS A LIST ITEM, SO WE CAN SEND IT BACK IF WE GO BACK
+    void initPrevListView(ListView<String> list) {
+        List<String> convertedList;
+        convertedList = list.getItems();
+        prevScreenList = convertedList;
     }
 
     /**
@@ -102,9 +114,8 @@ public class SelectImageViewController {
     }
 
     // TODO: Function currently goes back to SelectDirectory Screen but doesn't
-    // TODO: go back to the previous "state". If I was viewing a certian directory
+    // TODO: go back to the previous "state". If I was viewing a certain directory
     // TODO: that is not there when I hit back.
-
     /**
      * This method allows a user to return to the previous screen when the button
      * is clicked.
@@ -117,6 +128,10 @@ public class SelectImageViewController {
         loader.setLocation(getClass().getResource("SelectDirectory.fxml"));
         Parent selectDirectoryLoad = loader.load();
 
+        SelectDirectoryController controller = loader.getController();
+
+        controller.initRetrievingListView(prevScreenList);
+
         Scene selectDirectoryScene = new Scene(selectDirectoryLoad);
 
         Stage window = (Stage) (((Node)event.getSource()).getScene().getWindow());
@@ -124,6 +139,8 @@ public class SelectImageViewController {
         window.setScene(selectDirectoryScene);
         window.show();
     }
+
+
 
     /**
      * Exits the application upon the user clicking close in the Menu bar.

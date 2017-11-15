@@ -18,6 +18,7 @@ import java.io.FileFilter;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class SelectDirectoryController implements Initializable {
@@ -70,6 +71,10 @@ public class SelectDirectoryController implements Initializable {
         
         SelectImageViewController controller = loader.getController();
         if(!(listOfImages.getItems().isEmpty())) {
+
+            // Send listView over to SelectImageViewController
+            controller.initPrevListView(listOfImages);
+
             controller.initImagePath(listOfImages.getSelectionModel().getSelectedItem());
             
             Stage window = (Stage) (((Node) event.getSource()).getScene().getWindow());
@@ -99,6 +104,16 @@ public class SelectDirectoryController implements Initializable {
                 Image preview = new Image(filePath.toURI().toString());
                 imagePreview.setImage(preview);
             }
+        }
+    }
+
+
+
+    // TODO: WRITE JAVADOC AFTER, QUICK DESCRIP: TAKES IN LIST FROM OTHER
+    // TODO: CONTROLLER AND POPULATES THE LISTVIEW HERE WITH ITS ELEMENTS
+    void initRetrievingListView(List<String> list){
+        for(String i: list){
+            listOfImages.getItems().add(i);
         }
     }
     

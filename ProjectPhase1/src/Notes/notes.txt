@@ -17,7 +17,7 @@
     DONE
 
 -	Delete existing tags
-    NO
+    ~ Sort of done
 
 -	Open directory containing current image file
     NO
