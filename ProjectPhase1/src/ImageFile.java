@@ -56,6 +56,7 @@ public class ImageFile extends Observable implements Serializable {
             if (imageTag == null) {
                 imageTag = new Tag(newTag);
             }
+            HistoryManager.tagAdded(this,newTag);
             this.tags.add(imageTag);
             imageTag.addImage(this);
             this.rename();
@@ -69,6 +70,7 @@ public class ImageFile extends Observable implements Serializable {
      * @param deletedTag the Tag to remove from the ImageFile.
      */
     void removeImageTag(Tag deletedTag) {
+        HistoryManager.tagDeleted(this, deletedTag.toString());
         this.tags.remove(deletedTag);
         deletedTag.removeImage(this);
         this.rename();
@@ -127,7 +129,6 @@ public class ImageFile extends Observable implements Serializable {
 
 
     public String toString(){
-        String[] names = this.fileName.split("/");
-        return this.fileName;
+        return this.getFilePath();
     }
 }
