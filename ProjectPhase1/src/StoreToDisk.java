@@ -1,7 +1,15 @@
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
+import java.awt.*;
 import java.io.*;
 import java.util.ArrayList;
-
+import java.util.List;
+import javafx.collections.ObservableList;
+import java.util.Arrays;
+import java.util.Arrays;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 /**
  * This class contains functions that enable the program to save persistent data
@@ -10,67 +18,62 @@ import java.util.ArrayList;
 public class StoreToDisk implements Serializable {
 
     // Paths to Save Files for both Lists
-    private static File saveFileTagsUsed;
-    private static File saveFileImageFilesUsed;
+    private static FileOutputStream saveFileTagsUsed;
+    private static FileOutputStream saveFileImageFilesUsed;
 
     // Initialize the save file upon startup, create it if it doesn't exist
-    // PRECONDITION: tagsOrImages can only equal "tags" or "images"
-    static public void initSaveFile(String path, String tagsOrImages) throws IOException {
-        File fileToBeCreated = new File(path);
-        if (!fileToBeCreated.exists()) {
-            fileToBeCreated.createNewFile();
+    // PRECONDITION: Files don't exist prior to starting application for first time
+    static public void initSaveFiles() throws IOException {
+        File newFile1 = new File("tags.ser");
+        File newFile2 = new File("images.ser");
+
+        if(!newFile1.exists()) {
+            FileOutputStream newFileTags = new FileOutputStream("tags.ser");
+            StoreToDisk.saveFileTagsUsed = newFileTags;
         }
-        if(tagsOrImages.equals("tags")) {
-            StoreToDisk.saveFileTagsUsed = fileToBeCreated;
-        } else if(tagsOrImages.equals("images")) {
-            StoreToDisk.saveFileImageFilesUsed = fileToBeCreated;
+        if (!newFile2.exists()) {
+            FileOutputStream newFileImages = new FileOutputStream("images.ser");
+            StoreToDisk.saveFileImageFilesUsed = newFileImages;
         }
     }
 
+    static public void loadFiles() throws Exception {
+        InputStream file1 = new FileInputStream("tags.ser");
+        InputStream file2 = new FileInputStream("images.ser");
+        InputStream buffer1 = new BufferedInputStream(file1);
+        InputStream buffer2 = new BufferedInputStream(file2);
 
-    // Save all the tags used into a saveFile
-    static public void saveTagsUsed() throws IOException{
-
-        OutputStream file = new FileOutputStream(StoreToDisk.saveFileTagsUsed);
-        OutputStream buffer = new BufferedOutputStream(file);
-        ObjectOutput output = new ObjectOutputStream(buffer);
-
-        output.writeObject(TagManager.getAllTags());
-        output.close();
-    }
-
-
-    static public void saveImagesUsed() throws IOException {
-        OutputStream file = new FileOutputStream(StoreToDisk.saveFileImageFilesUsed);
-        OutputStream buffer = new BufferedOutputStream(file);
-        ObjectOutput output = new ObjectOutputStream(buffer);
-
-        output.writeObject(ImageManager.getCreatedImages());
-        output.close();
-    }
-
-
-    static public void loadTagsUsed() throws ClassNotFoundException, IOException{
-
-        InputStream file = new FileInputStream(StoreToDisk.saveFileTagsUsed);
-        InputStream buffer = new BufferedInputStream(file);
-        ObjectInput input = new ObjectInputStream(buffer);
-
-        //deserialize the ObservableList of Tags
-        TagManager.setAllTags((ObservableList<Tag>) input.readObject());
-        input.close();
+        // Load from Tags.ser if file is not empty
+        if (buffer1.available() > 0) {
+            ObjectInputStream fileTags = new ObjectInputStream(buffer1);
+            List<Tag> tagManagerTags = ((List<Tag>) fileTags.readObject());
+            TagManager.setAllTags(FXCollections.observableList(tagManagerTags));
+            fileTags.close();
+        }
+        // Load from Images.ser if file is not empty
+        if (buffer2.available() > 0) {
+            ObjectInputStream fileImages = new ObjectInputStream(buffer2);
+            ImageManager.setCreatedImages((ArrayList<ImageFile>) fileImages.readObject());
+            fileImages.close();
+        }
 
     }
 
-    static public void loadImagesUsed() throws ClassNotFoundException, IOException{
+    static public void saveFiles() throws Exception {
+        OutputStream file1 = new FileOutputStream("tags.ser", true);
+        OutputStream buffer1 = new BufferedOutputStream(file1);
+        ObjectOutput output1 = new ObjectOutputStream(buffer1);
+        OutputStream file2 = new FileOutputStream("images.ser", true);
+        OutputStream buffer2 = new BufferedOutputStream(file2);
+        ObjectOutput output2 = new ObjectOutputStream(buffer2);
 
-        InputStream file = new FileInputStream(StoreToDisk.saveFileTagsUsed);
-        BufferedInputStream buffer = new BufferedInputStream(file);
-        ObjectInput input = new ObjectInputStream(buffer);
-
-        //deserialize the ArrayList ofImages
-        ImageManager.setCreatedImages((ArrayList<ImageFile>) input.readObject());
-        input.close();
+        ArrayList<Tag> allTags = new ArrayList<>(TagManager.getAllTags());
+        output1.writeObject(allTags);
+        output1.close();
+        output2.writeObject(ImageManager.getCreatedImages());
+        output2.close();
 
     }
+
+
 }

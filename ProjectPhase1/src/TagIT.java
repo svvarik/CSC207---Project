@@ -13,6 +13,9 @@ public class TagIT extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
+        StoreToDisk.initSaveFiles();
+        StoreToDisk.loadFiles();
+
         this.primaryStage = primaryStage;
         Parent root = FXMLLoader.load(getClass().getResource("SelectDirectory.fxml"));
         primaryStage.setTitle("Hello World");
@@ -22,16 +25,8 @@ public class TagIT extends Application {
 
     @Override
     public void stop() throws Exception{
-        HistoryManager history = new HistoryManager();
-        history.readEvents();
+        StoreToDisk.saveFiles();
 
-        // Initialize storage files
-        StoreToDisk.initSaveFile("tagsFile", "tags");
-        StoreToDisk.initSaveFile("imagesFile", "images");
-
-        // Load from storage files
-        StoreToDisk.loadImagesUsed();
-        StoreToDisk.loadTagsUsed();
     }
 
     public static void main(String[] args) {
