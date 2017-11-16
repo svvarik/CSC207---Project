@@ -10,12 +10,17 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -36,6 +41,7 @@ public class SelectImageViewController {
 
     // Current Path for image we are viewing
     private String currentImagePath;
+    private static int num_windows_open = 0;
 
     /**
      * Set the ImageView object on this screen to display an image given a
@@ -136,6 +142,38 @@ public class SelectImageViewController {
      */
     public void handleMenuClose(ActionEvent event) {
         //TODO Figure out how to close ;
+    }
+
+    public void changeImageLocation(ActionEvent actionEvent) {
+        num_windows_open++;
+        if (num_windows_open <= 1) {
+
+            File sourcePath = new File(currentImagePath);
+
+            DirectoryChooser dirChoose = new DirectoryChooser();
+            File newPath = dirChoose.showDialog(null);
+            Path nextPath = Paths.get(newPath.getAbsolutePath());
+            String s = nextPath.toAbsolutePath().toString();
+
+            String[] words = currentImagePath.split("/");
+            s += "/";
+            s += words[words.length - 1];
+
+
+            FileManager.updateCurrentDirectory(newPath.getAbsolutePath());
+            File destinationPath = new File(s);
+
+            System.out.println("Next relative path is: " + s);
+
+            try {
+                Files.copy(sourcePath.toPath(), destinationPath.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                System.out.println("File copy successful!");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+        }
     }
 }
 
