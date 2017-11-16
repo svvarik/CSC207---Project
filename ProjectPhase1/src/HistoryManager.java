@@ -10,62 +10,55 @@ import java.util.logging.SimpleFormatter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
 
 /**
  * Keeps track of all renaming made. Class stores
  */
 public class HistoryManager {
 
+    public Logger logger;
+    FileHandler fh;
+
     // List of all renaming done
-    ArrayList<String> renamingList = new ArrayList<>();
+    static ArrayList<String> renamingList = new ArrayList<>();
     // The path to the file containing the renaming history
     File history;
 
 
     // Should be instantiated in the main method once the program is exited.
-    public HistoryManager() throws IOException {
-        File f1 = new File((System.getProperty("user.dir")) + "/.history.txt");
+    public HistoryManager(String file) throws SecurityException,IOException {
+        File f1 = new File(file);
         // Check to see if these file already exist, and if not create them
         if (!f1.exists()) {
             f1.createNewFile();
         }
     }
 
-    void tagAdded(ImageFile image, String tag) {
+    static void tagAdded(ImageFile image, String tag) {
         String timeStamp = new SimpleDateFormat().format(new Date());
-        this.renamingList.add(timeStamp + "\nTag: " + tag + "was added to " + image.toString());
+        renamingList.add(timeStamp + "\nTag: " + tag + " was added to " + image.toString());
     }
 
-    void tagDeleted(ImageFile image, String tag) {
+    static void tagDeleted(ImageFile image, String tag) {
         String timeStamp = new SimpleDateFormat().format(new Date());
-        this.renamingList.add(timeStamp + "\nTag: " + tag + "was deleted from " + image.toString());
+        renamingList.add(timeStamp + "\nTag: " + tag + " was deleted from " + image.toString());
     }
 
-    void imageMoved(ImageFile image) {
+    static void imageMoved(ImageFile image) {
         String timeStamp = new SimpleDateFormat().format(new Date());
-        this.renamingList.add(timeStamp + "\nImage: " + image.toString() + "was moved");
+        renamingList.add(timeStamp + "\nImage: " + image.toString() + "was moved");
     }
 
-    public void readEvents() {
+    public void readEvents(String file) throws SecurityException, IOException {
 
         // Initialize the logger
-        Logger eventLogger = Logger.getLogger("Logger");
-        Handler consoleHandler = new ConsoleHandler();
-        LogManager.getLogManager().reset();
-        eventLogger.setLevel(Level.ALL);
-        consoleHandler.setLevel(Level.ALL);
-        eventLogger.addHandler(consoleHandler);
 
-        try {
-            FileHandler fhandler = new FileHandler(".history.txt", true);
-            fhandler.setLevel(Level.ALL);
-            fhandler.setFormatter(new SimpleFormatter());
-            eventLogger.addHandler(fhandler);
-            for (int i = 0; i < renamingList.size(); i++) {
-                eventLogger.severe(renamingList.get(i));
-            }
-        } catch (IOException io) {
-            eventLogger.severe("Cannot create a file handler");
-        }
+        fh = new FileHandler(file, true);
+        logger = Logger.getLogger("logger");
+        logger.addHandler(fh);
+        SimpleFormatter formatter = new SimpleFormatter();
+        fh.setFormatter(formatter);
+        this.logger.setLevel(Level.ALL);
     }
 }
