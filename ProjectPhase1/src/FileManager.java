@@ -130,4 +130,12 @@ public class FileManager implements Observer {
         updateCurrentDirectory(currentDirectory);
         System.out.println("Updated");
     }
+
+    static String getParentDirectory(String filePath) {
+        if (filePath != null) {
+            File childFile = new File(filePath);
+            return childFile.getParent();
+        }
+        return null;
+    }
 }

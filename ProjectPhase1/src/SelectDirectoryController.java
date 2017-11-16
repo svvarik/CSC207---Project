@@ -28,6 +28,7 @@ public class SelectDirectoryController implements Initializable {
     @FXML public ListView<String> listOfImages;
     @FXML public javafx.scene.image.ImageView imagePreview;
     @FXML public Button selectImage;
+    @FXML public Button backButtonDirectory;
     private static int num_windows_open = 0;
     
     @Override
@@ -47,26 +48,17 @@ public class SelectDirectoryController implements Initializable {
         if (num_windows_open <= 1) {
             DirectoryChooser dirChoose = new DirectoryChooser();
             File openedDirectory = dirChoose.showDialog(null);
-            
-            
+
             if (openedDirectory != null) {
                 FileManager.updateCurrentDirectory(openedDirectory.getAbsolutePath());
 
-                //File[] imageList = FileManager.imageFilesFilter(openedDirectory);
                 listOfImages.setItems(FileManager.currentDirectoryFiles);
-//            ObservableList<String> directoryFiles = FXCollections.observableArrayList();
-//            for (File f : imageList) {
-//                directoryFiles.add(f.getAbsolutePath());
-//                //listOfImages.getItems().add(f.getAbsolutePath());
-//            }
-                //listOfImages.setItems(directoryFiles);
             }
             listOfImages.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-            if(dirChoose.equals(null)) {
+            if (dirChoose == null) {
                 num_windows_open = 0;
             }
         }
-        
     }
     
     /**
@@ -81,19 +73,16 @@ public class SelectDirectoryController implements Initializable {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("SelectImage.fxml"));
         Parent selectImageLoad = loader.load();
-        
+
         Scene selectImageScene = new Scene(selectImageLoad);
-        
+
         SelectImageViewController controller = loader.getController();
         if (!(listOfImages.getItems().isEmpty())) {
-            
-            // Send listView over to SelectImageViewController
-            controller.initPrevListView(listOfImages);
-            
+
             controller.initImagePath(listOfImages.getSelectionModel().getSelectedItem());
-            
+
             Stage window = (Stage) (((Node) event.getSource()).getScene().getWindow());
-            
+
             window.setScene(selectImageScene);
             window.show();
         }
@@ -111,6 +100,7 @@ public class SelectDirectoryController implements Initializable {
             File filePath = new File(listOfImages.getSelectionModel().getSelectedItem());
             if (filePath.isDirectory()) {
                 listOfImages.getItems().clear();
+                FileManager.updateCurrentDirectory(filePath.getAbsolutePath());
                 File[] imageList = FileManager.imageFilesFilter(filePath);
                 for (File f : imageList) {
                     listOfImages.getItems().add(f.getAbsolutePath());
@@ -121,16 +111,19 @@ public class SelectDirectoryController implements Initializable {
             }
         }
     }
-    
-    
-    
-    
-    // TODO: WRITE JAVADOC AFTER, QUICK DESCRIP: TAKES IN LIST FROM OTHER
-    // TODO: CONTROLLER AND POPULATES THE LISTVIEW HERE WITH ITS ELEMENTS
-    void initRetrievingListView(List<String> list){
-        for(String i: list){
-            listOfImages.getItems().add(i);
+
+    public void goBackDirectory(ActionEvent event) {
+        listOfImages.getItems().clear();
+        String parentDirectory = FileManager.getParentDirectory(FileManager.currentDirectory);
+        if (FileManager.currentDirectory != null && parentDirectory != null) {
+            FileManager.updateCurrentDirectory(parentDirectory);
+            listOfImages.setItems(FileManager.currentDirectoryFiles);
         }
+        listOfImages.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+    }
+
+    void initRetrievingListView(){
+        listOfImages.setItems(FileManager.currentDirectoryFiles);
     }
     
     /**
@@ -144,6 +137,3 @@ public class SelectDirectoryController implements Initializable {
 }
 // button listener- when the button is clicked, update screen
 // configuration file
-
-// Go to photo. Start new scene- create imageFile in this step- associate with path?
-// Tags..

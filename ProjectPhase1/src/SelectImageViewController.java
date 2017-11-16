@@ -51,20 +51,14 @@ public class SelectImageViewController {
         Image imageNeedsToBeTagged = new Image(f.toURI().toString());
         imageToBeTagged.setImage(imageNeedsToBeTagged);
 
+        FileManager fm = new FileManager(FileManager.currentDirectory);
         ImageManager.currentImage = ImageManager.findImage(imagePath, f.getName());
+        ImageManager.currentImage.addObserver(fm);
 
         allTagsForCurrPic.setItems(ImageManager.currentImage.tags);
 
         allTagsUsed.setItems(TagManager.allTags);
         allTagsUsed.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-    }
-
-    // TODO: ADD JAVADOC, QUICK DESCRIP: TAKES IN A LISTVIEW AND STORES EACH
-    // TODO: EACH OBJECT AS A LIST ITEM, SO WE CAN SEND IT BACK IF WE GO BACK
-    void initPrevListView(ListView<String> list) {
-        List<String> convertedList;
-        convertedList = list.getItems();
-        prevScreenList = convertedList;
     }
 
     /**
@@ -81,8 +75,7 @@ public class SelectImageViewController {
         }
         if (!allTagsUsed.getSelectionModel().getSelectedItems().isEmpty()) {
             Tag selectedTag = allTagsUsed.getSelectionModel().getSelectedItem();
-            if (!ImageManager.currentImage.hasTag(selectedTag.toString())){
-                allTagsForCurrPic.getItems().add(selectedTag);
+            if (!ImageManager.currentImage.hasTag(selectedTag.toString())) {
                 ImageManager.currentImage.addTag(selectedTag.toString());
             }
             allTagsUsed.getSelectionModel().clearSelection();
@@ -123,7 +116,7 @@ public class SelectImageViewController {
 
         SelectDirectoryController controller = loader.getController();
 
-        controller.initRetrievingListView(prevScreenList);
+        controller.initRetrievingListView();
 
         Scene selectDirectoryScene = new Scene(selectDirectoryLoad);
 
@@ -132,6 +125,7 @@ public class SelectImageViewController {
         window.setScene(selectDirectoryScene);
         window.show();
     }
+
 
 
 
