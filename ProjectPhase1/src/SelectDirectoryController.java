@@ -97,7 +97,7 @@ public class SelectDirectoryController implements Initializable {
      * @throws IOException
      */
     @FXML public void displayPreviewImage (MouseEvent event) throws IOException {
-        if (!listOfImages.getItems().isEmpty()) {
+        if (!(listOfImages.getItems().isEmpty() || listOfImages.getSelectionModel().getSelectedItem() == null)){
             File filePath = new File(listOfImages.getSelectionModel().getSelectedItem());
             if (filePath.isDirectory()) {
                 listOfImages.getItems().clear();
