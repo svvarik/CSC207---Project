@@ -94,15 +94,9 @@ public class SelectImageViewController {
      * @param event An event when the Remove Tag button is clicked.
      */
     public void removeTagAction(ActionEvent event) {
-
         // Get the tag from the listview
         Tag tagToRemove = allTagsForCurrPic.getSelectionModel().getSelectedItem();
-
-        // Access tags list for current ImageFile
-        File f = new File(currentImagePath);
-        ImageManager.currentImage = ImageManager.findImage(currentImagePath, f.getName());
-        ImageManager.currentImage.removeImageTag(new Tag(tagToRemove.toString()));
-        allTagsForCurrPic.getItems().remove(tagToRemove);
+        ImageManager.currentImage.removeImageTag(tagToRemove);
     }
 
     // TODO: Function currently goes back to SelectDirectory Screen but doesn't
@@ -133,7 +127,7 @@ public class SelectImageViewController {
 
         System.out.println(s);
 
-        FileManager.updateCurrentDirectory(s);
+//        FileManager.updateCurrentDirectory(s);
 
         controller.initRetrievingListView();
 

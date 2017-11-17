@@ -5,8 +5,6 @@ import java.util.ArrayList;
 
 public class TagManager {
 
-    //static ArrayList<Tag> tagsUsed = new ArrayList<Tag>();
-
     static ObservableList<Tag> allTags = FXCollections.observableArrayList();
 
     public TagManager() {
