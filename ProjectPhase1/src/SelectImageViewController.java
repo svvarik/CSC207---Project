@@ -175,6 +175,7 @@ public class SelectImageViewController {
             //FileManager.updateCurrentDirectory(newPath.getAbsolutePath());
             //FileManager.imageFilesFilter()
             File destinationPath = new File(s);
+            currentImagePath = s;
 
             System.out.println("Next relative path is: " + s);
 
@@ -189,9 +190,24 @@ public class SelectImageViewController {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            //num_windows_open = 0;
 
 
         }
+    }
+
+    public void openFolder(ActionEvent actionEvent) {
+        num_windows_open++;
+        if (num_windows_open <= 1) {
+
+            File sourcePath = new File(currentImagePath);
+
+            DirectoryChooser dirChoose = new DirectoryChooser();
+            sourcePath = dirChoose.showDialog(null);
+            num_windows_open = 0;
+
+        }
+
     }
 }
 
