@@ -35,10 +35,11 @@ public class ImageFile extends Observable implements Serializable {
         this.tags = FXCollections.observableArrayList();
         this.filePath = filePath;
         int start = this.filePath.lastIndexOf("\\") + 1;
-        int end = this.filePath.lastIndexOf(".");
-        this.fileName = this.filePath.substring(start, end);
+        //int end = this.filePath.lastIndexOf(".");
+        this.fileName = this.filePath.substring(start);
         //this.rename();   //when the class is initialized, this adds nothing..im assuming
         this.thisImageHistory.add(this.toString());
+        this.taggedName = this.fileName;
     }
 
     String getFilePath(){
@@ -59,7 +60,8 @@ public class ImageFile extends Observable implements Serializable {
             HistoryManager.tagAdded(this,newTag);
             this.tags.add(imageTag);
             imageTag.addImage(this);
-            this.rename();
+            String imagePath = this.newImagePath();
+            this.rename(this.filePath);
             thisImageHistory.add(this.toString());
             this.nameVersion += 1;
         }
@@ -73,25 +75,31 @@ public class ImageFile extends Observable implements Serializable {
         HistoryManager.tagDeleted(this, deletedTag.toString());
         this.tags.remove(deletedTag);
         deletedTag.removeImage(this);
-        this.rename();
+        String imagePath = this.newImagePath();
+        this.rename(imagePath);
         System.out.println(TagManager.allTags);
 
         thisImageHistory.add(this.toString());
         this.nameVersion += 1;
     }
 
-    /** Update the taggedName of the ImageFile to include all its current tags.*/
-    private void rename(){
+    private String newImagePath(){
         StringBuilder tagsName = new StringBuilder();
         for (Tag tag : this.tags) {
             tagsName.append(tag.toString());
         }
-        this.taggedName = this.fileName + tagsName;
+        int end = this.fileName.lastIndexOf(".");
         int firstSplit = this.filePath.lastIndexOf("\\");
         int secondSplit = this.filePath.lastIndexOf(".");
-        File thisImage = new File(this.filePath);
-        this.filePath = this.filePath.substring(0, firstSplit + 1) + this.taggedName +
+        return this.filePath.substring(0, firstSplit + 1) + this.taggedName +
                 this.filePath.substring(secondSplit, this.filePath.length());
+    }
+    /** Update the taggedName of the ImageFile to include all its current tags.*/
+    void rename(String imagePath) {
+        File thisImage = new File(filePath);
+        this.filePath = imagePath;
+        int firstSplit = this.filePath.lastIndexOf("\\");
+        this.taggedName = this.filePath.substring(firstSplit);
         thisImage.renameTo(new File(this.filePath));
         setChanged();
         notifyObservers();

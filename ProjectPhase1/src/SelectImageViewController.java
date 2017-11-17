@@ -35,12 +35,12 @@ public class SelectImageViewController {
     @FXML public MenuItem close;
     @FXML ImageView imageToBeTagged;
     @FXML Button backButton;
+    @FXML Button changeLocation;
 
     // Data from previous screen
     List<String> prevScreenList;
 
     // Current Path for image we are viewing
-    private String currentImagePath;
     private static int num_windows_open = 0;
 
     /**
@@ -52,7 +52,7 @@ public class SelectImageViewController {
      */
     void initImagePath(String imagePath) {
 
-        currentImagePath = imagePath;
+        //currentImagePath = imagePath;
         File f = new File(imagePath);
         Image imageNeedsToBeTagged = new Image(f.toURI().toString());
         imageToBeTagged.setImage(imageNeedsToBeTagged);
@@ -116,19 +116,6 @@ public class SelectImageViewController {
 
         SelectDirectoryController controller = loader.getController();
 
-        // get current directory of the image
-
-        String[] words = currentImagePath.split("/");
-        String s = "";
-        for(int i = 0; i < words.length - 1; i++) {
-            s += "/";
-            s += words[i];
-        }
-
-        System.out.println(s);
-
-//        FileManager.updateCurrentDirectory(s);
-
         controller.initRetrievingListView();
 
         Scene selectDirectoryScene = new Scene(selectDirectoryLoad);
@@ -138,8 +125,6 @@ public class SelectImageViewController {
         window.setScene(selectDirectoryScene);
         window.show();
     }
-
-
 
 
     /**
@@ -155,38 +140,11 @@ public class SelectImageViewController {
         num_windows_open++;
         if (num_windows_open <= 1) {
 
-            File sourcePath = new File(currentImagePath);
-
             DirectoryChooser dirChoose = new DirectoryChooser();
             File newPath = dirChoose.showDialog(null);
-            Path nextPath = Paths.get(newPath.getAbsolutePath());
-            String s = nextPath.toAbsolutePath().toString();
+            String path = newPath.getAbsolutePath() + "/" + ImageManager.currentImage.getTaggedName();
 
-            String[] words = currentImagePath.split("/");
-            s += "/";
-            s += words[words.length - 1];
-
-            //FileManager.updateCurrentDirectory(newPath.getAbsolutePath());
-            //FileManager.imageFilesFilter()
-            File destinationPath = new File(s);
-            currentImagePath = s;
-
-            System.out.println("Next relative path is: " + s);
-
-            try {
-                Files.copy(sourcePath.toPath(), destinationPath.toPath(), StandardCopyOption.REPLACE_EXISTING);
-                System.out.println("File copy successful!");
-                if(sourcePath.delete()) {
-                    System.out.println(sourcePath + " got deleted");
-                }
-
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            //num_windows_open = 0;
-
-
+            ImageManager.currentImage.rename(path);
         }
     }
 
@@ -194,7 +152,7 @@ public class SelectImageViewController {
         num_windows_open++;
         if (num_windows_open <= 1) {
 
-            File sourcePath = new File(currentImagePath);
+            File sourcePath = new File(ImageManager.currentImage.getFilePath());
 
             DirectoryChooser dirChoose = new DirectoryChooser();
             sourcePath = dirChoose.showDialog(null);
