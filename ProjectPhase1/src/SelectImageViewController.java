@@ -122,6 +122,19 @@ public class SelectImageViewController {
 
         SelectDirectoryController controller = loader.getController();
 
+        // get current directory of the image
+
+        String[] words = currentImagePath.split("/");
+        String s = "";
+        for(int i = 0; i < words.length - 1; i++) {
+            s += "/";
+            s += words[i];
+        }
+
+        System.out.println(s);
+
+        FileManager.updateCurrentDirectory(s);
+
         controller.initRetrievingListView();
 
         Scene selectDirectoryScene = new Scene(selectDirectoryLoad);
@@ -159,8 +172,8 @@ public class SelectImageViewController {
             s += "/";
             s += words[words.length - 1];
 
-
-            FileManager.updateCurrentDirectory(newPath.getAbsolutePath());
+            //FileManager.updateCurrentDirectory(newPath.getAbsolutePath());
+            //FileManager.imageFilesFilter()
             File destinationPath = new File(s);
 
             System.out.println("Next relative path is: " + s);
@@ -168,6 +181,11 @@ public class SelectImageViewController {
             try {
                 Files.copy(sourcePath.toPath(), destinationPath.toPath(), StandardCopyOption.REPLACE_EXISTING);
                 System.out.println("File copy successful!");
+                if(sourcePath.delete()) {
+                    System.out.println(sourcePath + " got deleted");
+                }
+
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
