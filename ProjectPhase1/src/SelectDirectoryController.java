@@ -55,9 +55,8 @@ public class SelectDirectoryController implements Initializable {
                 listOfImages.setItems(FileManager.currentDirectoryFiles);
             }
             listOfImages.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-            if (dirChoose == null) {
-                num_windows_open = 0;
-            }
+            num_windows_open = 0;
+
         }
     }
     
@@ -81,10 +80,12 @@ public class SelectDirectoryController implements Initializable {
 
             controller.initImagePath(listOfImages.getSelectionModel().getSelectedItem());
 
+
             Stage window = (Stage) (((Node) event.getSource()).getScene().getWindow());
 
             window.setScene(selectImageScene);
             window.show();
+
         }
     }
     
