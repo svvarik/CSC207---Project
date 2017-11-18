@@ -27,9 +27,6 @@ public class TagIT extends Application {
     public void stop() throws Exception{
         HistoryManager history = new HistoryManager("history.txt");
         history.readEvents("history.txt");
-        for (int j = 0; j < HistoryManager.renamingList.size(); j++) {
-            history.logger.info(HistoryManager.renamingList.get(j));
-        }
         StoreToDisk.saveFiles();
     }
 
