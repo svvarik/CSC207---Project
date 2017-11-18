@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
+import java.util.logging.*;
 
 /**
  * Keeps track of all renaming made. Class stores
@@ -27,7 +28,7 @@ public class HistoryManager {
 
 
     // Should be instantiated in the main method once the program is exited.
-    public HistoryManager(String file) throws SecurityException,IOException {
+    public HistoryManager(String file) throws SecurityException, IOException {
         File f1 = new File(file);
         // Check to see if these file already exist, and if not create them
         if (!f1.exists()) {
@@ -37,28 +38,31 @@ public class HistoryManager {
 
     static void tagAdded(ImageFile image, String tag) {
         String timeStamp = new SimpleDateFormat().format(new Date());
-        renamingList.add(timeStamp + "\nTag: " + tag + " was added to " + image.toString());
+        renamingList.add("\n" + timeStamp + "\nTag: " + tag + " was added to " + image.toString());
     }
 
     static void tagDeleted(ImageFile image, String tag) {
         String timeStamp = new SimpleDateFormat().format(new Date());
-        renamingList.add(timeStamp + "\nTag: " + tag + " was deleted from " + image.toString());
+        renamingList.add("\n" + timeStamp + "\nTag: " + tag + " was deleted from " + image.toString());
     }
 
     static void imageMoved(ImageFile image) {
         String timeStamp = new SimpleDateFormat().format(new Date());
-        renamingList.add(timeStamp + "\nImage: " + image.toString() + "was moved");
+        renamingList.add("\n" + timeStamp + "\nImage: " + image.toString() + "was moved");
     }
 
     public void readEvents(String file) throws SecurityException, IOException {
 
         // Initialize the logger
-
         fh = new FileHandler(file, true);
         logger = Logger.getLogger("logger");
+        logger.setUseParentHandlers(false);
         logger.addHandler(fh);
-        SimpleFormatter formatter = new SimpleFormatter();
-        fh.setFormatter(formatter);
+        fh.setFormatter(new MyFormatter());
         this.logger.setLevel(Level.ALL);
+        for (int j = 0; j < renamingList.size(); j++) {
+            logger.config(renamingList.get(j));
+        }
     }
 }
+
