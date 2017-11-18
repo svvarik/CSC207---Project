@@ -86,6 +86,8 @@ public class SelectImageViewController {
             }
             allTagsUsed.getSelectionModel().clearSelection();
         }
+
+        System.out.println(TagManager.getAllTags());
     }
 
     /**

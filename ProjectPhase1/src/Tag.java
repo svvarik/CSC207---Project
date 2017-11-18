@@ -11,8 +11,6 @@ import java.util.regex.Matcher;
 public class Tag implements Serializable {
 
     // List of all images that this tag is used in
-    private ArrayList<ImageFile> imagesAssociated = new ArrayList<>();
-
     private String tag;
 
     public Tag(String tagName) {
@@ -36,11 +34,4 @@ public class Tag implements Serializable {
         return this.getTag();
     }
 
-    void addImage(ImageFile file) {
-        this.imagesAssociated.add(file);
-    }
-
-    void removeImage(ImageFile file) {
-        this.imagesAssociated.remove(file);
-    }
 }

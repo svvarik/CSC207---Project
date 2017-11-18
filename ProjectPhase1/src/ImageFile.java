@@ -11,7 +11,7 @@ import java.util.Observable;
 public class ImageFile extends Observable implements Serializable {
 
     /** the tags given to the image */
-    ObservableList<Tag> tags;
+    transient ObservableList<Tag> tags;
 
     /** the original image file's name */
     private String fileName;
@@ -28,6 +28,8 @@ public class ImageFile extends Observable implements Serializable {
     /** The current version of the name being used */
     private int nameVersion = 0;
 
+    // ArrayList of all Tags for serialization
+    ArrayList<Tag> arrayedTags;
 
 
     /** Construct a new ImageFile object*/
@@ -59,7 +61,6 @@ public class ImageFile extends Observable implements Serializable {
             }
             HistoryManager.tagAdded(this,newTag);
             this.tags.add(imageTag);
-            imageTag.addImage(this);
             String imagePath = this.newImagePath();
             this.rename(this.filePath);
             thisImageHistory.add(this.toString());
@@ -74,7 +75,6 @@ public class ImageFile extends Observable implements Serializable {
     void removeImageTag(Tag deletedTag) {
         HistoryManager.tagDeleted(this, deletedTag.toString());
         this.tags.remove(deletedTag);
-        deletedTag.removeImage(this);
         String imagePath = this.newImagePath();
         this.rename(imagePath);
         System.out.println(TagManager.allTags);
@@ -121,13 +121,6 @@ public class ImageFile extends Observable implements Serializable {
         return this.fileName;
     }
 
-    /** Return all the Tags of the ImageFile.
-     *
-     * @return all the current tags of the ImageFile.
-     */
-    ObservableList<Tag> getTags() {
-        return this.tags;
-    }
 
     boolean hasTag(String tag){
         for (Tag t : this.tags) {
@@ -140,5 +133,28 @@ public class ImageFile extends Observable implements Serializable {
 
     public String toString(){
         return this.getFilePath();
+    }
+
+
+    /** Return all the Tags of the ImageFile.
+     *
+     * @return all the current tags of the ImageFile.
+     */
+    ObservableList<Tag> getTags() {
+        return this.tags;
+    }
+
+    ArrayList<Tag> getArrayedTags(){
+        return this.arrayedTags;
+    }
+
+    // SETS TAGS TO ARRAYLISTS
+    void setTagsToArrayList(ArrayList<Tag> tags) {
+        this.arrayedTags = tags;
+    }
+
+    // SETS TAGS BACK TO OBSERVABLE LIST
+    void setTagsToObservableList(ObservableList<Tag> tags) {
+        this.tags = tags;
     }
 }
