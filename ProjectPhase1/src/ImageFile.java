@@ -36,9 +36,11 @@ public class ImageFile extends Observable implements Serializable {
     public ImageFile(String filePath) {
         this.tags = FXCollections.observableArrayList();
         this.filePath = filePath;
-        int start = this.filePath.lastIndexOf("\\") + 1;
-        //int end = this.filePath.lastIndexOf(".");
-        this.fileName = this.filePath.substring(start);
+        //int start = this.filePath.lastIndexOf("\\") + 1;
+
+        File userFile = new File(this.filePath);
+        this.fileName = userFile.getName();
+        System.out.println("The image file name: " + this.fileName);
         //this.rename();   //when the class is initialized, this adds nothing..im assuming
         this.thisImageHistory.add(this.toString());
         this.taggedName = this.fileName;
@@ -98,8 +100,11 @@ public class ImageFile extends Observable implements Serializable {
     void rename(String imagePath) {
         File thisImage = new File(filePath);
         this.filePath = imagePath;
-        int firstSplit = this.filePath.lastIndexOf("\\");
-        this.taggedName = this.filePath.substring(firstSplit);
+
+        // to update the taggedName, in case there were any changes
+        File file = new File(this.filePath);
+        this.taggedName = file.getName();
+        System.out.println("substring: " + this.taggedName);
         thisImage.renameTo(new File(this.filePath));
         setChanged();
         notifyObservers();
