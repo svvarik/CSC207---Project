@@ -27,7 +27,7 @@ public class StoreToDisk implements Serializable {
         if (buffer.available() > 0) {
             ObjectInputStream fileData = new ObjectInputStream(buffer);
             SavedState saveState = (SavedState) fileData.readObject();
-            TagManager.setAllTags(saveState.loadTags());
+            SelectImageViewController.tagManager.setAllTags(saveState.loadTags());
             SelectImageViewController.imageManager.setCreatedImages(saveState.loadImages());
 
         }
@@ -45,7 +45,7 @@ public class StoreToDisk implements Serializable {
 
     private static SavedState initSaveState(){
         SavedState saveState = new SavedState();
-        saveState.saveTags(TagManager.getAllTags());
+        saveState.saveTags(SelectImageViewController.tagManager.getAllTags());
         saveState.saveImages(SelectImageViewController.imageManager.getCreatedImages());
         return saveState;
     }

@@ -40,8 +40,6 @@ public class ImageFile extends Observable implements Serializable {
 
         File userFile = new File(this.filePath);
         this.fileName = userFile.getName();
-        System.out.println("The image file name: " + this.fileName);
-        //this.rename();   //when the class is initialized, this adds nothing..im assuming
         this.thisImageHistory.add(this.toString());
         this.taggedName = this.fileName;
     }
@@ -78,7 +76,6 @@ public class ImageFile extends Observable implements Serializable {
         this.tags.remove(deletedTag);
         String imagePath = this.newImagePath();
         this.rename(imagePath);
-        System.out.println(TagManager.allTags);
         HistoryManager.tagDeleted(this, deletedTag.toString());
         thisImageHistory.add(this.toString());
         this.nameVersion += 1;

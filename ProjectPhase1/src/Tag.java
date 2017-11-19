@@ -12,7 +12,7 @@ public class Tag implements Serializable {
     public Tag(String tagName) {
         if (Pattern.matches("^[@][a-zA-Z0-9]*", tagName)) {
             this.tag = tagName;
-            TagManager.addTag(this);
+            //TagManager.addTag(this);
         }
     }
 

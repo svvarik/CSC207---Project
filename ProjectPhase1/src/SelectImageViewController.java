@@ -34,6 +34,7 @@ public class SelectImageViewController {
     List<String> prevScreenList;
 
     static final ImageManager imageManager = new ImageManager();
+    static final TagManager tagManager = new TagManager();
 
     // Current Path for image we are viewing
     private static int numWindowsOpen = 0;
@@ -59,7 +60,7 @@ public class SelectImageViewController {
 
         allTagsForCurrPic.setItems(imageManager.getCurrentImage().tags);
 
-        allTagsUsed.setItems(TagManager.getAllTags());
+        allTagsUsed.setItems(tagManager.getAllTags());
         allTagsUsed.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
     }
 
@@ -72,7 +73,7 @@ public class SelectImageViewController {
             String addedTag = userInputtedTag.getText();
             imageManager.getCurrentImage().addTag(addedTag);
 
-            System.out.println(TagManager.getAllTags());
+            System.out.println(tagManager.getAllTags());
             userInputtedTag.clear();
         }
         if (!allTagsUsed.getSelectionModel().getSelectedItems().isEmpty()) {
@@ -140,13 +141,8 @@ public class SelectImageViewController {
 
             DirectoryChooser dirChoose = new DirectoryChooser();
             File newPath = dirChoose.showDialog(null);
-            System.out.print("The new path chosen is:" + newPath + "\n");
             if(newPath != null) {
-                //ImageManager.currentImage = newPath.toString();
-                System.out.println("The current image path is: " + imageManager.getCurrentImage().toString() + "\n");
                 String path = newPath.getAbsolutePath() + "/" + imageManager.getCurrentImage().getTaggedName();
-                System.out.print("The final destination path is" + path + "\n");
-
                 imageManager.getCurrentImage().rename(path);
             }
             numWindowsOpen = 0;
