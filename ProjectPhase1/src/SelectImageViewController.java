@@ -18,28 +18,64 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * This SelectImageViewController class manages and defines all the application's actions in the second scene.
+ *
+ * The second scene occurs when an image file has been selected and the user is able to perform different operations
+ * including adding/removing tags, changing the directory and so on.
+ */
 public class SelectImageViewController {
 
+    /** The following variables declare the annotation '@FXML', which means they use an FXMLLoader to read values
+     of Button/TextField/ImageView objects from the associated .fxml file
+     **/
+
+    // Displays a list view of all tags used for the current image
     @FXML public ListView<Tag> allTagsUsed;
+
+    // Displays a list view of all the tags used in the current image's file name
     @FXML public ListView<Tag> allTagsForCurrPic;
+
+    // Takes in keyboard input from the user, when user adds a tag
     @FXML TextField userInputtedTag;
+
+    // An action to add a tag to an image
     @FXML Button addTag;
+
+    // An action to remove a tag from an image
     @FXML Button removeTag;
+
+    // An action to close a menu
     @FXML public MenuItem close;
+
+    // Displays a preview of the current image
     @FXML ImageView imageToBeTagged;
+
+    // An action to move to the previous scene
     @FXML Button backButton;
+
+    // An action to change the directory of the current image
     @FXML Button changeLocation;
+
+    // An action to open a File System Viewer to view the directory where the current image is located
     @FXML Button openEnclosingFolder;
+
+    // An action to change the file name to one of its previous names, with the set of tags
     @FXML Button changeToPastTags;
 
     // Data from previous screen
     List<String> prevScreenList;
+
+    // represents the string filepath for an image
     String selectedImagePath;
 
+    // An ImageManager to keep track of changes to image files
     static final ImageManager imageManager = new ImageManager();
+
+    // A TagManager to keep track of changes with tags
     static final TagManager tagManager = new TagManager();
 
-    // Current Path for image we are viewing
+    // Tracks the number of windows to the user's computer's FileSystemViewer open in the current scene
     private static int numWindowsOpen = 0;
 
     /**
@@ -56,7 +92,6 @@ public class SelectImageViewController {
         File f = new File(imagePath);
         Image imageNeedsToBeTagged = new Image(f.toURI().toString());
         imageToBeTagged.setImage(imageNeedsToBeTagged);
-        System.out.println("in here?");
 
         FileManager fm = new FileManager(FileManager.currentDirectory);
         imageManager.setCurrentImage(imageManager.findImage(imagePath));
@@ -69,8 +104,7 @@ public class SelectImageViewController {
     }
 
     /**
-     * Add a tag to the current image being modified in the screen.
-     *
+     * Adds a tag to the current image being modified on the screen.
      */
     public void enterTagAction(){
         if (!userInputtedTag.getText().trim().isEmpty()) {
@@ -102,9 +136,6 @@ public class SelectImageViewController {
         }
     }
 
-    // TODO: Function currently goes back to SelectDirectory Screen but doesn't
-    // TODO: go back to the previous "state". If I was viewing a certain directory
-    // TODO: that is not there when I hit back.
     /**
      * This method allows a user to return to the previous screen when the button
      * is clicked.
@@ -139,6 +170,11 @@ public class SelectImageViewController {
         //TODO Figure out how to close ;
     }
 
+    /**
+     * Changes the directory of the current image to the newly selected directory
+     *
+     * @param actionEvent The event when Change Image Location Button is clicked
+     */
     public void changeImageLocation(ActionEvent actionEvent) {
         numWindowsOpen++;
         if (numWindowsOpen <= 1) {
@@ -153,6 +189,11 @@ public class SelectImageViewController {
         }
     }
 
+    /**
+     * Opens the directory with the user's FileSystemViewer in which the current image is located in.
+     *
+     * @param actionEvent The event in which the user wants to open the directory containing the image file
+     */
     public void openFolder(ActionEvent actionEvent) {
         numWindowsOpen++;
         if (numWindowsOpen <= 1) {
@@ -167,6 +208,12 @@ public class SelectImageViewController {
         }
     }
 
+    /**
+     * Moves to a new scene to display a history of previous file names for the current image
+     *
+     * @param event An event to display older filenames and tags
+     * @throws IOException
+     */
     public void changeToAllTagsView(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("ImageAllTagVersions.fxml"));
