@@ -38,12 +38,19 @@ public class HistoryManager {
 
     static void tagAdded(ImageFile image, String tag) {
         String timeStamp = new SimpleDateFormat().format(new Date());
-        renamingList.add("\n" + timeStamp + "\nTag: " + tag + " was added to " + image.toString());
+        String oldName = image.getTaggedName();
+        String[] nameParts = image.getTaggedName().split("\\.");
+        String newName = nameParts[0] + tag + "." + nameParts[1];
+        renamingList.add("\n" + timeStamp + "\nTag: " + tag + " was added to " +
+                image.toString() + "\nOldName: " + oldName + "\nNewName: " + newName);
     }
 
     static void tagDeleted(ImageFile image, String tag) {
         String timeStamp = new SimpleDateFormat().format(new Date());
-        renamingList.add("\n" + timeStamp + "\nTag: " + tag + " was deleted from " + image.toString());
+        String newName = image.getTaggedName();
+        String[] nameParts = image.getTaggedName().split("\\.");
+        String oldName = nameParts[0] + tag + "." + nameParts[1];
+        renamingList.add("\n" + timeStamp + "\nTag: " + tag + " was deleted from " + image.toString()+ "\nOldName: " + oldName  + "\nNewName: " + newName);
     }
 
     static void imageMoved(ImageFile image) {

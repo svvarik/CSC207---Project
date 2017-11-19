@@ -75,12 +75,11 @@ public class ImageFile extends Observable implements Serializable {
      * @param deletedTag the Tag to remove from the ImageFile.
      */
     void removeImageTag(Tag deletedTag) {
-        HistoryManager.tagDeleted(this, deletedTag.toString());
         this.tags.remove(deletedTag);
         String imagePath = this.newImagePath();
         this.rename(imagePath);
         System.out.println(TagManager.allTags);
-
+        HistoryManager.tagDeleted(this, deletedTag.toString());
         thisImageHistory.add(this.toString());
         this.nameVersion += 1;
     }
