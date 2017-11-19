@@ -30,6 +30,7 @@ public class SelectImageViewController {
     @FXML Button backButton;
     @FXML Button changeLocation;
     @FXML Button openEnclosingFolder;
+    @FXML Button changeToPastTags;
 
     // Data from previous screen
     List<String> prevScreenList;
