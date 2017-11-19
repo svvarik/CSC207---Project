@@ -138,6 +138,36 @@ public class ImageFile extends Observable implements Serializable {
         return this.getFilePath();
     }
 
+    void addSetOfTags(String setOfTags) {
+
+        // Add a set of Tags from a string format "@Sai@Pre@Arsh@Bets", by parsing
+        // and adding each tag to the imageFile.
+
+        // Then update the name history.
+    }
+
+    void stripSetOfTags() {
+
+        // Remove all the tags in this current image without updating the nameHistory.
+    }
+
+    void revertToOlderTags(String oldFileName){
+
+        // Inputs an older FileName and parse it for tags.
+            // Parse fileName
+            // create String variable that includes all tags from older name
+            // String oldDesiredTags = "@Arsh@Bets@Pre@Sai"
+
+        // Removes the current set of Tags for this imageFile without saving each
+        // time the individual tag is removed.
+            // Call the stripSetOfTags method
+
+        // Adds the set of Tags to this imageFile WITHOUT saving each time
+        // individual tag is added.
+            // addSetOfTags(oldDesiredTags)
+
+        // Does any updating to the ImageManager
+    }
 
     /** Return all the Tags of the ImageFile.
      *
