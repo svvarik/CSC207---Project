@@ -56,6 +56,7 @@ public class SelectImageViewController {
         File f = new File(imagePath);
         Image imageNeedsToBeTagged = new Image(f.toURI().toString());
         imageToBeTagged.setImage(imageNeedsToBeTagged);
+        System.out.println("in here?");
 
         FileManager fm = new FileManager(FileManager.currentDirectory);
         ImageManager.currentImage = ImageManager.findImage(imagePath, f.getName());
@@ -98,7 +99,9 @@ public class SelectImageViewController {
     public void removeTagAction(ActionEvent event) {
         // Get the tag from the listview
         Tag tagToRemove = allTagsForCurrPic.getSelectionModel().getSelectedItem();
-        ImageManager.currentImage.removeImageTag(tagToRemove);
+        if(tagToRemove != null) {
+            ImageManager.currentImage.removeImageTag(tagToRemove);
+        }
     }
 
     // TODO: Function currently goes back to SelectDirectory Screen but doesn't
@@ -145,12 +148,15 @@ public class SelectImageViewController {
             DirectoryChooser dirChoose = new DirectoryChooser();
             File newPath = dirChoose.showDialog(null);
             System.out.print("The new path chosen is:" + newPath + "\n");
-            //ImageManager.currentImage = newPath.toString();
-            System.out.println("The current image path is: " + ImageManager.currentImage.toString() + "\n");
-            String path = newPath.getAbsolutePath() + "/" + ImageManager.currentImage.getTaggedName();
-            System.out.print("The final destination path is" + path + "\n");
+            if(newPath != null) {
+                //ImageManager.currentImage = newPath.toString();
+                System.out.println("The current image path is: " + ImageManager.currentImage.toString() + "\n");
+                String path = newPath.getAbsolutePath() + "/" + ImageManager.currentImage.getTaggedName();
+                System.out.print("The final destination path is" + path + "\n");
 
-            ImageManager.currentImage.rename(path);
+                ImageManager.currentImage.rename(path);
+            }
+            numWindowsOpen = 0;
         }
     }
 
