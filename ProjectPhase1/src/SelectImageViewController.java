@@ -20,23 +20,20 @@ import java.util.List;
 
 public class SelectImageViewController {
 
-    @FXML
-    public ListView<Tag> allTagsUsed;
+    @FXML public ListView<Tag> allTagsUsed;
     @FXML public ListView<Tag> allTagsForCurrPic;
-    @FXML
-    TextField userInputtedTag;
-    @FXML
-    Button addTag;
+    @FXML TextField userInputtedTag;
+    @FXML Button addTag;
     @FXML Button removeTag;
     @FXML public MenuItem close;
-    @FXML
-    ImageView imageToBeTagged;
+    @FXML ImageView imageToBeTagged;
     @FXML Button backButton;
     @FXML Button changeLocation;
     @FXML Button openEnclosingFolder;
 
     // Data from previous screen
     List<String> prevScreenList;
+    String selectedImagePath;
 
     static final ImageManager imageManager = new ImageManager();
     static final TagManager tagManager = new TagManager();
@@ -54,6 +51,7 @@ public class SelectImageViewController {
     void initImagePath(String imagePath) {
 
         //currentImagePath = imagePath;
+        this.selectedImagePath = imagePath;
         File f = new File(imagePath);
         Image imageNeedsToBeTagged = new Image(f.toURI().toString());
         imageToBeTagged.setImage(imageNeedsToBeTagged);
@@ -76,7 +74,7 @@ public class SelectImageViewController {
     public void enterTagAction(){
         if (!userInputtedTag.getText().trim().isEmpty()) {
             String addedTag = userInputtedTag.getText();
-            imageManager.getCurrentImage().addTag(addedTag, tagManager);
+            imageManager.getCurrentImage().addTag(addedTag);
 
             System.out.println(tagManager.getAllTags());
             userInputtedTag.clear();
@@ -84,7 +82,7 @@ public class SelectImageViewController {
         if (!allTagsUsed.getSelectionModel().getSelectedItems().isEmpty()) {
             Tag selectedTag = allTagsUsed.getSelectionModel().getSelectedItem();
             if (!imageManager.getCurrentImage().hasTag(selectedTag.toString())) {
-                imageManager.getCurrentImage().addTag(selectedTag.toString(), tagManager);
+                imageManager.getCurrentImage().addTag(selectedTag.toString());
             }
             allTagsUsed.getSelectionModel().clearSelection();
         }
@@ -167,5 +165,23 @@ public class SelectImageViewController {
             numWindowsOpen = 0;
         }
     }
+
+    public void changeToAllTagsView(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("ImageAllTagVersions.fxml"));
+        Parent allTagsViewParent = loader.load();
+
+        Scene allTagsViewScene = new Scene(allTagsViewParent);
+
+        // Access the controller and call a method.
+        ImageAllTagVersionsController controller = loader.getController();
+        controller.initImageFile(imageManager.findImage(this.selectedImagePath));
+
+        Stage window = (Stage) (((Node) event.getSource()).getScene().getWindow());
+
+        window.setScene(allTagsViewScene);
+        window.show();
+    }
+
 }
 
