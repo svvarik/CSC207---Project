@@ -64,7 +64,7 @@ public class ImageFile extends Observable implements Serializable {
             HistoryManager.tagAdded(this,newTag);
             this.tags.add(imageTag);
             String imagePath = this.newImagePath();
-            this.rename(this.filePath);
+            this.rename(imagePath);
             thisImageHistory.add(this.toString());
             this.nameVersion += 1;
         }
@@ -93,7 +93,9 @@ public class ImageFile extends Observable implements Serializable {
         int end = this.fileName.lastIndexOf(".");
         int firstSplit = this.filePath.lastIndexOf("\\");
         int secondSplit = this.filePath.lastIndexOf(".");
-        return this.filePath.substring(0, firstSplit + 1) + this.taggedName +
+        System.out.println(this.filePath.substring(0, firstSplit + 1) + this.fileName.substring(0, end) + tagsName +
+                this.filePath.substring(secondSplit, this.filePath.length()));
+        return this.filePath.substring(0, firstSplit + 1) + this.fileName.substring(0, end) + tagsName +
                 this.filePath.substring(secondSplit, this.filePath.length());
     }
     /** Update the taggedName of the ImageFile to include all its current tags.*/
