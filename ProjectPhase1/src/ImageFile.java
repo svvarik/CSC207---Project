@@ -138,35 +138,51 @@ public class ImageFile extends Observable implements Serializable {
         return this.getFilePath();
     }
 
-    void addSetOfTags(String setOfTags) {
+    void addSetOfTags(ArrayList<String> setOfTags) {
 
         // Add a set of Tags from a string format "@Sai@Pre@Arsh@Bets", by parsing
         // and adding each tag to the imageFile.
 
         // Then update the name history.
+        for (String tag : setOfTags){
+            this.addTag(tag);
+        }
     }
 
     void stripSetOfTags() {
-
         // Remove all the tags in this current image without updating the nameHistory.
+        for (Tag tag: tags){
+            removeImageTag(tag);
+        }
     }
 
     void revertToOlderTags(String oldFileName){
+        // Save an old version of the logger and name history so we can revert back after
+        ArrayList<String> currentHistory = thisImageHistory;
+        ArrayList<String> currentLog = HistoryManager.renamingList;
 
         // Inputs an older FileName and parse it for tags.
             // Parse fileName
             // create String variable that includes all tags from older name
             // String oldDesiredTags = "@Arsh@Bets@Pre@Sai"
-
+        String[] oldFileParts = oldFileName.split("@");
+        ArrayList<String> oldDesiredTags = new ArrayList<>();
+        for(int i = 1; i < oldFileParts.length; i++){
+            oldDesiredTags.add("@" + oldFileParts[i]);
+        }
         // Removes the current set of Tags for this imageFile without saving each
         // time the individual tag is removed.
             // Call the stripSetOfTags method
+        stripSetOfTags();
 
         // Adds the set of Tags to this imageFile WITHOUT saving each time
         // individual tag is added.
             // addSetOfTags(oldDesiredTags)
+        addSetOfTags(oldDesiredTags);
 
         // Does any updating to the ImageManager
+        this.thisImageHistory = currentHistory;
+        HistoryManager.renamingList = currentLog;
     }
 
     /** Return all the Tags of the ImageFile.
