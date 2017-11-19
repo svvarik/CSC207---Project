@@ -1,0 +1,64 @@
+Project Title: TagIT
+Description: A Photo Management Program
+Read Me File
+=====================================================================================================
+These instructions will give you an insight on how to get the project up and running on your local machine
+for development and testing purposes.
+
+Software required: IntelliJ IDE
+
+Running the program:
+The project consists of 14 different classes in total and 3 .fxml files. In total there are 2 scenes, the first
+scene where the user can select an image file, and the second scene where the user can perform actions to that
+image file. Execution starts in the main class TagIT. At execution, the TagIT program begins by opening a window
+to the first scene, that prompts the user to select a directory by clicking the <<Select Directory>> button. Once
+clicked, a window to the user's computer File System Viewer will appear and the user can select a directory in which
+they want to pull up image files.
+
+Features:
+
+1. View all the image files in a directory:
+    - Clicking the <<Select Directory>> button and choosing a directory, will result in a list of all
+      the file paths of image files in that directory. That will be shown in the ListView object along the
+      left hand side of the first scene.
+
+2. Preview images:
+    - you can preview an image by clicking on its file path in the ListView in the first scene.
+
+3. View list of existing Tags associated with an image:
+    - Click the <<Select Image>> button on the first scene, it will take you to the second scene.
+      There will be a ListView object on the right hand side of the screen that shows the list of existing tags for
+      the image.
+
+4. View Tags associated with the current image's file name:
+    - in the second scene, along the bottom, there is a ListView that shows all the tags the image has in its filename
+
+5. Add tag to image file name:
+    - Textfield in the second scene above the <<Add Tag>> button lets user type in a new tag and clicking the
+      <<Add Tag>> button adds it to the image file name(ie. the List View along the bottom of the scene). The tag
+      must start with '@' else it will not add to the image file name. When a new tag is added to the file name,
+      it is also added to the ListView containing the existing image tags for this image file. You can also add a tag
+      by selecting from the ListView of existing tags for the file and then clicking the <<Add Tag>> button.
+
+6. Remove tag:
+    - select a tag in the bottom ListView in the second scene, and click the <<Remove Tag>> button to delete the Tag.
+
+7. View all the names an image has had:
+   -
+
+8. Move image:
+   - you can move the current image to another directory by clicking the <<Change Image Location>> button. A window
+     will open to choose a directory. Once you click <<Open>> the image will have moved to the chosen directory.
+
+9. Open image in enclosing folder:
+    - Clicking the <<Open in Enclosing Folder>> button in the second scene, opens a window to the user's File System
+      Viewer to show the directory the current image is in
+
+
+Details:
+When the program is closed, all Tag and ImageFile changes and information is serialized. When the program is run
+again, the serialized data is deserialized and stored to work off of.
+A HistoryManager class is used to log the changes the user makes when the program is run. (uses Logger)
+
+
+Authors: Betty, Sai, Arshia, Priyanka
