@@ -55,13 +55,13 @@ public class HistoryManager {
 
         // Initialize the logger
         fh = new FileHandler(file, true);
+        fh.setFormatter(new LogFormatter());
         logger = Logger.getLogger("logger");
         logger.setUseParentHandlers(false);
-        logger.addHandler(fh);
-        fh.setFormatter(new MyFormatter());
         this.logger.setLevel(Level.ALL);
+        logger.addHandler(fh);
         for (int j = 0; j < renamingList.size(); j++) {
-            logger.config(renamingList.get(j));
+            logger.info(renamingList.get(j));
         }
     }
 }
