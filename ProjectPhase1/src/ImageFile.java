@@ -23,10 +23,7 @@ public class ImageFile extends Observable implements Serializable {
     private String filePath;
 
     /** Every name this image has had */
-    private ArrayList<String> thisImageHistory = new ArrayList<>();
-
-    /** The current version of the name being used */
-    private int nameVersion = 0;
+    private ArrayList<String> imageHistory = new ArrayList<>();
 
     // ArrayList of all Tags for serialization
     ArrayList<Tag> arrayedTags;
@@ -40,8 +37,8 @@ public class ImageFile extends Observable implements Serializable {
 
         File userFile = new File(this.filePath);
         this.fileName = userFile.getName();
-        this.thisImageHistory.add(this.toString());
         this.taggedName = this.fileName;
+        this.imageHistory.add(this.taggedName);
     }
 
     String getFilePath(){
@@ -63,8 +60,7 @@ public class ImageFile extends Observable implements Serializable {
             this.tags.add(imageTag);
             String imagePath = this.newImagePath();
             this.rename(imagePath);
-            thisImageHistory.add(this.toString());
-            this.nameVersion += 1;
+            imageHistory.add(this.taggedName);
         }
     }
 
@@ -77,8 +73,7 @@ public class ImageFile extends Observable implements Serializable {
         String imagePath = this.newImagePath();
         this.rename(imagePath);
         HistoryManager.tagDeleted(this, deletedTag.toString());
-        thisImageHistory.add(this.toString());
-        this.nameVersion += 1;
+        imageHistory.add(this.taggedName);
     }
 
     private String newImagePath(){
@@ -158,7 +153,7 @@ public class ImageFile extends Observable implements Serializable {
 
     void revertToOlderTags(String oldFileName){
         // Save an old version of the logger and name history so we can revert back after
-        ArrayList<String> currentHistory = thisImageHistory;
+        ArrayList<String> currentHistory = this.imageHistory;
         ArrayList<String> currentLog = HistoryManager.renamingList;
 
         // Inputs an older FileName and parse it for tags.
@@ -181,7 +176,7 @@ public class ImageFile extends Observable implements Serializable {
         addSetOfTags(oldDesiredTags);
 
         // Does any updating to the ImageManager
-        this.thisImageHistory = currentHistory;
+        this.imageHistory = currentHistory;
         HistoryManager.renamingList = currentLog;
     }
 
