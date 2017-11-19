@@ -34,7 +34,7 @@ public class StoreToDisk implements Serializable {
     }
 
     static void serializeData() throws Exception {
-        OutputStream file = new FileOutputStream("programData.ser", true);
+        OutputStream file = new FileOutputStream("programData.ser", false);
         OutputStream buffer = new BufferedOutputStream(file);
         ObjectOutput output = new ObjectOutputStream(buffer);
 
