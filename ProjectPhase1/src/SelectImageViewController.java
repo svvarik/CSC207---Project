@@ -1,44 +1,39 @@
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
-import java.nio.file.StandardCopyOption;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.ResourceBundle;
 
 public class SelectImageViewController {
 
-    @FXML public ListView<Tag> allTagsUsed;
+    @FXML
+    public ListView<Tag> allTagsUsed;
     @FXML public ListView<Tag> allTagsForCurrPic;
-    @FXML TextField userInputtedTag;
-    @FXML Button addTag;
+    @FXML
+    TextField userInputtedTag;
+    @FXML
+    Button addTag;
     @FXML Button removeTag;
     @FXML public MenuItem close;
-    @FXML ImageView imageToBeTagged;
+    @FXML
+    ImageView imageToBeTagged;
     @FXML Button backButton;
     @FXML Button changeLocation;
 
     // Data from previous screen
     List<String> prevScreenList;
+
+    static final ImageManager imageManager = new ImageManager();
 
     // Current Path for image we are viewing
     private static int numWindowsOpen = 0;
@@ -59,12 +54,12 @@ public class SelectImageViewController {
         System.out.println("in here?");
 
         FileManager fm = new FileManager(FileManager.currentDirectory);
-        ImageManager.currentImage = ImageManager.findImage(imagePath, f.getName());
-        ImageManager.currentImage.addObserver(fm);
+        imageManager.setCurrentImage(imageManager.findImage(imagePath));
+        imageManager.getCurrentImage().addObserver(fm);
 
-        allTagsForCurrPic.setItems(ImageManager.currentImage.tags);
+        allTagsForCurrPic.setItems(imageManager.getCurrentImage().tags);
 
-        allTagsUsed.setItems(TagManager.allTags);
+        allTagsUsed.setItems(TagManager.getAllTags());
         allTagsUsed.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
     }
 
@@ -75,20 +70,18 @@ public class SelectImageViewController {
     public void enterTagAction(){
         if (!userInputtedTag.getText().trim().isEmpty()) {
             String addedTag = userInputtedTag.getText();
-            ImageManager.currentImage.addTag(addedTag);
+            imageManager.getCurrentImage().addTag(addedTag);
 
-            System.out.println(TagManager.allTags);
+            System.out.println(TagManager.getAllTags());
             userInputtedTag.clear();
         }
         if (!allTagsUsed.getSelectionModel().getSelectedItems().isEmpty()) {
             Tag selectedTag = allTagsUsed.getSelectionModel().getSelectedItem();
-            if (!ImageManager.currentImage.hasTag(selectedTag.toString())) {
-                ImageManager.currentImage.addTag(selectedTag.toString());
+            if (!imageManager.getCurrentImage().hasTag(selectedTag.toString())) {
+                imageManager.getCurrentImage().addTag(selectedTag.toString());
             }
             allTagsUsed.getSelectionModel().clearSelection();
         }
-
-        System.out.println(TagManager.getAllTags());
     }
 
     /**
@@ -100,7 +93,7 @@ public class SelectImageViewController {
         // Get the tag from the listview
         Tag tagToRemove = allTagsForCurrPic.getSelectionModel().getSelectedItem();
         if(tagToRemove != null) {
-            ImageManager.currentImage.removeImageTag(tagToRemove);
+            imageManager.getCurrentImage().removeImageTag(tagToRemove);
         }
     }
 
@@ -150,11 +143,11 @@ public class SelectImageViewController {
             System.out.print("The new path chosen is:" + newPath + "\n");
             if(newPath != null) {
                 //ImageManager.currentImage = newPath.toString();
-                System.out.println("The current image path is: " + ImageManager.currentImage.toString() + "\n");
-                String path = newPath.getAbsolutePath() + "/" + ImageManager.currentImage.getTaggedName();
+                System.out.println("The current image path is: " + imageManager.getCurrentImage().toString() + "\n");
+                String path = newPath.getAbsolutePath() + "/" + imageManager.getCurrentImage().getTaggedName();
                 System.out.print("The final destination path is" + path + "\n");
 
-                ImageManager.currentImage.rename(path);
+                imageManager.getCurrentImage().rename(path);
             }
             numWindowsOpen = 0;
         }
@@ -164,7 +157,7 @@ public class SelectImageViewController {
         numWindowsOpen++;
         if (numWindowsOpen <= 1) {
 
-            File sourcePath = new File(ImageManager.currentImage.getFilePath());
+            File sourcePath = new File(imageManager.getCurrentImage().getFilePath());
 
             DirectoryChooser dirChoose = new DirectoryChooser();
             sourcePath = dirChoose.showDialog(null);

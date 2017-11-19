@@ -2,27 +2,35 @@ import java.util.ArrayList;
 
 public class ImageManager {
 
-    static ArrayList<ImageFile> createdImages = new ArrayList<ImageFile>();
-    static ImageFile currentImage;
-//
-//    public ImageManager() {
-//        this.createdImages = new ArrayList<ImageFile>();
-//    }
+    private ArrayList<ImageFile> createdImages;
+    private ImageFile currentImage;
 
-    static ArrayList<ImageFile> getCreatedImages(){
-        return ImageManager.createdImages;
+    public ImageManager() {
+        this.createdImages = new ArrayList<ImageFile>();
     }
 
-    static void setCreatedImages(ArrayList<ImageFile> list){
-        ImageManager.createdImages = list;
+    ImageFile getCurrentImage() {
+        return this.currentImage;
     }
 
-    static void addFile(ImageFile image) {
-        createdImages.add(image);
+    void setCurrentImage(ImageFile newCurImage) {
+        this.currentImage = newCurImage;
     }
 
-    static boolean containsImage(String imagePath) {
-        for (ImageFile i : createdImages) {
+    ArrayList<ImageFile> getCreatedImages(){
+        return this.createdImages;
+    }
+
+    void setCreatedImages(ArrayList<ImageFile> list){
+        this.createdImages = list;
+    }
+
+    private void addFile(ImageFile image) {
+        this.createdImages.add(image);
+    }
+
+    boolean containsImage(String imagePath) {
+        for (ImageFile i : this.createdImages) {
             if (imagePath.equals(i.getFilePath())) {
                 return true;
             }
@@ -30,14 +38,14 @@ public class ImageManager {
         return false;
     }
 
-    static ImageFile findImage(String imagePath) {
-        for (ImageFile i : createdImages) {
+    ImageFile findImage(String imagePath) {
+        for (ImageFile i : this.createdImages) {
             if (imagePath.equals(i.getFilePath())) {
                 return i;
             }
         }
         ImageFile thisImage = new ImageFile(imagePath);
-        ImageManager.addFile(thisImage);
+        this.addFile(thisImage);
         return thisImage;
     }
 }

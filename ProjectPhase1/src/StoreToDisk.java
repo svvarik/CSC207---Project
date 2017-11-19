@@ -4,7 +4,7 @@ import java.io.*;
 /**
  * This class contains functions that enable the program to save persistent data
  * to binary.
-*/
+ */
 public class StoreToDisk implements Serializable {
 
 
@@ -28,7 +28,7 @@ public class StoreToDisk implements Serializable {
             ObjectInputStream fileData = new ObjectInputStream(buffer);
             SavedState saveState = (SavedState) fileData.readObject();
             TagManager.setAllTags(saveState.loadTags());
-            ImageManager.setCreatedImages(saveState.loadImages());
+            SelectImageViewController.imageManager.setCreatedImages(saveState.loadImages());
 
         }
     }
@@ -46,8 +46,7 @@ public class StoreToDisk implements Serializable {
     private static SavedState initSaveState(){
         SavedState saveState = new SavedState();
         saveState.saveTags(TagManager.getAllTags());
-        saveState.saveImages(ImageManager.getCreatedImages());
+        saveState.saveImages(SelectImageViewController.imageManager.getCreatedImages());
         return saveState;
     }
 }
-
