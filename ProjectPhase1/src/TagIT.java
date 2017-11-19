@@ -13,8 +13,8 @@ public class TagIT extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        StoreToDisk.initSaveFiles();
-        StoreToDisk.loadFiles();
+        StoreToDisk.initSaveFile();
+        StoreToDisk.deserializeData();
 
         this.primaryStage = primaryStage;
         Parent root = FXMLLoader.load(getClass().getResource("SelectDirectory.fxml"));
@@ -27,7 +27,7 @@ public class TagIT extends Application {
     public void stop() throws Exception{
         HistoryManager history = new HistoryManager("history.txt");
         history.readEvents("history.txt");
-        StoreToDisk.saveFiles();
+        StoreToDisk.serializeData();
     }
 
     public static void main(String[] args) {
