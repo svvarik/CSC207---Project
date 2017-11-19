@@ -38,7 +38,7 @@
       <Button fx:id="removeTag" layoutX="500.0" layoutY="362.0" mnemonicParsing="false" onAction="#removeTagAction" prefHeight="27.0" prefWidth="130.0" text="Remove Tag" />
       <ListView fx:id="allTagsForCurrPic" layoutX="20.0" layoutY="329.0" orientation="HORIZONTAL" prefHeight="60.0" prefWidth="460.0" />
       <Button fx:id="changeLocation" layoutX="370.0" layoutY="410.0" mnemonicParsing="false" onAction="#changeImageLocation" text="Change Image Location" />
-      <Button layoutX="154.0" layoutY="410.0" mnemonicParsing="false" text="Open in Enclosing Folder" />
+      <Button fx:id="openEnclosingFolder" layoutX="154.0" layoutY="410.0" mnemonicParsing="false" onAction="#openFolder" text="Open in Enclosing Folder" />
       <Button fx:id="backButton" layoutX="20.0" layoutY="410.0" mnemonicParsing="false" onAction="#goBack" text="&lt;----" />
    </children>
 </AnchorPane>

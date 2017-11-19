@@ -5,11 +5,15 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -29,6 +33,7 @@ public class SelectImageViewController {
     ImageView imageToBeTagged;
     @FXML Button backButton;
     @FXML Button changeLocation;
+    @FXML Button openEnclosingFolder;
 
     // Data from previous screen
     List<String> prevScreenList;
@@ -71,7 +76,7 @@ public class SelectImageViewController {
     public void enterTagAction(){
         if (!userInputtedTag.getText().trim().isEmpty()) {
             String addedTag = userInputtedTag.getText();
-            imageManager.getCurrentImage().addTag(addedTag);
+            imageManager.getCurrentImage().addTag(addedTag, tagManager);
 
             System.out.println(tagManager.getAllTags());
             userInputtedTag.clear();
@@ -79,7 +84,7 @@ public class SelectImageViewController {
         if (!allTagsUsed.getSelectionModel().getSelectedItems().isEmpty()) {
             Tag selectedTag = allTagsUsed.getSelectionModel().getSelectedItem();
             if (!imageManager.getCurrentImage().hasTag(selectedTag.toString())) {
-                imageManager.getCurrentImage().addTag(selectedTag.toString());
+                imageManager.getCurrentImage().addTag(selectedTag.toString(), tagManager);
             }
             allTagsUsed.getSelectionModel().clearSelection();
         }
@@ -152,15 +157,15 @@ public class SelectImageViewController {
     public void openFolder(ActionEvent actionEvent) {
         numWindowsOpen++;
         if (numWindowsOpen <= 1) {
-
             File sourcePath = new File(imageManager.getCurrentImage().getFilePath());
-
-            DirectoryChooser dirChoose = new DirectoryChooser();
-            sourcePath = dirChoose.showDialog(null);
+            File parentDirectory = sourcePath.getParentFile();
+            try {
+                Desktop.getDesktop().open(parentDirectory);
+            } catch (IOException ignored) {
+                //I don't know what to put in the catch block...
+            }
             numWindowsOpen = 0;
-
         }
-
     }
 }
 
