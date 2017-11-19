@@ -41,7 +41,7 @@ public class SelectImageViewController {
     List<String> prevScreenList;
 
     // Current Path for image we are viewing
-    private static int num_windows_open = 0;
+    private static int numWindowsOpen = 0;
 
     /**
      * Set the ImageView object on this screen to display an image given a
@@ -139,26 +139,30 @@ public class SelectImageViewController {
     }
 
     public void changeImageLocation(ActionEvent actionEvent) {
-        num_windows_open++;
-        if (num_windows_open <= 1) {
+        numWindowsOpen++;
+        if (numWindowsOpen <= 1) {
 
             DirectoryChooser dirChoose = new DirectoryChooser();
             File newPath = dirChoose.showDialog(null);
+            System.out.print("The new path chosen is:" + newPath + "\n");
+            //ImageManager.currentImage = newPath.toString();
+            System.out.println("The current image path is: " + ImageManager.currentImage.toString() + "\n");
             String path = newPath.getAbsolutePath() + "/" + ImageManager.currentImage.getTaggedName();
+            System.out.print("The final destination path is" + path + "\n");
 
             ImageManager.currentImage.rename(path);
         }
     }
 
     public void openFolder(ActionEvent actionEvent) {
-        num_windows_open++;
-        if (num_windows_open <= 1) {
+        numWindowsOpen++;
+        if (numWindowsOpen <= 1) {
 
             File sourcePath = new File(ImageManager.currentImage.getFilePath());
 
             DirectoryChooser dirChoose = new DirectoryChooser();
             sourcePath = dirChoose.showDialog(null);
-            num_windows_open = 0;
+            numWindowsOpen = 0;
 
         }
 
