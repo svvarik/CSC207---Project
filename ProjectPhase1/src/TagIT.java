@@ -25,8 +25,7 @@ public class TagIT extends Application {
 
     @Override
     public void stop() throws Exception{
-        HistoryManager history = new HistoryManager("history.txt");
-        history.readEvents("history.txt");
+        new HistoryManager();
         StoreToDisk.serializeData();
     }
 
