@@ -18,7 +18,7 @@ public class TagIT extends Application {
 
         this.primaryStage = primaryStage;
         Parent root = FXMLLoader.load(getClass().getResource("SelectDirectory.fxml"));
-        primaryStage.setTitle("Hello World");
+        primaryStage.setTitle("TagIT");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }
