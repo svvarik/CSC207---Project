@@ -107,9 +107,8 @@ public class SelectImageViewController {
 
             this.tagITModel = model;
 
-            FileManager fm = new FileManager(FileManager.currentDirectory);
             this.tagITModel.setCurrentImage(this.tagITModel.getImageManager().findImage(imagePath));
-            this.tagITModel.getCurrentImage().addObserver(fm);
+            this.tagITModel.getCurrentImage().addObserver(tagITModel);
 
             allTagsForCurrPic.setItems(this.tagITModel.getCurrentImage().tags);
 
