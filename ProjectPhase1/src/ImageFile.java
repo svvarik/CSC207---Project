@@ -38,7 +38,9 @@ public class ImageFile extends Observable implements Serializable {
         File userFile = new File(this.filePath);
         this.fileName = userFile.getName();
         this.taggedName = this.fileName;
-        this.imageHistory.add(this.taggedName);
+        if (!this.imageHistory.contains(this.taggedName)) {
+            this.imageHistory.add(this.taggedName);
+        }
     }
 
     String getFilePath(){
@@ -60,7 +62,9 @@ public class ImageFile extends Observable implements Serializable {
             this.tags.add(imageTag);
             String imagePath = this.newImagePath();
             this.rename(imagePath);
-            imageHistory.add(this.taggedName);
+            if (!this.imageHistory.contains(this.taggedName)) {
+                this.imageHistory.add(this.taggedName);
+            }
         }
     }
 
@@ -73,7 +77,9 @@ public class ImageFile extends Observable implements Serializable {
         String imagePath = this.newImagePath();
         this.rename(imagePath);
         HistoryManager.tagDeleted(this, deletedTag.toString());
-        imageHistory.add(this.taggedName);
+        if (!this.imageHistory.contains(this.taggedName)) {
+            this.imageHistory.add(this.taggedName);
+        }
     }
 
     private String newImagePath(){
@@ -146,7 +152,7 @@ public class ImageFile extends Observable implements Serializable {
 
     void stripSetOfTags() {
         // Remove all the tags in this current image without updating the nameHistory.
-        for (Tag tag: tags){
+        for (Tag tag: this.tags){
             removeImageTag(tag);
         }
     }
