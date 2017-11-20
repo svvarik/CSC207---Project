@@ -77,4 +77,18 @@ public class HistoryManager {
             + newName
             + "\n");
   }
+
+  static void nameReverted(ImageFile image, String newName) {
+    String timeStamp = new SimpleDateFormat().format(new Date());
+    String oldName = image.getTaggedName();
+    renamingList.add(
+            timeStamp
+                    + image.toString()
+                    + " was changed "
+                    + "\nOldName: "
+                    + oldName
+                    + "\nNewName: "
+                    + newName
+                    + "\n");
+  }
 }

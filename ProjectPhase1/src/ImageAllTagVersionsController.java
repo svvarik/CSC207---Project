@@ -18,7 +18,6 @@ import java.io.IOException;
 public class ImageAllTagVersionsController {
 
     private TagITModel tagITModel;
-    private ImageFile selectedImage;
     @FXML MenuItem close;
     @FXML ListView imageNames;
     @FXML Button changeTags;
@@ -28,18 +27,16 @@ public class ImageAllTagVersionsController {
     /**
      * This method initializes the controller.
      *
-     * @param image An imageFile that is passed into this controller.
-     * @param tagIT Ak
+     * @param tagITModel Ak
      */
-    public void initImageFile(ImageFile image, TagITModel tagIT) {
-        this.selectedImage = image;
-        this.tagITModel = tagIT;
-        this.imageNames.setItems(FXCollections.observableList(image.getImageHistory()));
+    public void initImageFile(TagITModel tagITModel) {
+        this.tagITModel = tagITModel;
+        this.imageNames.setItems(FXCollections.observableList(this.tagITModel.getCurrentImage().getImageHistory()));
     }
 
     public void listViewSelected(ActionEvent event) {
         String changeToName = (String) this.imageNames.getSelectionModel().getSelectedItem();
-        this.selectedImage.revertToOlderTags(changeToName, this.tagITModel.getTagManager());
+        this.tagITModel.getCurrentImage().revertToOlderTags(changeToName, this.tagITModel.getTagManager());
     }
 
     public void goBack(ActionEvent event) throws IOException{

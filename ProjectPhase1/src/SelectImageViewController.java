@@ -80,11 +80,8 @@ public class SelectImageViewController {
     @FXML
     Button changeToPastTags;
 
-    // Data from previous screen
-    List<String> prevScreenList;
-
     // represents the string filepath for an image
-    String selectedImagePath;
+    private String selectedImagePath;
 
     private TagITModel tagITModel;
 
@@ -112,10 +109,10 @@ public class SelectImageViewController {
         this.tagITModel.setCurrentImage(this.tagITModel.getImageManager().findImage(imagePath));
         this.tagITModel.getCurrentImage().addObserver(tagITModel);
 
-        allTagsForCurrPic.setItems(this.tagITModel.getCurrentImage().tags);
+        this.allTagsForCurrPic.setItems(this.tagITModel.getCurrentImage().getTags());
 
-        allTagsUsed.setItems(this.tagITModel.getTagManager().getAllTags());
-        allTagsUsed.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        this.allTagsUsed.setItems(this.tagITModel.getTagManager().getAllTags());
+        this.allTagsUsed.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
     }
 
     /**
@@ -239,7 +236,7 @@ public class SelectImageViewController {
 
             // Access the controller and call a method.
             ImageAllTagVersionsController controller = loader.getController();
-            controller.initImageFile(this.tagITModel.getImageManager().findImage(this.selectedImagePath), this.tagITModel);
+            controller.initImageFile(this.tagITModel);
 
             Stage window = (Stage) (((Node) event.getSource()).getScene().getWindow());
 
