@@ -51,6 +51,8 @@ public class TagIT extends Application {
         loader.setController(dirController);
         AnchorPane anchorPane = loader.load();
         Scene scene = new Scene(anchorPane);
+        primaryStage.setScene(scene);
+        primaryStage.show();
     }
 
     /**
