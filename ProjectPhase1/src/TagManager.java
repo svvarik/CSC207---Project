@@ -1,9 +1,6 @@
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.util.ArrayList;
-import java.util.Observable;
-
 public class TagManager {
 
     private ObservableList<Tag> allTags;
@@ -12,23 +9,23 @@ public class TagManager {
         this.allTags = FXCollections.observableArrayList();
     }
 
-    /**
-     * Take in a user inputted string and split it using String regex based on
-     * spaces and commas. Create a Tag for each object, add it to the list of
-     * all tags, and to the specified image.
-     * 
-     * @param userInputtedTags A user inputted String with one or more Tags, 
-     *                         separated by commas. 
-     */
-    void inputTags(String userInputtedTags, ImageFile thisImage) {
-        String[] arrayOfTags = userInputtedTags.split(" ,");
-        
-        for(int i = 0; i < arrayOfTags.length; i = i + 1) {
-            Tag newTag = new Tag(arrayOfTags[i]);
-            this.getAllTags().add(newTag);
+//    /**
+//     * Take in a user inputted string and split it using String regex based on
+//     * spaces and commas. Create a Tag for each object, add it to the list of
+//     * all tags, and to the specified image.
+//     *
+//     * @param userInputtedTags A user inputted String with one or more Tags,
+//     *                         separated by commas.
+//     */
+    //void inputTags(String userInputtedTags, ImageFile thisImage) {
+      //  String[] arrayOfTags = userInputtedTags.split(" ,");
+
+        //for(int i = 0; i < arrayOfTags.length; i = i + 1) {
+            //Tag newTag = new Tag(arrayOfTags[i]);
+            //this.getAllTags().add(newTag);
             //thisImage.addTag(newTag);
-        }
-    }
+       // }
+
 
     // GETTER FOR LIST OF ALL TAGS
     ObservableList<Tag> getAllTags(){
