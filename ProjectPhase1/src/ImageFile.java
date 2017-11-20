@@ -199,6 +199,10 @@ public class ImageFile extends Observable implements Serializable {
         return this.tags;
     }
 
+    ArrayList<String> getImageHistory(){
+        return this.imageHistory;
+    }
+
     ArrayList<Tag> getArrayedTags(){
         return this.arrayedTags;
     }
