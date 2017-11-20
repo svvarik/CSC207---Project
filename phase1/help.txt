@@ -60,5 +60,18 @@ When the program is closed, all Tag and ImageFile changes and information is ser
 again, the serialized data is deserialized and stored to work off of.
 A HistoryManager class is used to log the changes the user makes when the program is run. (uses Logger)
 
+Instructions: 
+
+In the terminal window, move to ProjectPhase1/src of the cloned repo. 
+
+Then enter: 
+
+javac TagIT.java
+
+Once the program compiles, then enter: 
+
+java TagIT
+
+Once the program is up and running, begin by choosing a photo you wish and tag your heart out!!!!
 
 Authors: Betty, Sai, Arshia, Priyanka
