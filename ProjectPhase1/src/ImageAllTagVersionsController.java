@@ -17,9 +17,9 @@ public class ImageAllTagVersionsController {
 
     private TagITModel tagITModel;
     private ImageFile selectedImage;
-    @FXML private ListView imageNames;
-    @FXML private Button changeTags;
-    @FXML private Button backButton;
+    @FXML ListView imageNames;
+    @FXML Button changeTags;
+    @FXML Button backButton;
 
 
     /**
