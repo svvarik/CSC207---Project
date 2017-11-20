@@ -1,6 +1,7 @@
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -10,15 +11,18 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.List;
+import java.util.ResourceBundle;
 
-public class SelectImageViewController {
+public class SelectImageViewController implements Initializable{
 
     @FXML public ListView<Tag> allTagsUsed;
     @FXML public ListView<Tag> allTagsForCurrPic;
@@ -34,12 +38,11 @@ public class SelectImageViewController {
     // Data from previous screen
     List<String> prevScreenList;
     String selectedImagePath;
-
-    static final ImageManager imageManager = new ImageManager();
-    static final TagManager tagManager = new TagManager();
+    private TagITModel tagITModel;
 
     // Current Path for image we are viewing
     private static int numWindowsOpen = 0;
+
 
     /**
      * Set the ImageView object on this screen to display an image given a
@@ -48,7 +51,7 @@ public class SelectImageViewController {
      * @param imagePath A string that is the file path for image that is to be
      *                  displayed.
      */
-    void initImagePath(String imagePath) {
+    void initImagePath(String imagePath, TagITModel model) {
 
         //currentImagePath = imagePath;
         this.selectedImagePath = imagePath;
@@ -57,13 +60,15 @@ public class SelectImageViewController {
         imageToBeTagged.setImage(imageNeedsToBeTagged);
         System.out.println("in here?");
 
+        this.tagITModel = model;
+
         FileManager fm = new FileManager(FileManager.currentDirectory);
-        imageManager.setCurrentImage(imageManager.findImage(imagePath));
-        imageManager.getCurrentImage().addObserver(fm);
+        this.tagITModel.setCurrentImage(this.tagITModel.getImageManager().findImage(imagePath));
+        this.tagITModel.getCurrentImage().addObserver(fm);
 
-        allTagsForCurrPic.setItems(imageManager.getCurrentImage().tags);
+        allTagsForCurrPic.setItems(this.tagITModel.getCurrentImage().tags);
 
-        allTagsUsed.setItems(tagManager.getAllTags());
+        allTagsUsed.setItems(this.tagITModel.getTagManager().getAllTags());
         allTagsUsed.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
     }
 
@@ -74,15 +79,13 @@ public class SelectImageViewController {
     public void enterTagAction(){
         if (!userInputtedTag.getText().trim().isEmpty()) {
             String addedTag = userInputtedTag.getText();
-            imageManager.getCurrentImage().addTag(addedTag);
-
-            System.out.println(tagManager.getAllTags());
+            this.tagITModel.getCurrentImage().addTag(addedTag, this.tagITModel.getTagManager());
             userInputtedTag.clear();
         }
         if (!allTagsUsed.getSelectionModel().getSelectedItems().isEmpty()) {
             Tag selectedTag = allTagsUsed.getSelectionModel().getSelectedItem();
-            if (!imageManager.getCurrentImage().hasTag(selectedTag.toString())) {
-                imageManager.getCurrentImage().addTag(selectedTag.toString());
+            if (!this.tagITModel.getCurrentImage().hasTag(selectedTag.toString())) {
+                this.tagITModel.getCurrentImage().addTag(selectedTag.toString(), this.tagITModel.getTagManager());
             }
             allTagsUsed.getSelectionModel().clearSelection();
         }
@@ -97,7 +100,7 @@ public class SelectImageViewController {
         // Get the tag from the listview
         Tag tagToRemove = allTagsForCurrPic.getSelectionModel().getSelectedItem();
         if(tagToRemove != null) {
-            imageManager.getCurrentImage().removeImageTag(tagToRemove);
+            this.tagITModel.getCurrentImage().removeImageTag(tagToRemove);
         }
     }
 
@@ -114,11 +117,14 @@ public class SelectImageViewController {
     public void goBack(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("SelectDirectory.fxml"));
-        Parent selectDirectoryLoad = loader.load();
+        SelectDirectoryController dirController = new SelectDirectoryController(this.tagITModel);
+        loader.setController(dirController);
 
-        SelectDirectoryController controller = loader.getController();
+        AnchorPane selectDirectoryLoad = loader.load();
 
-        controller.initRetrievingListView();
+        //SelectDirectoryController controller = loader.getController();
+
+        dirController.initRetrievingListView();
 
         Scene selectDirectoryScene = new Scene(selectDirectoryLoad);
 
@@ -145,8 +151,8 @@ public class SelectImageViewController {
             DirectoryChooser dirChoose = new DirectoryChooser();
             File newPath = dirChoose.showDialog(null);
             if(newPath != null) {
-                String path = newPath.getAbsolutePath() + "/" + imageManager.getCurrentImage().getTaggedName();
-                imageManager.getCurrentImage().rename(path);
+                String path = newPath.getAbsolutePath() + "/" + this.tagITModel.getCurrentImage().getTaggedName();
+                this.tagITModel.getCurrentImage().rename(path);
             }
             numWindowsOpen = 0;
         }
@@ -155,7 +161,7 @@ public class SelectImageViewController {
     public void openFolder(ActionEvent actionEvent) {
         numWindowsOpen++;
         if (numWindowsOpen <= 1) {
-            File sourcePath = new File(imageManager.getCurrentImage().getFilePath());
+            File sourcePath = new File(this.tagITModel.getCurrentImage().getFilePath());
             File parentDirectory = sourcePath.getParentFile();
             try {
                 Desktop.getDesktop().open(parentDirectory);
@@ -175,7 +181,7 @@ public class SelectImageViewController {
 
         // Access the controller and call a method.
         ImageAllTagVersionsController controller = loader.getController();
-        controller.initImageFile(imageManager.findImage(this.selectedImagePath));
+        controller.initImageFile(this.tagITModel.getImageManager().findImage(this.selectedImagePath));
 
         Stage window = (Stage) (((Node) event.getSource()).getScene().getWindow());
 
@@ -183,5 +189,8 @@ public class SelectImageViewController {
         window.show();
     }
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+    }
 }
 
