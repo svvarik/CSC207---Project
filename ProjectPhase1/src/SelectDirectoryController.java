@@ -141,5 +141,3 @@ public class SelectDirectoryController implements Initializable {
         Platform.exit();
     }
 }
-// button listener- when the button is clicked, update screen
-// configuration file
