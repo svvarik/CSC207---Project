@@ -35,13 +35,6 @@ public class TagIT extends Application {
         StoreToDisk.deserializeData(this.tagITModel);
 
         primaryStage = primary;
-//        Parent root = FXMLLoader.load(getClass().getResource("SelectDirectory.fxml"));
-//        SelectDirectoryController dirController = new SelectDirectoryController(tagITModel);
-//        root.setController
-//        primaryStage.setTitle("TagIT");
-//        primaryStage.setScene(new Scene(root));
-//        primaryStage.show();
-//
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("SelectDirectory.fxml"));
 

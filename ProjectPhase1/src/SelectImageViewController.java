@@ -2,7 +2,6 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -19,9 +18,6 @@ import javafx.stage.Stage;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
-import java.util.List;
-import java.util.ResourceBundle;
 
 /**
  * This SelectImageViewController class manages and defines all the application's actions in the second scene.
@@ -97,8 +93,6 @@ public class SelectImageViewController {
      *                  displayed.
      */
     void initImagePath(String imagePath, TagITModel model) {
-
-        //currentImagePath = imagePath;
         this.selectedImagePath = imagePath;
         File f = new File(imagePath);
         Image imageNeedsToBeTagged = new Image(f.toURI().toString());
@@ -161,8 +155,6 @@ public class SelectImageViewController {
 
         AnchorPane selectDirectoryLoad = loader.load();
 
-        //SelectDirectoryController controller = loader.getController();
-
         dirController.initRetrievingListView();
 
         Scene selectDirectoryScene = new Scene(selectDirectoryLoad);
@@ -221,27 +213,27 @@ public class SelectImageViewController {
         }
     }
 
-        /**
-         * Moves to a new scene to display a history of previous file names for the current image
-         *
-         * @param event An event to display older filenames and tags
-         * @throws IOException
-         */
-        public void changeToAllTagsView(ActionEvent event) throws IOException {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("ImageAllTagVersions.fxml"));
-            Parent allTagsViewParent = loader.load();
+    /**
+     * Moves to a new scene to display a history of previous file names for the current image
+     *
+     * @param event An event to display older filenames and tags
+     * @throws IOException
+     */
+    public void changeToAllTagsView(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("ImageAllTagVersions.fxml"));
+        Parent allTagsViewParent = loader.load();
 
-            Scene allTagsViewScene = new Scene(allTagsViewParent);
+        Scene allTagsViewScene = new Scene(allTagsViewParent);
 
-            // Access the controller and call a method.
-            ImageAllTagVersionsController controller = loader.getController();
-            controller.initImageFile(this.tagITModel);
+        // Access the controller and call a method.
+        ImageAllTagVersionsController controller = loader.getController();
+        controller.initImageFile(this.tagITModel);
 
-            Stage window = (Stage) (((Node) event.getSource()).getScene().getWindow());
+        Stage window = (Stage) (((Node) event.getSource()).getScene().getWindow());
 
-            window.setScene(allTagsViewScene);
-            window.show();
-        }
+        window.setScene(allTagsViewScene);
+        window.show();
     }
+}
 

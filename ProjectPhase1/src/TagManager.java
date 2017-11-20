@@ -21,7 +21,7 @@ public class TagManager {
     }
 
     /** Set allTags to list.
-     * 
+     *
      * @param list the observableList to set allTags to.
      */
     void setAllTags(ObservableList<Tag> list){
