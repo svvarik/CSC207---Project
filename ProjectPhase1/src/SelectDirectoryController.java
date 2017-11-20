@@ -55,9 +55,9 @@ public class SelectDirectoryController implements Initializable {
             File openedDirectory = dirChoose.showDialog(null);
 
             if (openedDirectory != null) {
-                FileManager.updateCurrentDirectory(openedDirectory.getAbsolutePath());
+                this.tagITModel.setCurrentDirectory(openedDirectory.getAbsolutePath());
 
-                listOfImages.setItems(FileManager.currentDirectoryFiles);
+                listOfImages.setItems(this.tagITModel.getCurrentDirectoryFiles());
             }
             listOfImages.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
             num_windows_open = 0;
@@ -106,7 +106,7 @@ public class SelectDirectoryController implements Initializable {
             File filePath = new File(listOfImages.getSelectionModel().getSelectedItem());
             if (filePath.isDirectory()) {
                 listOfImages.getItems().clear();
-                FileManager.updateCurrentDirectory(filePath.getAbsolutePath());
+                this.tagITModel.setCurrentDirectory(filePath.getAbsolutePath());
                 File[] imageList = FileManager.imageFilesFilter(filePath);
                 for (File f : imageList) {
                     listOfImages.getItems().add(f.getAbsolutePath());
@@ -120,16 +120,16 @@ public class SelectDirectoryController implements Initializable {
 
     public void goBackDirectory(ActionEvent event) {
         listOfImages.getItems().clear();
-        String parentDirectory = FileManager.getParentDirectory(FileManager.currentDirectory);
-        if (FileManager.currentDirectory != null && parentDirectory != null) {
-            FileManager.updateCurrentDirectory(parentDirectory);
-            listOfImages.setItems(FileManager.currentDirectoryFiles);
+        String parentDirectory = FileManager.getParentDirectory(this.tagITModel.getCurrentDirectory());
+        if (this.tagITModel.getCurrentDirectory() != null && parentDirectory != null) {
+            this.tagITModel.setCurrentDirectory(parentDirectory);
+            listOfImages.setItems(this.tagITModel.getCurrentDirectoryFiles());
         }
         listOfImages.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
     }
 
     void initRetrievingListView(){
-        listOfImages.setItems(FileManager.currentDirectoryFiles);
+        listOfImages.setItems(this.tagITModel.getCurrentDirectoryFiles());
     }
     
     /**

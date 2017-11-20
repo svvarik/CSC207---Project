@@ -7,19 +7,19 @@ import javafx.collections.ObservableList;
 
 
 /** Manages the image files in the opened directory */
-public class FileManager implements Observer {
+public class FileManager {
+//
+//    /** The current directory that the user has opened */
+//    static String currentDirectory;
+//
+//    /** The images and directories in the current directory*/
+//    static ObservableList<String> currentDirectoryFiles;
 
-    /** The current directory that the user has opened */
-    static String currentDirectory;
-
-    /** The images and directories in the current directory*/
-    static ObservableList<String> currentDirectoryFiles;
-
-    public FileManager(String directory){
-        currentDirectory = directory;
-        File[] dirFiles = imageFilesFilter(new File(directory));
-        currentDirectoryFiles = FXCollections.observableList(filesToString(dirFiles));
-    }
+//    public FileManager(String directory){
+//        currentDirectory = directory;
+//        File[] dirFiles = imageFilesFilter(new File(directory));
+//        currentDirectoryFiles = FXCollections.observableList(filesToString(dirFiles));
+//    }
 
     static File[] imageFilesFilter(File directory) {
         String[] imageSuffix = ImageIO.getReaderFileSuffixes();
@@ -36,7 +36,7 @@ public class FileManager implements Observer {
         return directory.listFiles(imageFilter);
     }
 
-    private static ArrayList<String> filesToString(File[] fileList) {
+    static ArrayList<String> filesToString(File[] fileList) {
         ArrayList<String> dirFilePaths = new ArrayList<String>();
         for (File f : fileList) {
             dirFilePaths.add(f.getAbsolutePath());
@@ -44,17 +44,17 @@ public class FileManager implements Observer {
         return dirFilePaths;
     }
 
-    static void updateCurrentDirectory(String directoryPath) {
-        currentDirectory = directoryPath;
-        File[] dirFiles = imageFilesFilter(new File(directoryPath));
-        currentDirectoryFiles = FXCollections.observableList(filesToString(dirFiles));
-    }
-
-    @Override
-    public void update(Observable o, Object arg) {
-        updateCurrentDirectory(currentDirectory);
-        System.out.println("Updated");
-    }
+//    static void updateCurrentDirectory(String directoryPath) {
+//        currentDirectory = directoryPath;
+//        File[] dirFiles = imageFilesFilter(new File(directoryPath));
+//        currentDirectoryFiles = FXCollections.observableList(filesToString(dirFiles));
+//    }
+//
+//    @Override
+//    public void update(Observable o, Object arg) {
+//        updateCurrentDirectory(currentDirectory);
+//        System.out.println("Updated");
+//    }
 
     static String getParentDirectory(String filePath) {
         if (filePath != null) {
