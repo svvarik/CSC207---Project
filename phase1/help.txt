@@ -54,6 +54,11 @@ Features:
     - Clicking the <<Open in Enclosing Folder>> button in the second scene, opens a window to the user's File System
       Viewer to show the directory the current image is in
 
+10. A history of all the renaming done in the previous Instance of the program can be viewed in ProjectPhase1/history.txt
+
+11. Once an image is selected you can revert to old tags but clicking on revert to old name and selecting an older version 
+
+
 
 Details:
 When the program is closed, all Tag and ImageFile changes and information is serialized. When the program is run
