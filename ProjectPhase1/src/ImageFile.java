@@ -103,7 +103,6 @@ public class ImageFile extends Observable implements Serializable {
         // to update the taggedName, in case there were any changes
         File file = new File(this.filePath);
         this.taggedName = file.getName();
-        System.out.println("substring: " + this.taggedName);
         thisImage.renameTo(new File(this.filePath));
         setChanged();
         notifyObservers();
@@ -128,7 +127,7 @@ public class ImageFile extends Observable implements Serializable {
 
     boolean hasTag(String tag){
         for (Tag t : this.tags) {
-            if (t.toString().equals(tag)){
+            if (tag.equals(t.toString())){
                 return true;
             }
         } return false;
@@ -143,58 +142,38 @@ public class ImageFile extends Observable implements Serializable {
 
         // Add a set of Tags from a string format "@Sai@Pre@Arsh@Bets", by parsing
         // and adding each tag to the imageFile.
-
         // Then update the name history.
-        for (String tag : setOfTags){
-            this.addTag(tag, manager);
+        for (String tag : setOfTags) {
+            if (!this.hasTag(tag)) {
+                Tag imageTag = manager.findTag(tag);
+                if (imageTag == null) {
+                    imageTag = new Tag(tag, manager);
+                }
+                this.tags.add(imageTag);
+                System.out.println(imageTag.toString());
+            }
         }
+        String imagePath = this.newImagePath();
+        this.rename(imagePath);
     }
 
-    void stripSetOfTags() {
+    private void stripSetOfTags() {
         // Remove all the tags in this current image without updating the nameHistory.
-        for (Tag tag: this.tags){
-            removeImageTag(tag);
-        }
+        this.tags.clear();
     }
 
     void revertToOlderTags(String oldFileName, TagManager manager){
         // Save an old version of the logger and name history so we can revert back after
-        ArrayList<String> currentHistory = new ArrayList<>();
-        for (String name : imageHistory){
-            currentHistory.add(name);
-        }
-        ArrayList<String> currentLog = new ArrayList<>();
-        for (String renamingLog : HistoryManager.renamingList){
-            currentLog.add(renamingLog);
-        }
-        // Inputs an older FileName and parse it for tags.
-            // Parse fileName
-            // create String variable that includes all tags from older name
-            // String oldDesiredTags = "@Arsh@Bets@Pre@Sai"
-        String[] oldFileParts = oldFileName.split("@");
+        HistoryManager.nameReverted(this, oldFileName);
+
+        int end = oldFileName.lastIndexOf(".");
+        String[] oldFileParts = oldFileName.substring(0, end).split("@");
         ArrayList<String> oldDesiredTags = new ArrayList<>();
         for(int i = 1; i < oldFileParts.length; i++){
             oldDesiredTags.add("@" + oldFileParts[i]);
         }
-        // Removes the current set of Tags for this imageFile without saving each
-        // time the individual tag is removed.
-            // Call the stripSetOfTags method
-        stripSetOfTags();
-
-        // Adds the set of Tags to this imageFile WITHOUT saving each time
-        // individual tag is added.
-            // addSetOfTags(oldDesiredTags)
-        addSetOfTags(oldDesiredTags, manager);
-
-        // Does any updating to the ImageManager
-        this.imageHistory = new ArrayList<>();
-        for (String name : currentHistory){
-            imageHistory.add(name);
-        }
-        HistoryManager.renamingList = new ArrayList<>();
-        for (String renamingLog : currentLog){
-            HistoryManager.renamingList.add(renamingLog);
-        }
+        this.stripSetOfTags();
+        this.addSetOfTags(oldDesiredTags, manager);
     }
 
     /** Return all the Tags of the ImageFile.
