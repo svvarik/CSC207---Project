@@ -34,7 +34,7 @@ public class ImageAllTagVersionsController {
 
     public void listViewSelected(ActionEvent event) {
         String changeToName = (String) this.imageNames.getSelectionModel().getSelectedItem();
-        this.selectedImage.revertToOlderTags(changeToName);
+        this.selectedImage.revertToOlderTags(changeToName, this.tagITModel.getTagManager());
     }
 
     public void goBack(ActionEvent event) throws IOException{
