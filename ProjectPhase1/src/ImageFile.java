@@ -133,14 +133,14 @@ public class ImageFile extends Observable implements Serializable {
         return this.getFilePath();
     }
 
-    void addSetOfTags(ArrayList<String> setOfTags) {
+    void addSetOfTags(ArrayList<String> setOfTags, TagManager manager) {
 
         // Add a set of Tags from a string format "@Sai@Pre@Arsh@Bets", by parsing
         // and adding each tag to the imageFile.
 
         // Then update the name history.
         for (String tag : setOfTags){
-            this.addTag(tag);
+            this.addTag(tag, manager);
         }
     }
 
@@ -151,7 +151,7 @@ public class ImageFile extends Observable implements Serializable {
         }
     }
 
-    void revertToOlderTags(String oldFileName){
+    void revertToOlderTags(String oldFileName, TagManager manager){
         // Save an old version of the logger and name history so we can revert back after
         ArrayList<String> currentHistory = new ArrayList<>();
         for (String name : imageHistory){
@@ -178,7 +178,7 @@ public class ImageFile extends Observable implements Serializable {
         // Adds the set of Tags to this imageFile WITHOUT saving each time
         // individual tag is added.
             // addSetOfTags(oldDesiredTags)
-        addSetOfTags(oldDesiredTags);
+        addSetOfTags(oldDesiredTags, manager);
 
         // Does any updating to the ImageManager
         this.imageHistory = new ArrayList<>();
