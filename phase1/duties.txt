@@ -1,0 +1,4 @@
+Arshia Mahmoodi
+•Wrote HistoryManager.java
+•Wrote LogFormatter.java
+•Helped implement undo functionality (reverting to old names)
