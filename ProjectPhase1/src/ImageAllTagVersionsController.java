@@ -26,8 +26,10 @@ public class ImageAllTagVersionsController {
 
 
     /**
-     * This method accepts an ImageFile to intialize the view.
-     * @param image
+     * This method initializes the controller.
+     *
+     * @param image An imageFile that is passed into this controller.
+     * @param tagIT Ak
      */
     public void initImageFile(ImageFile image, TagITModel tagIT) {
         this.selectedImage = image;
@@ -49,7 +51,7 @@ public class ImageAllTagVersionsController {
 
         // Access the controller and call a method.
         SelectImageViewController controller = loader.getController();
-        controller.initImagePath(this.selectedImage.getFilePath(), this.tagITModel);
+        controller.initImagePath(this.tagITModel.getCurrentImage().getFilePath(), this.tagITModel);
 
         Stage window = (Stage) (((Node) event.getSource()).getScene().getWindow());
 
