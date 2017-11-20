@@ -5,34 +5,25 @@ public class TagManager {
 
     private ObservableList<Tag> allTags;
 
+    /** Construct a new TagManager object
+     *
+     */
     public TagManager() {
         this.allTags = FXCollections.observableArrayList();
     }
 
-//    /**
-//     * Take in a user inputted string and split it using String regex based on
-//     * spaces and commas. Create a Tag for each object, add it to the list of
-//     * all tags, and to the specified image.
-//     *
-//     * @param userInputtedTags A user inputted String with one or more Tags,
-//     *                         separated by commas.
-//     */
-    //void inputTags(String userInputtedTags, ImageFile thisImage) {
-      //  String[] arrayOfTags = userInputtedTags.split(" ,");
-
-        //for(int i = 0; i < arrayOfTags.length; i = i + 1) {
-            //Tag newTag = new Tag(arrayOfTags[i]);
-            //this.getAllTags().add(newTag);
-            //thisImage.addTag(newTag);
-       // }
-
-
-    // GETTER FOR LIST OF ALL TAGS
+    /** Returns allTags.
+     *
+     * @return the observableList allTags
+     */
     ObservableList<Tag> getAllTags(){
         return this.allTags;
     }
 
-    // SETTER FOR LIST OF ALL AGS
+    /** Set allTags to list.
+     * 
+     * @param list the observableList to set allTags to.
+     */
     void setAllTags(ObservableList<Tag> list){
         this.allTags = list;
     }
@@ -43,7 +34,6 @@ public class TagManager {
      */
     void addTag(Tag tagToBeAdded) {
         this.allTags.add(tagToBeAdded);
-        //TagManager.allTheTags.add(tagToBeAdded.getTag());
     }
 
     /**
