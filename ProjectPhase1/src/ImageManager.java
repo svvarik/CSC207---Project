@@ -3,19 +3,19 @@ import java.util.ArrayList;
 public class ImageManager {
 
     private ArrayList<ImageFile> createdImages;
-    private ImageFile currentImage;
+//    private ImageFile currentImage;
 
     public ImageManager() {
         this.createdImages = new ArrayList<ImageFile>();
     }
 
-    ImageFile getCurrentImage() {
-        return this.currentImage;
-    }
+//    ImageFile getCurrentImage() {
+//        return this.currentImage;
+//    }
 
-    void setCurrentImage(ImageFile newCurImage) {
-        this.currentImage = newCurImage;
-    }
+//    void setCurrentImage(ImageFile newCurImage) {
+//        this.currentImage = newCurImage;
+//    }
 
     ArrayList<ImageFile> getCreatedImages(){
         return this.createdImages;

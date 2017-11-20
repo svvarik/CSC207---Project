@@ -49,10 +49,10 @@ public class ImageFile extends Observable implements Serializable {
      *
      * @param newTag the new Tag to tag the ImageFile with.
      */
-    void addTag(String newTag) {
+    void addTag(String newTag, TagManager manager) {
 
         if (!this.hasTag(newTag)) {
-            Tag imageTag = TagManager.findTag(newTag);
+            Tag imageTag = manager.findTag(newTag);
             if (imageTag == null) {
                 imageTag = new Tag(newTag);
             }

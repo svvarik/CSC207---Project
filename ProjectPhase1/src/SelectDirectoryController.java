@@ -30,6 +30,11 @@ public class SelectDirectoryController implements Initializable {
     @FXML public Button selectImage;
     @FXML public Button backButtonDirectory;
     private static int num_windows_open = 0;
+    private TagITModel tagITModel;
+
+    public SelectDirectoryController(TagITModel model){
+        this.tagITModel = model;
+    }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -78,7 +83,7 @@ public class SelectDirectoryController implements Initializable {
         SelectImageViewController controller = loader.getController();
         if (!(listOfImages.getItems().isEmpty())) {
 
-            controller.initImagePath(listOfImages.getSelectionModel().getSelectedItem());
+            controller.initImagePath(listOfImages.getSelectionModel().getSelectedItem(), this.tagITModel);
 
 
             Stage window = (Stage) (((Node) event.getSource()).getScene().getWindow());

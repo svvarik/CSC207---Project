@@ -3,6 +3,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -15,6 +16,7 @@ public class TagIT extends Application {
      * A JavaFX Stage Object that represents the current window displayed
      */
     static Stage primaryStage;
+    private TagITModel tagITModel;
 
     /**
      * The start method is a method from the Java Applicaton class.
@@ -27,15 +29,28 @@ public class TagIT extends Application {
      */
     @Override
     public void start(Stage primary) throws Exception {
+        this.tagITModel = new TagITModel();
 
         StoreToDisk.initSaveFile();
-        StoreToDisk.deserializeData();
+        StoreToDisk.deserializeData(this.tagITModel);
 
-        this.primaryStage = primary;
-        Parent root = FXMLLoader.load(getClass().getResource("SelectDirectory.fxml"));
-        primaryStage.setTitle("TagIT");
-        primaryStage.setScene(new Scene(root));
-        primaryStage.show();
+        primaryStage = primary;
+//        Parent root = FXMLLoader.load(getClass().getResource("SelectDirectory.fxml"));
+//        SelectDirectoryController dirController = new SelectDirectoryController(tagITModel);
+//        root.setController
+//        primaryStage.setTitle("TagIT");
+//        primaryStage.setScene(new Scene(root));
+//        primaryStage.show();
+//
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("SelectDirectory.fxml"));
+
+        // Create a controller instance
+        SelectDirectoryController dirController = new SelectDirectoryController(tagITModel);
+        // Set it in the FXMLLoader
+        loader.setController(dirController);
+        AnchorPane anchorPane = loader.load();
+        Scene scene = new Scene(anchorPane);
     }
 
     /**
@@ -47,7 +62,7 @@ public class TagIT extends Application {
     @Override
     public void stop() throws Exception{
         new HistoryManager();
-        StoreToDisk.serializeData();
+        StoreToDisk.serializeData(this.tagITModel);
     }
 
     public static void main(String[] args) {
