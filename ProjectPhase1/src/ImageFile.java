@@ -56,7 +56,7 @@ public class ImageFile extends Observable implements Serializable {
         if (!this.hasTag(newTag)) {
             Tag imageTag = manager.findTag(newTag);
             if (imageTag == null) {
-                imageTag = new Tag(newTag);
+                imageTag = new Tag(newTag, manager);
             }
             HistoryManager.tagAdded(this,newTag);
             this.tags.add(imageTag);
