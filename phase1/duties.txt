@@ -1,7 +1,7 @@
 Arshia Mahmoodi
-•Wrote HistoryManager.java
-•Wrote LogFormatter.java
-•Helped implement undo functionality (reverting to old names)
+Ã¯Wrote HistoryManager.java
+Ã¯Wrote LogFormatter.java
+Ã¯Helped implement undo functionality (reverting to old names)
 
 Sai Vinay Varikooty: 
 Worked with a lot of the FXML components. 
@@ -15,4 +15,4 @@ Worked to ensure MVC pattern was followed.
 Worked to remove faulty design flaws as code was written by reworking code to follow MVC pattern. 
 Implemented much of Observer interfaces. 
 Worked with Controller classes. 
-(Betty couldnÕt access duties.txt for some reason. Therefore, Sai Vinay has written it as requested by her.)
+(Betty couldnâ€™t access duties.txt for some reason. Therefore, Sai Vinay has written it as requested by her.)
