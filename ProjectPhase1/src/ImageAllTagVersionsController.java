@@ -8,6 +8,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -17,6 +19,7 @@ public class ImageAllTagVersionsController {
 
     private TagITModel tagITModel;
     private ImageFile selectedImage;
+    @FXML MenuItem close;
     @FXML ListView imageNames;
     @FXML Button changeTags;
     @FXML Button backButton;
@@ -39,7 +42,7 @@ public class ImageAllTagVersionsController {
 
     public void goBack(ActionEvent event) throws IOException{
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("SelectImageViewController.fxml"));
+        loader.setLocation(getClass().getResource("SelectImage.fxml"));
         Parent allTagsViewParent = loader.load();
 
         Scene allTagsViewScene = new Scene(allTagsViewParent);
@@ -52,7 +55,6 @@ public class ImageAllTagVersionsController {
 
         window.setScene(allTagsViewScene);
         window.show();
-
     }
 
     @FXML public void handleMenuClose(ActionEvent event){

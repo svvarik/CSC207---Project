@@ -1,3 +1,4 @@
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -182,7 +183,7 @@ public class SelectImageViewController {
      * @param event Event when the user clicks the "close" menu option.
      */
     public void handleMenuClose(ActionEvent event) {
-        //TODO Figure out how to close ;
+        Platform.exit();
     }
 
     /**
