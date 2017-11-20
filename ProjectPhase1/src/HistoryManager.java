@@ -6,10 +6,12 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-/** Keeps track of all renaming made */
+
+/** A History Manager class that keeps track of all renaming done, and logs data **/
+
 public class HistoryManager {
   /** A formatted array list of all the renaming done in the program, */
-  private static ArrayList<String> renamingList = new ArrayList<>();
+  static ArrayList<String> renamingList = new ArrayList<>();
 
   /**
    * Keeps an array list of all the renaming done, tags added and deleted, in the program and
