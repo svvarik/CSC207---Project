@@ -2,3 +2,14 @@ Arshia Mahmoodi
 •Wrote HistoryManager.java
 •Wrote LogFormatter.java
 •Helped implement undo functionality (reverting to old names)
+
+
+Priyanka
+- Fixed the buttons in the first scene
+- Added javadocs SelectImageViewController
+- fixed the errors when list views are clicked
+- added a static variables to limit the number of directory windows open at a time
+- implemented the move directory feature
+- fixed the rename error and added to the imageFile constructor and the moving method in SelectImageViewController to get the correct file path
+- UML diagram
+- help.txt
