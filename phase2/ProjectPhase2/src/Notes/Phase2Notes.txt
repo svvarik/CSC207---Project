@@ -1,0 +1,51 @@
+=== Meeting, Nov. 22, 2017 === 
+
+Phase 1 prior to Phase2 Release 
+
+- Undo was buggy 
+
+- History.txt, make visible 
+
+- Javadocs for classes 
+
+- Design issues 
+    - Pull out repeated code 
+    - Coupling (HistoryManager, ImageFile)
+
+
+Phase2 - Features, necessary to implement 
+
+- User shouldn’t have to type in @
+
+- Manage tags independently from ImageFiles 
+
+- User should choose a root directory and see a list of images anywhere under that directory
+    - Tags that aren’t in the TagManager class should be added to our TagsManaged
+
+- User can select multiple tags at once and add them to the image
+
+- Absolute path should be visible in UI 
+
+
+Phase 2 - Features 
+
+- ImageFilter, instagram-like filters 
+
+- Make the UI prettier 
+
+- FileManagement features, organizational features for directories 
+
+- Email image as an attachment 
+
+- Share button for FB, Twitter, Instagram, LinkedIn
+
+- Pull timestamp from metadata and add to FileName
+
+General Notes 
+
+- Design patterns 
+    - Fix ugly designs in code 
+    - Design patterns for new features 
+
+- FunctionalCode should be pushed 
+    - Don’t push mad errors guys, please :’( 
