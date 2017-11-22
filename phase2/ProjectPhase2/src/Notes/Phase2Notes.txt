@@ -1,33 +1,37 @@
-=== Meeting, Nov. 22, 2017 === 
+=== Meeting, Nov. 22, 2017 ===
 
-Phase 1 prior to Phase2 Release 
+Phase 1 prior to Phase2 Release
+-------------------------------
 
-- Undo was buggy 
+- History.txt, make visible - Sai, make it UI viewable
 
-- History.txt, make visible 
+- Javadocs for classes - Sai minSize(Controller classes), Betty maxSize(controller classes)
 
-- Javadocs for classes 
-
-- Design issues 
-    - Pull out repeated code 
+- Design issues - Betty
+    - Pull out repeated code
     - Coupling (HistoryManager, ImageFile)
 
 
-Phase2 - Features, necessary to implement 
+Phase2 - Features, necessary to implement
+-----------------------------------------
 
 - User shouldn’t have to type in @
 
-- Manage tags independently from ImageFiles 
+- User can select multiple tags at once and add them to the image -
 
-- User should choose a root directory and see a list of images anywhere under that directory
-    - Tags that aren’t in the TagManager class should be added to our TagsManaged
+- Manage tags independently from ImageFiles
 
-- User can select multiple tags at once and add them to the image
+- User should choose a root directory and see a list of images anywhere
+  under that directory
+    - Tags that aren’t in the TagManager class should be added
+      to our TagsManaged
 
-- Absolute path should be visible in UI 
+- Absolute path should be visible in UI
 
 
-Phase 2 - Features 
+Phase 2 - Features
+------------------
+- JUnit tests
 
 - ImageFilter, instagram-like filters 
 
@@ -41,7 +45,9 @@ Phase 2 - Features
 
 - Pull timestamp from metadata and add to FileName
 
-General Notes 
+
+General Notes
+-------------
 
 - Design patterns 
     - Fix ugly designs in code 
