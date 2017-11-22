@@ -54,4 +54,8 @@ General Notes
     - Design patterns for new features 
 
 - FunctionalCode should be pushed 
-    - Don’t push mad errors guys, please :’( 
+    - Don’t push mad errors guys, please :’(
+
+=== TODO BY FRIDAY NOVEMBER 24 ===
+
+Finish assigned duties
