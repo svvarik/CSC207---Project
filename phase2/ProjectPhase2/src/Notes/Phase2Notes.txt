@@ -67,4 +67,7 @@ Ask Paul
 
 - Subset of tags, acting as a "tag "
 
-- 
+-
+
+Problem:
+1. Removing tags does not change file path properly.
