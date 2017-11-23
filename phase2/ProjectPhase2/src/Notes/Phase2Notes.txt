@@ -59,3 +59,12 @@ General Notes
 === TODO BY FRIDAY NOVEMBER 24 ===
 
 Finish assigned duties
+
+
+Ask Paul
+
+- Root directory, add tags before working with an image
+
+- Subset of tags, acting as a "tag "
+
+- 
