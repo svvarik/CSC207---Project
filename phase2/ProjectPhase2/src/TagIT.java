@@ -23,28 +23,24 @@ public class TagIT extends Application {
      * It is called when the system is ready for the application to begin running.
      * This method deserializes previous data(if any), stored from the last run, creates and displays the first scene.
      *
-     * @param primary  A Stage object to create the first scene with
+     * @paramA Stage object to create the first scene with
      * @throws Exception
      * @return void
      */
     @Override
-    public void start(Stage primary) throws Exception {
+    public void start(Stage primaryStage) throws Exception {
         this.tagITModel = new TagITModel();
 
         StoreToDisk.initSaveFile();
         StoreToDisk.deserializeData(this.tagITModel);
 
-        primaryStage = primary;
-
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("SelectDirectory.fxml"));
-
-        // Create a controller instance
-        SelectDirectoryController dirController = new SelectDirectoryController(tagITModel);
-        // Set it in the FXMLLoader
-        loader.setController(dirController);
-        AnchorPane anchorPane = loader.load();
-        Scene scene = new Scene(anchorPane);
-        primaryStage.setScene(scene);
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("SelectDirectory.fxml"));
+        Parent root = loader.load();
+        SelectDirectoryController controller = loader.getController();
+        controller.initModel(this.tagITModel);
+        primaryStage.setTitle("TagIT");
+        primaryStage.setScene(new Scene(root, 650, 450));
         primaryStage.show();
     }
 

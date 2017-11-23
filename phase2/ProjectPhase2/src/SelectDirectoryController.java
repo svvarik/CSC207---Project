@@ -32,7 +32,7 @@ public class SelectDirectoryController implements Initializable {
     private static int num_windows_open = 0;
     private TagITModel tagITModel;
 
-    public SelectDirectoryController(TagITModel model){
+    public void initModel(TagITModel model){
         this.tagITModel = model;
     }
     

@@ -27,7 +27,7 @@ public class ImageAllTagVersionsController {
     /**
      * This method initializes the controller.
      *
-     * @param tagITModel Ak
+     * @param tagITModel The model
      */
     public void initImageFile(TagITModel tagITModel) {
         this.tagITModel = tagITModel;

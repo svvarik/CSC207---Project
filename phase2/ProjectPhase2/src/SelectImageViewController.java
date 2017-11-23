@@ -148,19 +148,19 @@ public class SelectImageViewController {
      * @throws IOException
      */
     public void goBack(ActionEvent event) throws IOException {
+
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("SelectDirectory.fxml"));
-        SelectDirectoryController dirController = new SelectDirectoryController(this.tagITModel);
-        loader.setController(dirController);
+        loader.setLocation(getClass().getResource("SelectImage.fxml"));
+        Parent selectDirectoryView = loader.load();
 
-        AnchorPane selectDirectoryLoad = loader.load();
+        Scene selectDirectoryScene = new Scene(selectDirectoryView);
 
-        dirController.initRetrievingListView();
-
-        Scene selectDirectoryScene = new Scene(selectDirectoryLoad);
+        // Access the controller and call a method.
+        SelectDirectoryController controller = loader.getController();
+        controller.initModel(this.tagITModel);
+        controller.initRetrievingListView();
 
         Stage window = (Stage) (((Node) event.getSource()).getScene().getWindow());
-
         window.setScene(selectDirectoryScene);
         window.show();
     }
