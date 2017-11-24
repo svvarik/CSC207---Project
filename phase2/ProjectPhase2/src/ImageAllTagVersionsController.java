@@ -43,7 +43,6 @@ public class ImageAllTagVersionsController {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("SelectImage.fxml"));
         Parent allTagsViewParent = loader.load();
-
         Scene allTagsViewScene = new Scene(allTagsViewParent);
 
         // Access the controller and call a method.
