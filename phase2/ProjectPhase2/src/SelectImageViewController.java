@@ -150,7 +150,7 @@ public class SelectImageViewController {
     public void goBack(ActionEvent event) throws IOException {
 
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("SelectImage.fxml"));
+        loader.setLocation(getClass().getResource("SelectDirectory.fxml"));
         Parent selectDirectoryView = loader.load();
 
         Scene selectDirectoryScene = new Scene(selectDirectoryView);
@@ -158,7 +158,7 @@ public class SelectImageViewController {
         // Access the controller and call a method.
         SelectDirectoryController controller = loader.getController();
         controller.initModel(this.tagITModel);
-        controller.initRetrievingListView();
+        controller.initRetrievingTreeView();
 
         Stage window = (Stage) (((Node) event.getSource()).getScene().getWindow());
         window.setScene(selectDirectoryScene);

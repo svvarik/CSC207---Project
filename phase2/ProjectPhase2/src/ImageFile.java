@@ -122,8 +122,6 @@ public class ImageFile extends Observable implements Serializable {
         int end = this.fileName.lastIndexOf(".");
         int firstSplit = this.filePath.lastIndexOf("\\");
         int secondSplit = this.filePath.lastIndexOf(".");
-        System.out.println(this.filePath.substring(0, firstSplit + 1) + this.fileName.substring(0, end) + tagsName +
-                this.filePath.substring(secondSplit, this.filePath.length()));
         return this.filePath.substring(0, firstSplit + 1) + this.fileName.substring(0, end) + tagsName +
                 this.filePath.substring(secondSplit, this.filePath.length());
     }

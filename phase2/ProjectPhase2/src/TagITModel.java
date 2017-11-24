@@ -49,7 +49,6 @@ public class TagITModel implements Observer{
 
     @Override
     public void update(Observable o, Object arg) {
-        currentDirectory = this.currentDirectory;
         this.setCurrentDirectory(this.currentDirectory);
     }
 }

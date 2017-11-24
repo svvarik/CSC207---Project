@@ -13,6 +13,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.DirectoryChooser;
 import javafx.event.ActionEvent;
 import javafx.stage.Stage;
+import sun.reflect.generics.tree.Tree;
+
 import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
@@ -22,24 +24,33 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class SelectDirectoryController implements Initializable {
-    
-    @FXML MenuItem close;
-    @FXML public Button selectDirectory;
-    @FXML public ListView<String> listOfImages;
-    @FXML public javafx.scene.image.ImageView imagePreview;
-    @FXML public Button selectImage;
-    @FXML public Button backButtonDirectory;
-    private static int num_windows_open = 0;
+
+    @FXML
+    MenuItem close;
+    @FXML
+    public Button selectDirectory;
+    @FXML
+    //public ListView<String> listOfImages;
+    public TreeView<String> listOfImages;
+    @FXML
+    public javafx.scene.image.ImageView imagePreview;
+    @FXML
+    public Button selectImage;
+    @FXML
+    public Button backButtonDirectory;
+    private static int numWindowsOpen = 0;
+    //To Fix: Don't hardcord numWindowsOpen.
+
     private TagITModel tagITModel;
 
-    public void initModel(TagITModel model){
+    void initModel(TagITModel model) {
         this.tagITModel = model;
     }
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
     }
-    
+
     /**
      * Function opens a window that allows the user to choose a Directory and
      * open it in the program. The application then displays all image files in
@@ -47,32 +58,42 @@ public class SelectDirectoryController implements Initializable {
      *
      * @param event When the button is clicked on the SelectDirectory button.
      */
-    @FXML public void selectDirectoryAction(ActionEvent event) {
-        listOfImages.getItems().clear();
-        num_windows_open++;
-        if (num_windows_open <= 1) {
+    @FXML
+    public void selectDirectoryAction(ActionEvent event) {
+        numWindowsOpen++;
+        if (numWindowsOpen <= 1) {
             DirectoryChooser dirChoose = new DirectoryChooser();
             File openedDirectory = dirChoose.showDialog(null);
 
             if (openedDirectory != null) {
                 this.tagITModel.setCurrentDirectory(openedDirectory.getAbsolutePath());
 
-                listOfImages.setItems(this.tagITModel.getCurrentDirectoryFiles());
+                listOfImages.setRoot(getChildrenDirectory(openedDirectory.getAbsolutePath()));
             }
             listOfImages.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-            num_windows_open = 0;
-
+            numWindowsOpen = 0;
         }
     }
-    
-    /**
-     * Moves to the next screen where the user can add / remove Tags for the
+
+    private TreeItem<String> getChildrenDirectory(String directory) {
+        TreeItem<String> rootDirectory = new TreeItem<String>(directory);
+        for (File item : FileManager.imageFilesFilter(new File(directory))) {
+            if (item.isDirectory()) {
+                rootDirectory.getChildren().add(getChildrenDirectory(item.getAbsolutePath()));
+            } else {
+                rootDirectory.getChildren().add(new TreeItem<String>(item.getAbsolutePath()));
+            }
+        }
+        return rootDirectory;
+    }
+
+    /** Moves to the next screen where the user can add / remove Tags for the
      * selected image.
      *
      * @param event Event when the "Select Image" button is clicked.
      * @throws IOException
      */
-    
+
     @FXML public void selectImageAction (ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("SelectImage.fxml"));
@@ -81,57 +102,50 @@ public class SelectDirectoryController implements Initializable {
         Scene selectImageScene = new Scene(selectImageLoad);
 
         SelectImageViewController controller = loader.getController();
-        if (!(listOfImages.getItems().isEmpty())) {
-
-            controller.initImagePath(listOfImages.getSelectionModel().getSelectedItem(), this.tagITModel);
-
+        if (!(listOfImages.getRoot().isLeaf())) {
+            controller.initImagePath(listOfImages.getSelectionModel().getSelectedItem().getValue(), this.tagITModel);
 
             Stage window = (Stage) (((Node) event.getSource()).getScene().getWindow());
 
             window.setScene(selectImageScene);
             window.show();
-
         }
     }
-    
-    /**
-     * Displays a preview of the image when the user clicks on it in the
-     * listview.
-     *
-     * @param event Event when the user clicks on an item in the listview.
-     * @throws IOException
-     */
-    @FXML public void displayPreviewImage (MouseEvent event) throws IOException {
-        if (!(listOfImages.getItems().isEmpty() || listOfImages.getSelectionModel().getSelectedItem() == null)){
-            File filePath = new File(listOfImages.getSelectionModel().getSelectedItem());
-            if (filePath.isDirectory()) {
-                listOfImages.getItems().clear();
-                this.tagITModel.setCurrentDirectory(filePath.getAbsolutePath());
-                File[] imageList = FileManager.imageFilesFilter(filePath);
-                for (File f : imageList) {
-                    listOfImages.getItems().add(f.getAbsolutePath());
+
+        /**
+         * Displays a preview of the image when the user clicks on it in the
+         * listview.
+         *
+         * @param event Event when the user clicks on an item in the listview.
+         * @throws IOException
+         */
+
+        @FXML
+        public void displayPreviewImage (MouseEvent event) throws IOException {
+            if (!(listOfImages.getRoot() == null || listOfImages.getSelectionModel().getSelectedItem() == null)) {
+                File filePath = new File(listOfImages.getSelectionModel().getSelectedItem().getValue());
+
+                if (!filePath.isDirectory()) {
+                    Image preview = new Image(filePath.toURI().toString());
+                    imagePreview.setImage(preview);
                 }
-            } else {
-                Image preview = new Image(filePath.toURI().toString());
-                imagePreview.setImage(preview);
             }
         }
-    }
 
-    public void goBackDirectory(ActionEvent event) {
-        listOfImages.getItems().clear();
+    public void goBackDirectory(ActionEvent event){
         String parentDirectory = FileManager.getParentDirectory(this.tagITModel.getCurrentDirectory());
-        if (this.tagITModel.getCurrentDirectory() != null && parentDirectory != null) {
+        if (this.tagITModel.getCurrentDirectory()!= null && parentDirectory != null){
             this.tagITModel.setCurrentDirectory(parentDirectory);
-            listOfImages.setItems(this.tagITModel.getCurrentDirectoryFiles());
+            this.listOfImages.setRoot(getChildrenDirectory(tagITModel.getCurrentDirectory()));
         }
         listOfImages.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        }
+
+    void initRetrievingTreeView() {
+        //listOfImages.setItems(this.tagITModel.getCurrentDirectoryFiles());
+        listOfImages.setRoot(getChildrenDirectory(tagITModel.getCurrentDirectory()));
     }
 
-    void initRetrievingListView(){
-        listOfImages.setItems(this.tagITModel.getCurrentDirectoryFiles());
-    }
-    
     /**
      * Exits the application upon the user clicking close in the Menu bar.
      *
