@@ -1,0 +1,29 @@
+== TODO ==
+
+Sai
+----------
+- Create that abstract Controller class
+
+- Clean up Controller classes
+
+- Open All Tags window / Log Manager window
+
+Arsh
+----------
+- Ensure that User can add tag without @sign
+
+- Add / Delete tags from TagManager Array
+
+- JUnit research
+
+Betty
+-----------
+- Pull tags from directory
+
+- Repeated code
+
+Priyanka
+-----------
+- Docstrings
+
+- Set up JUnit framework, start writing tests for ImageFile
