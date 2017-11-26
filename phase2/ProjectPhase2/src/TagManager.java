@@ -5,35 +5,40 @@ public class TagManager {
 
     private ObservableList<Tag> allTags;
 
-    /** Construct a new TagManager object
-     *
+    /**
+     * Construct a new TagManager object
      */
     public TagManager() {
         this.allTags = FXCollections.observableArrayList();
     }
 
-    /** Returns allTags.
+    /**
+     * Returns allTags.
      *
      * @return the observableList allTags
      */
-    ObservableList<Tag> getAllTags(){
+    ObservableList<Tag> getAllTags() {
         return this.allTags;
     }
 
-    /** Set allTags to list.
+    /**
+     * Set allTags to list.
      *
      * @param list the observableList to set allTags to.
      */
-    void setAllTags(ObservableList<Tag> list){
+    void setAllTags(ObservableList<Tag> list) {
         this.allTags = list;
     }
+
     /**
      * Add a tag to tagsUsed, a list of all Tags used in the program.
      *
      * @param tagToBeAdded a Tag that is to be added into tagsUsed
      */
     void addTag(Tag tagToBeAdded) {
-        this.allTags.add(tagToBeAdded);
+        if (!this.containsTag(tagToBeAdded.toString())) {
+            this.allTags.add(tagToBeAdded);
+        }
     }
 
     /**
@@ -65,5 +70,14 @@ public class TagManager {
             }
         }
         return null;
+    }
+
+    boolean containsTag(String tag) {
+        for (Tag existingTag : allTags) {
+            if (existingTag.toString().equals(tag)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

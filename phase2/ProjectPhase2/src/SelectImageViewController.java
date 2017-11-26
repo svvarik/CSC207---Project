@@ -76,9 +76,6 @@ public class SelectImageViewController {
     @FXML
     Button changeToPastTags;
 
-    // represents the string filepath for an image
-    private String selectedImagePath;
-
     private TagITModel tagITModel;
 
     // Tracks the number of windows to the user's computer's FileSystemViewer open in the current scene
@@ -93,7 +90,6 @@ public class SelectImageViewController {
      *                  displayed.
      */
     void initImagePath(String imagePath, TagITModel model) {
-        this.selectedImagePath = imagePath;
         File f = new File(imagePath);
         Image imageNeedsToBeTagged = new Image(f.toURI().toString());
         imageToBeTagged.setImage(imageNeedsToBeTagged);

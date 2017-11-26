@@ -1,4 +1,5 @@
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,19 +19,19 @@ import sun.reflect.generics.tree.Tree;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class SelectDirectoryController implements Initializable {
+public class SelectDirectoryController {
 
     @FXML
     MenuItem close;
     @FXML
     public Button selectDirectory;
     @FXML
-    //public ListView<String> listOfImages;
     public TreeView<String> listOfImages;
     @FXML
     public javafx.scene.image.ImageView imagePreview;
@@ -47,10 +48,6 @@ public class SelectDirectoryController implements Initializable {
         this.tagITModel = model;
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-    }
-
     /**
      * Function opens a window that allows the user to choose a Directory and
      * open it in the program. The application then displays all image files in
@@ -64,10 +61,8 @@ public class SelectDirectoryController implements Initializable {
         if (numWindowsOpen <= 1) {
             DirectoryChooser dirChoose = new DirectoryChooser();
             File openedDirectory = dirChoose.showDialog(null);
-
             if (openedDirectory != null) {
                 this.tagITModel.setCurrentDirectory(openedDirectory.getAbsolutePath());
-
                 listOfImages.setRoot(getChildrenDirectory(openedDirectory.getAbsolutePath()));
             }
             listOfImages.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
@@ -82,6 +77,14 @@ public class SelectDirectoryController implements Initializable {
                 rootDirectory.getChildren().add(getChildrenDirectory(item.getAbsolutePath()));
             } else {
                 rootDirectory.getChildren().add(new TreeItem<String>(item.getAbsolutePath()));
+                if (item.getName().contains("@")) {
+                    int end = item.getName().lastIndexOf(".");
+                    int start = item.getName().indexOf("@");
+                    String[] tagsInFileName = item.getName().substring(start + 1, end).split("@");
+                    for (String tag : tagsInFileName) {
+                        new Tag("@" + tag, this.tagITModel.getTagManager());
+                    }
+                }
             }
         }
         return rootDirectory;
