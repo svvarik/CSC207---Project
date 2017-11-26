@@ -80,9 +80,9 @@ public class ImageFile extends Observable implements Serializable {
      */
     void addTag(String newTag, TagManager manager) {
 
-        if (!Pattern.matches("[@]*[a-zA-Z0-9]*", newTag)) {
-            return;
-        }
+//        if (!Pattern.matches("[@]*[a-zA-Z0-9]*", newTag)) {
+//            return;
+//        }
         //Checks to see if the user is typing in the tag, or were picking a tag with @sign already from sidebar
         String modifiedNewTag = newTag;
         if (!newTag.contains("@")){
@@ -92,7 +92,7 @@ public class ImageFile extends Observable implements Serializable {
         if ((!this.hasTag(modifiedNewTag))){
             Tag imageTag = manager.findTag(modifiedNewTag);
             if (imageTag == null) {
-                imageTag = new Tag(newTag, manager);
+                imageTag = new Tag(modifiedNewTag, manager);
             }
             HistoryManager.tagAdded(this, modifiedNewTag);
             this.tags.add(imageTag);
@@ -183,7 +183,6 @@ public class ImageFile extends Observable implements Serializable {
                     imageTag = new Tag(tag, manager);
                 }
                 this.tags.add(imageTag);
-                System.out.println(imageTag.toString());
             }
         }
         String imagePath = this.newImagePath();
