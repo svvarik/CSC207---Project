@@ -79,27 +79,24 @@ public class ImageFile extends Observable implements Serializable {
      * @param manager the TagManager currently used to manage all Tags.
      */
     void addTag(String newTag, TagManager manager) {
-
-//        if (!Pattern.matches("[@]*[a-zA-Z0-9]*", newTag)) {
-//            return;
-//        }
-        //Checks to see if the user is typing in the tag, or were picking a tag with @sign already from sidebar
-        String modifiedNewTag = newTag;
-        if (!newTag.contains("@")){
-            modifiedNewTag = "@" + modifiedNewTag;
-        }
-
-        if ((!this.hasTag(modifiedNewTag))){
-            Tag imageTag = manager.findTag(modifiedNewTag);
-            if (imageTag == null) {
-                imageTag = new Tag(modifiedNewTag, manager);
+        if (Pattern.matches("^[@]?[a-zA-Z0-9]+", newTag)) {
+            String modifiedNewTag = newTag;
+            //Checks to see if the user is typing in the tag, or were picking a tag with @sign already from sidebar
+            if (!newTag.contains("@")){
+                modifiedNewTag = "@" + modifiedNewTag;
             }
-            HistoryManager.tagAdded(this, modifiedNewTag);
-            this.tags.add(imageTag);
-            String imagePath = this.newImagePath();
-            this.rename(imagePath);
-            if (!this.imageHistory.contains(this.taggedName)) {
-                this.imageHistory.add(this.taggedName);
+            if ((!this.hasTag(modifiedNewTag))){
+                Tag imageTag = manager.findTag(modifiedNewTag);
+                if (imageTag == null) {
+                    imageTag = new Tag(modifiedNewTag, manager);
+                }
+                HistoryManager.tagAdded(this, modifiedNewTag);
+                this.tags.add(imageTag);
+                String imagePath = this.newImagePath();
+                this.rename(imagePath);
+                if (!this.imageHistory.contains(this.taggedName)) {
+                    this.imageHistory.add(this.taggedName);
+                }
             }
         }
     }

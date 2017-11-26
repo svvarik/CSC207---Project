@@ -6,8 +6,8 @@ import java.util.Observable;
 import java.util.Observer;
 
 public class TagITModel implements Observer{
-    private ImageManager imageManager = new ImageManager();
-    private TagManager tagManager = new TagManager();
+    private ImageManager imageManager;
+    private TagManager tagManager;
     private ImageFile currentImage;
 
     /** The current directory that the user has opened */
@@ -16,6 +16,10 @@ public class TagITModel implements Observer{
     /** The images and directories in the current directory*/
     private ObservableList<String> currentDirectoryFiles;
 
+    public TagITModel() {
+        imageManager = new ImageManager();
+        tagManager = new TagManager();
+    }
 
     ImageFile getCurrentImage() {
         return this.currentImage;

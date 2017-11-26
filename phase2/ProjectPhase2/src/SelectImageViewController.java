@@ -1,4 +1,6 @@
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -105,7 +107,6 @@ public class SelectImageViewController {
         this.allTagsUsed.setItems(this.tagITModel.getTagManager().getAllTags());
         this.allTagsUsed.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
     }
-
     /**
      * Adds a tag to the current image being modified on the screen.
      */
@@ -116,9 +117,11 @@ public class SelectImageViewController {
             userInputtedTag.clear();
         }
         if (!allTagsUsed.getSelectionModel().getSelectedItems().isEmpty()) {
-            Tag selectedTag = allTagsUsed.getSelectionModel().getSelectedItem();
-            if (!this.tagITModel.getCurrentImage().hasTag(selectedTag.toString())) {
-                this.tagITModel.getCurrentImage().addTag(selectedTag.toString(), this.tagITModel.getTagManager());
+            ObservableList<Tag> selectedTags = allTagsUsed.getSelectionModel().getSelectedItems();
+            for (Tag selectedTag : selectedTags) {
+                if (!this.tagITModel.getCurrentImage().hasTag(selectedTag.toString())) {
+                    this.tagITModel.getCurrentImage().addTag(selectedTag.toString(), this.tagITModel.getTagManager());
+                }
             }
             allTagsUsed.getSelectionModel().clearSelection();
         }
@@ -220,15 +223,12 @@ public class SelectImageViewController {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("ImageAllTagVersions.fxml"));
         Parent allTagsViewParent = loader.load();
-
         Scene allTagsViewScene = new Scene(allTagsViewParent);
 
         // Access the controller and call a method.
         ImageAllTagVersionsController controller = loader.getController();
         controller.initImageFile(this.tagITModel);
-
         Stage window = (Stage) (((Node) event.getSource()).getScene().getWindow());
-
         window.setScene(allTagsViewScene);
         window.show();
     }
