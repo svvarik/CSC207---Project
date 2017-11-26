@@ -14,16 +14,12 @@ import java.util.Observer;
  *
  */
 public class TagITModel implements Observer{
-<<<<<<< HEAD
+    /** The ImageManager instance that will be used throughout the program */
     private ImageManager imageManager;
-    private TagManager tagManager;
-=======
-	/** The ImageManager instance that will be used throughout the program */
-    private ImageManager imageManager = new ImageManager();
     /** The TagManager instance that will be used throughout the program */
-    private TagManager tagManager = new TagManager();
+    private TagManager tagManager;
+
     /** The current ImageFile chosen by the user */
->>>>>>> 5f43ed945fc84d29b9a6fcaf0d7b1a20fc941eea
     private ImageFile currentImage;
 
     /** The current directory that the user has opened */

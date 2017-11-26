@@ -6,7 +6,7 @@ import javax.imageio.ImageIO;
 
 public class FilterImage {
 
-        public  void grayScale(ImageFile image)throws IOException{
+        public static void grayScale(ImageFile image)throws IOException{
             BufferedImage img = null;
             File f = null;
 
@@ -44,10 +44,10 @@ public class FilterImage {
 
             //write image
             try{
-                f = new File("D:\\Image\\Output.jpg");
+//                f = new File("C:\\Users\\Desktop\\testingProjectPackage");
                 ImageIO.write(img, "jpg", f);
             }catch(IOException e){
                 System.out.println(e);
             }
-        }//main() ends here
-    }//class ends here
+        }
+    }
