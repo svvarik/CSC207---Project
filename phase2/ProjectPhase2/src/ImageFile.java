@@ -12,62 +12,63 @@ import java.util.Observable;
  */
 public class ImageFile extends Observable implements Serializable {
 
-    /**
-     * the tags given to the image
-     */
+    /** The tags given to the image */
     transient ObservableList<Tag> tags;
-
-    /**
-     * the original image file's name
-     */
+    /** An ArrayList all the tags, for serialization purposes. */
+    private ArrayList<Tag> arrayedTags;
+    /** The original image file's name */
     private String fileName;
-
-    /**
-     * the image file's name with the added tags
-     */
+    /** The image file's name with the added tags */
     private String taggedName;
-
-    /**
-     * The filepath for this Image
-     */
+    /** The absolute filepath for this Image */
     private String filePath;
-
-    /**
-     * Every name this image has had
-     */
+    /** Every name this image has had */
     private ArrayList<String> imageHistory = new ArrayList<>();
 
-    /**
-     * An ArrayList of the same Tags as attribute tags. For serialization purposes only.
-     */
-    private ArrayList<Tag> arrayedTags;
+    ObservableList<Tag> getTags() {
+        return this.tags;
+    }
 
+    void setTagsToObservableList(ObservableList<Tag> tags) {
+        this.tags = tags;
+    }
+
+    ArrayList<Tag> getArrayedTags() {
+        return this.arrayedTags;
+    }
+
+    void setTagsToArrayList(ArrayList<Tag> tags) {
+        this.arrayedTags = tags;
+    }
+
+    ArrayList<String> getImageHistory() {
+        return this.imageHistory;
+    }
+
+    String getFilePath() {
+        return this.filePath;
+    }
+
+    String getTaggedName() {
+        return this.taggedName;
+    }
 
     /**
-     * Construct a new ImageFile object
+     * Construct a new ImageFile object.
      *
-     * @param filePath the file path of the associated image.
+     * @param filePath The file path of the image that we are associating
+     *                 this ImageFile with.
      */
     public ImageFile(String filePath) {
         this.tags = FXCollections.observableArrayList();
         this.filePath = filePath;
-        //int start = this.filePath.lastIndexOf("\\") + 1;
-
         File userFile = new File(this.filePath);
         this.fileName = userFile.getName();
         this.taggedName = this.fileName;
+        // TODO: What is this???? Add this to JavaDoc??
         if (!this.imageHistory.contains(this.taggedName)) {
             this.imageHistory.add(this.taggedName);
         }
-    }
-
-    /**
-     * Returns this ImageFile object's filepath.
-     *
-     * @return this ImageFile object's filepath.
-     */
-    String getFilePath() {
-        return this.filePath;
     }
 
     /**
@@ -83,7 +84,6 @@ public class ImageFile extends Observable implements Serializable {
             if (imageTag == null) {
                 imageTag = new Tag(newTag, manager);
             }
-            HistoryManager.tagAdded(this, newTag);
             this.tags.add(imageTag);
             String imagePath = this.newImagePath();
             this.rename(imagePath);
@@ -94,25 +94,25 @@ public class ImageFile extends Observable implements Serializable {
     }
 
     /**
-     * Remove an existing tag from ImageFile.
+     * Return true iff this ImageFile does not have the given tag.
      *
-     * @param deletedTag the Tag to remove from the ImageFile.
+     * @param tag the tag to check for.
+     * @return true iff this ImageFile does not have the given tag.
      */
-    void removeImageTag(Tag deletedTag) {
-        this.tags.remove(deletedTag);
-        String imagePath = this.newImagePath();
-        this.rename(imagePath);
-        HistoryManager.tagDeleted(this, deletedTag.toString());
-        if (!this.imageHistory.contains(this.taggedName)) {
-            this.imageHistory.add(this.taggedName);
+    boolean hasTag(String tag) {
+        for (Tag t : this.tags) {
+            if (tag.equals(t.toString())) {
+                return true;
+            }
         }
+        return false;
     }
 
+
     /**
-     * Return the updated file path the image and this ImageFile object should have according to the added or removed
-     * Tags.
+     * Return the updated file path, with Tags added or removed.
      *
-     * @return the new file path.
+     * @return The new absolute file path to this image.
      */
     private String newImagePath() {
         StringBuilder tagsName = new StringBuilder();
@@ -145,45 +145,17 @@ public class ImageFile extends Observable implements Serializable {
     }
 
     /**
-     * Return the taggedName of the ImageFile.
+     * Remove an existing tag from ImageFile.
      *
-     * @return the taggedName of the ImageFile.
+     * @param deletedTag the Tag to remove from the ImageFile.
      */
-    String getTaggedName() {
-        return this.taggedName;
-    }
-
-    /**
-     * Return the fileName of the ImageFile.
-     *
-     * @return the fileName of the ImageFile
-     */
-    String getFileName() {
-        return this.fileName;
-    }
-
-    /**
-     * Return true iff this ImageFile does not have the given tag.
-     *
-     * @param tag the tag to check for.
-     * @return true iff this ImageFile does not have the given tag.
-     */
-    boolean hasTag(String tag) {
-        for (Tag t : this.tags) {
-            if (tag.equals(t.toString())) {
-                return true;
-            }
+    void removeImageTag(Tag deletedTag) {
+        this.tags.remove(deletedTag);
+        String imagePath = this.newImagePath();
+        this.rename(imagePath);
+        if (!this.imageHistory.contains(this.taggedName)) {
+            this.imageHistory.add(this.taggedName);
         }
-        return false;
-    }
-
-    /**
-     * Return a String representation of the ImageFile
-     *
-     * @return the String representation of the ImageFile.
-     */
-    public String toString() {
-        return this.getFilePath();
     }
 
     /**
@@ -215,7 +187,6 @@ public class ImageFile extends Observable implements Serializable {
      * @param manager     the TagManager currently used to manage all the tags.
      */
     void revertToOlderTags(String oldFileName, TagManager manager) {
-        HistoryManager.nameReverted(this, oldFileName);
 
         int end = oldFileName.lastIndexOf(".");
         String[] oldFileParts = oldFileName.substring(0, end).split("@");
@@ -225,50 +196,5 @@ public class ImageFile extends Observable implements Serializable {
         }
         this.tags.clear();
         this.addSetOfTags(oldDesiredTags, manager);
-    }
-
-    /**
-     * Return all the Tags of the ImageFile.
-     *
-     * @return all the current tags of the ImageFile.
-     */
-    ObservableList<Tag> getTags() {
-        return this.tags;
-    }
-
-    /**
-     * Return the ImageHistory of the ImageFile.
-     *
-     * @return the ImageHistory of the ImageFile.
-     */
-    ArrayList<String> getImageHistory() {
-        return this.imageHistory;
-    }
-
-    /**
-     * Return the ArrayedTags of this ImageFile.
-     *
-     * @return the arrayedTags of this ImageFile.
-     */
-    ArrayList<Tag> getArrayedTags() {
-        return this.arrayedTags;
-    }
-
-    /**
-     * Sets tags to an arrayList.
-     *
-     * @param tags the tags to convert to arraylist.
-     */
-    void setTagsToArrayList(ArrayList<Tag> tags) {
-        this.arrayedTags = tags;
-    }
-
-    /**
-     * Sets tags to an observable list.
-     *
-     * @param tags the tags to convert to observable list.
-     */
-    void setTagsToObservableList(ObservableList<Tag> tags) {
-        this.tags = tags;
     }
 }
