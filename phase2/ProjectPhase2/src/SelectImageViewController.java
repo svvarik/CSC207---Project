@@ -20,70 +20,71 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * This SelectImageViewController class manages and defines all the application's actions in the second scene.
+ * This SelectImageViewController class manages and defines all the
+ * application's actions in the second scene.
  * <p>
- * The second scene occurs when an image file has been selected and the user is able to perform different operations
+ * The second scene occurs when an image file has been selected and the user
+ * is able to perform different operations
  * including adding/removing tags, changing the directory and so on.
  */
 public class SelectImageViewController {
 
     /**
-     * The following variables declare the annotation '@FXML', which means they use an FXMLLoader to read values
+     * The following variables declare the annotation '@FXML', which means they
+     * use an FXMLLoader to read values
      * of Button/TextField/ImageView objects from the associated .fxml file
      **/
 
-    // Displays a list view of all tags used for the current image
-    @FXML
-    public ListView<Tag> allTagsUsed;
+    /** Displays a list view of all tags used*/
+    @FXML public ListView<Tag> allTagsUsed;
 
-    // Displays a list view of all the tags used in the current image's file name
-    @FXML
-    public ListView<Tag> allTagsForCurrPic;
+    /** Displays a list view of all the tags used in the current image's file name */
+    @FXML public ListView<Tag> allTagsForCurrPic;
 
-    // Takes in keyboard input from the user, when user adds a tag
-    @FXML
-    TextField userInputtedTag;
+    /** Takes in keyboard input from the user, when user adds a tag */
+    @FXML TextField userInputtedTag;
 
-    // An action to add a tag to an image
-    @FXML
-    Button addTag;
+    /** An action to add a tag to an image */
+    @FXML Button addTag;
 
-    // An action to remove a tag from an image
-    @FXML
-    Button removeTag;
+    /** An action to remove a tag from an image */
+    @FXML Button removeTag;
 
-    // An action to close a menu
-    @FXML
-    public MenuItem close;
+    /** An action to close a menu */
+    @FXML public MenuItem close;
 
-    // Displays a preview of the current image
-    @FXML
-    ImageView imageToBeTagged;
+    /** Displays a preview of the current image */
+    @FXML ImageView imageToBeTagged;
 
-    // An action to move to the previous scene
-    @FXML
-    Button backButton;
+    /** An action to move to the previous scene */
+    @FXML Button backButton;
 
-    // An action to change the directory of the current image
-    @FXML
-    Button changeLocation;
+    /** An action to change the directory of the current image */
+    @FXML Button changeLocation;
 
-    // An action to open a File System Viewer to view the directory where the current image is located
-    @FXML
-    Button openEnclosingFolder;
+    /**
+     * An action to open a File System Viewer to view the directory where the
+     * current image is located
+     */
+    @FXML Button openEnclosingFolder;
 
-    // An action to change the file name to one of its previous names, with the set of tags
-    @FXML
-    Button changeToPastTags;
+    /**
+     * An action to change the file name to one of its previous names,
+     * with the set of tags
+     * */
+    @FXML Button changeToPastTags;
 
-    // represents the string filepath for an image
+    /** represents the string filepath for an image */
     private String selectedImagePath;
 
+    /** The Model of the program */
     private TagITModel tagITModel;
 
-    // Tracks the number of windows to the user's computer's FileSystemViewer open in the current scene
+    /**
+     * Tracks the number of windows to the user's computer's FileSystemViewer
+     * open in the current scene
+     * */
     private static int numWindowsOpen = 0;
-
 
     /**
      * Set the ImageView object on this screen to display an image given a
