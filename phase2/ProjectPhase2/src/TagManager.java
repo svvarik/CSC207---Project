@@ -41,15 +41,20 @@ public class TagManager {
         }
     }
 
+    // This allows users to add their own tags independant of images
+    void addTag(String tagToBeAdded){
+        new Tag(tagToBeAdded, this);
+    }
+
     /**
      * Remove a tag from the list, tagsUsed. The argument must exist within the
      * list.
      *
      * @param tagToBeRemoved The Tag specified to be removed from the list.
      */
-    void removeTag(Tag tagToBeRemoved) {
+    void removeTag(String tagToBeRemoved) {
         for (int i = 0; i < this.allTags.size(); i = i + 1) {
-            if (this.allTags.get(i).equals(tagToBeRemoved)) {
+            if (this.allTags.get(i).toString().equals(tagToBeRemoved)) {
                 this.allTags.remove(i);
             }
         }
