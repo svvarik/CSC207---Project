@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Observable;
+import java.util.regex.Pattern;
 
 /**
  * Keeps track of tags on a particular image
@@ -79,11 +80,21 @@ public class ImageFile extends Observable implements Serializable {
      */
     void addTag(String newTag, TagManager manager) {
 
-        if (!this.hasTag(newTag)) {
-            Tag imageTag = manager.findTag(newTag);
+        if (!Pattern.matches("[@]*[a-zA-Z0-9]*", newTag)) {
+            return;
+        }
+        //Checks to see if the user is typing in the tag, or were picking a tag with @sign already from sidebar
+        String modifiedNewTag = newTag;
+        if (!newTag.contains("@")){
+            modifiedNewTag = "@" + modifiedNewTag;
+        }
+
+        if ((!this.hasTag(modifiedNewTag))){
+            Tag imageTag = manager.findTag(modifiedNewTag);
             if (imageTag == null) {
                 imageTag = new Tag(newTag, manager);
             }
+            HistoryManager.tagAdded(this, modifiedNewTag);
             this.tags.add(imageTag);
             String imagePath = this.newImagePath();
             this.rename(imagePath);
