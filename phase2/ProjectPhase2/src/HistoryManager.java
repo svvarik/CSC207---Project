@@ -1,88 +1,54 @@
+import java.io.*;
 import java.util.ArrayList;
-import java.util.logging.Logger;
-import java.util.logging.Level;
-import java.util.logging.FileHandler;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-/**
- * A History Manager class that keeps track of all renaming done, and logs data
- **/
+
+/** A History Manager class that keeps track of all renaming done, and logs data **/
 
 public class HistoryManager {
-	/** A formatted array list of all the renaming done in the program, */
-	static ArrayList<String> renamingList = new ArrayList<>();
+    /** A formatted array list of all the renaming done in the program, */
+    private ArrayList<String> renamingList;
+    private String saveFilePath;
 
-	/**
-	 * Keeps an array list of all the renaming done, tags added and deleted, in
-	 * the program and updates history.txt with the changes once the program is
-	 * exited.
-	 */
-	public HistoryManager() throws SecurityException, IOException {
-		// Initialize the logger
-		FileHandler fh = new FileHandler("history.txt", true);
-		fh.setFormatter(new LogFormatter());
-		Logger logger = Logger.getLogger("logger");
-		logger.setUseParentHandlers(false);
-		logger.setLevel(Level.ALL);
-		logger.addHandler(fh);
-		for (String renaming : renamingList) {
-			logger.info(renaming);
-		}
-	}
+    /**
+     * A constructor for the HistoryManager class.
+     */
+    public HistoryManager(){
+        this.renamingList = new ArrayList<>();
+    }
 
-	/**
-	 * Creates a formatted String to be stored in renamingList with the time,
-	 * old name and new name of the ImageFile and is called when a tag is added
-	 * to an ImageFile
-	 *
-	 * @param image
-	 *            The ImageFile that is being tagged
-	 * @param tag
-	 *            The String tag that was added to the ImageFile
-	 */
-	static void tagAdded(ImageFile image, String tag) {
-		String timeStamp = new SimpleDateFormat().format(new Date());
-		String oldName = image.getTaggedName();
-		String[] nameParts = image.getTaggedName().split("\\.");
-		String newName = nameParts[0] + tag + "." + nameParts[1];
-		renamingList.add(timeStamp + "\nTag: " + tag + " was added to " + image.toString() + "\nOldName: " + oldName
-				+ "\nNewName: " + newName + "\n");
-	}
+    /**
+     * Keeps an array list of all the renaming done, tags added and deleted, in the program and
+     * updates history.txt with the changes once the program is exited.
+     */
+    public void createSaveFile() throws SecurityException, IOException {
+        // Create a new File object and set the saveFilePath
+        File newFile = new File(".history.txt");
+        this.saveFilePath = newFile.getAbsolutePath();
 
-	/**
-	 * Creates a formatted String to be stored in renamingList with the time,
-	 * old name and new name of the ImageFile, and is called when a tag is
-	 * deleted from an ImageFile
-	 *
-	 * @param image
-	 *            The ImageFile that is being tagged
-	 * @param tag
-	 *            The String tag that was added to the ImageFile
-	 */
-	static void tagDeleted(ImageFile image, String tag) {
-		String timeStamp = new SimpleDateFormat().format(new Date());
-		String newName = image.getTaggedName();
-		String[] nameParts = image.getTaggedName().split("\\.");
-		String oldName = nameParts[0] + tag + "." + nameParts[1];
-		renamingList.add(timeStamp + "\nTag: " + tag + " was deleted from " + image.toString() + "\nOldName: " + oldName
-				+ "\nNewName: " + newName + "\n");
-	}
-	
-	/**
-	 * Creates a formatted String to be stored in renamingList with the time,
-	 * old name and new name of the ImageFile, and is called when the name of an ImageFile changes
-	 * @param image
-	 * 			The ImageFile whose filename is being changed
-	 * @param newName
-	 * 			The new name
-	 */
+        // Create a new writer object to create / and write to the file.
+        OutputStreamWriter writer = new FileWriter(newFile, true);
+        BufferedWriter buffer = new BufferedWriter(writer);
 
-	static void nameReverted(ImageFile image, String newName) {
-		String timeStamp = new SimpleDateFormat().format(new Date());
-		String oldName = image.getTaggedName();
-		renamingList.add(timeStamp + image.toString() + " was changed " + "\nOldName: " + oldName + "\nNewName: "
-				+ newName + "\n");
-	}
+        for (String s : this.renamingList) {
+            buffer.write(s);
+            buffer.newLine();
+        }
+        buffer.close();
+    }
+
+    /**
+     * This method adds a new rename event to the renamingList Array.
+     *
+     * @param oldName The old name of the image in a String format.
+     * @param newName The new name added to the image, in a string format.
+     */
+    public void addRenameEvent(String oldName, String newName) {
+        // Add the current timestamp, the Old Name, and the NewName into the
+        // ArrayList.
+        String timeStamp = new SimpleDateFormat().format(new Date());
+        this.renamingList.add(
+                timeStamp + "Old Name: " + oldName + "New Name: " + newName + System.lineSeparator());
+    }
 }
