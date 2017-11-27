@@ -45,9 +45,9 @@ public class ImageFile extends Observable implements Serializable {
      */
     private ArrayList<String> imageHistory = new ArrayList<>();
 
+    public File f;
     public BufferedImage original;
     public BufferedImage current;
-    public File f;
 
 
     ObservableList<Tag> getTags() {
@@ -84,7 +84,7 @@ public class ImageFile extends Observable implements Serializable {
      * @param filePath The file path of the image that we are associating
      *                 this ImageFile with.
      */
-    public ImageFile(String filePath) throws IOException {
+    public ImageFile(String filePath) {
         this.tags = FXCollections.observableArrayList();
         this.filePath = filePath;
         File userFile = new File(this.filePath);
@@ -95,9 +95,15 @@ public class ImageFile extends Observable implements Serializable {
             this.imageHistory.add(this.taggedName);
         }
 
-        File f = new File(this.getFilePath());
+
+        try{
+        File file = new File(this.getFilePath());
+        this.f = file;
         original = ImageIO.read(f);
         current = ImageIO.read(f);
+        } catch (IOException e){
+            e.printStackTrace();
+        }
     }
 
     /**

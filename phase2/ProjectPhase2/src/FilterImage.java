@@ -6,9 +6,9 @@ import javax.imageio.ImageIO;
 
 public class FilterImage {
 
-    public static void recolour(BufferedImage oldImg, File f){
+    public static void recolour(BufferedImage Img, File f){
         try{
-            ImageIO.write(oldImg, "jpg", f);
+            ImageIO.write(Img, "jpg", f);
         }catch(IOException e){
         }
 
@@ -18,7 +18,6 @@ public class FilterImage {
     }
 
     public static void grayScale(ImageFile image)throws IOException{
-
 
         //get image width and height
         int width = image.original.getWidth();
