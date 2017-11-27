@@ -1,7 +1,8 @@
-import com.sun.tools.javah.Gen;
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,8 +19,12 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.geom.Arc2D;
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileFilter;
 import java.io.IOException;
 
 /**
@@ -30,8 +35,7 @@ import java.io.IOException;
  * is able to perform different operations
  * including adding/removing tags, changing the directory and so on.
  */
-public class SelectImageViewController extends GeneralController {
-
+public class SelectImageViewController {
     /**
      * The following variables declare the annotation '@FXML', which means they
      * use an FXMLLoader to read values
@@ -79,6 +83,10 @@ public class SelectImageViewController extends GeneralController {
      * */
     @FXML Button changeToPastTags;
 
+    @FXML Button defaultColour;
+
+    @FXML Button setFilterButton;
+
     /** The Model of the program */
     private TagITModel tagITModel;
 
@@ -95,7 +103,7 @@ public class SelectImageViewController extends GeneralController {
      * @param imagePath A string that is the file path for image that is to be
      *                  displayed.
      */
-    void initImagePath(String imagePath, TagITModel model) {
+    void initImagePath(String imagePath, TagITModel model) throws IOException {
         File f = new File(imagePath);
         Image imageNeedsToBeTagged = new Image(f.toURI().toString());
         imageToBeTagged.setImage(imageNeedsToBeTagged);
@@ -236,8 +244,36 @@ public class SelectImageViewController extends GeneralController {
         window.show();
     }
 
-    public void grayScaleImage() throws IOException {
-        FilterImage.grayScale(tagITModel.getCurrentImage());
+    /**
+     * Applies the given Filter to the image displayed in imageToBeTagged. It does not modify the original file the
+     * image is stored in.
+     *
+     * @param event the action of the button being clicked.
+     * @throws IOException IOException from creating BufferedImage
+     */
+    public void filterImage(ActionEvent event) throws IOException{
+        Button clickedButton = (Button) event.getSource();
+        BufferedImage img = FilterImage.originalScale(tagITModel.getCurrentImage());
+
+        if (clickedButton.equals(grayScale)) {
+            img = FilterImage.grayScale(tagITModel.getCurrentImage());
+        }
+        if (clickedButton.equals(defaultColour)) {
+            img = FilterImage.originalScale(tagITModel.getCurrentImage());
+        }
+        this.tagITModel.setCurrentImagewithFilter(img);
+        Image newImage = SwingFXUtils.toFXImage(img, null);
+        imageToBeTagged.setImage(newImage);
+    }
+
+
+    /** Modifies the image being edited to include the filter. The image with the filter replaces the original image.*/
+    public void setFilter() {
+        //Image img = this.imageToBeTagged.getImage();
+        //BufferedImage imageWithFilter = SwingFXUtils.fromFXImage(img, null);
+        //imageToBeTagged.setImage(SwingFXUtils.toFXImage(imageWithFilter, null));
+        FilterImage.recolour(this.tagITModel.getCurrentImagewithFilter(), this.tagITModel.getCurrentImage().getFilePath());
+        //this.imageToBeTagged.setImage(new Image(new File(this.tagITModel.getCurrentImage().getFilePath()).toURI().toString()));
     }
 }
 

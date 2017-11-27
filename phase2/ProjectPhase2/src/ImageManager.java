@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class ImageManager {
@@ -29,7 +30,7 @@ public class ImageManager {
         return false;
     }
 
-    ImageFile findImage(String imagePath) {
+    ImageFile findImage(String imagePath) throws IOException {
         for (ImageFile i : this.createdImages) {
             if (imagePath.equals(i.getFilePath())) {
                 return i;

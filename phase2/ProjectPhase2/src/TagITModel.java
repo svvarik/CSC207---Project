@@ -1,7 +1,10 @@
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -23,6 +26,8 @@ public class TagITModel implements Observer{
     private TagManager tagManager;
     /** The current ImageFile chosen by the user */
     private ImageFile currentImage;
+    /** The BufferedImage with original colours the user is viewing */
+    private BufferedImage currentImagewithFilter;
     /** The current directory that the user has opened */
     private String currentDirectory;
     /** The images and directories in the current directory*/
@@ -49,6 +54,14 @@ public class TagITModel implements Observer{
      */
     void setCurrentImage(ImageFile newCurImage) {
         this.currentImage = newCurImage;
+    }
+
+    void setCurrentImagewithFilter(BufferedImage curImageWithFilter) {
+        this.currentImagewithFilter = curImageWithFilter;
+    }
+
+    BufferedImage getCurrentImagewithFilter() {
+        return this.currentImagewithFilter;
     }
 
     /**

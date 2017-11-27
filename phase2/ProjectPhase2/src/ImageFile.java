@@ -45,9 +45,27 @@ public class ImageFile extends Observable implements Serializable {
      */
     private ArrayList<String> imageHistory = new ArrayList<>();
 
-    public BufferedImage original;
-    public BufferedImage current;
-    public File f;
+//    public File f;
+//    public BufferedImage original;
+//    public BufferedImage current;
+
+    /**
+     * Construct a new ImageFile object.
+     *
+     * @param filePath The file path of the image that we are associating
+     *                 this ImageFile with.
+     */
+    public ImageFile(String filePath) {
+        this.tags = FXCollections.observableArrayList();
+        this.filePath = filePath;
+        File userFile = new File(this.filePath);
+        this.fileName = userFile.getName();
+        this.taggedName = this.fileName;
+        // TODO: What is this???? Add this to JavaDoc??
+        if (!this.imageHistory.contains(this.taggedName)) {
+            this.imageHistory.add(this.taggedName);
+        }
+    }
 
 
     ObservableList<Tag> getTags() {
@@ -76,28 +94,6 @@ public class ImageFile extends Observable implements Serializable {
 
     String getTaggedName() {
         return this.taggedName;
-    }
-
-    /**
-     * Construct a new ImageFile object.
-     *
-     * @param filePath The file path of the image that we are associating
-     *                 this ImageFile with.
-     */
-    public ImageFile(String filePath) throws IOException {
-        this.tags = FXCollections.observableArrayList();
-        this.filePath = filePath;
-        File userFile = new File(this.filePath);
-        this.fileName = userFile.getName();
-        this.taggedName = this.fileName;
-        // TODO: What is this???? Add this to JavaDoc??
-        if (!this.imageHistory.contains(this.taggedName)) {
-            this.imageHistory.add(this.taggedName);
-        }
-
-        File f = new File(this.getFilePath());
-        original = ImageIO.read(f);
-        current = ImageIO.read(f);
     }
 
     /**
