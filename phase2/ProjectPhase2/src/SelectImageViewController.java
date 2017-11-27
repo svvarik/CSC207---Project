@@ -64,6 +64,8 @@ public class SelectImageViewController {
     /** An action to change the directory of the current image */
     @FXML Button changeLocation;
 
+    @FXML Button grayScale;
+
     /**
      * An action to open a File System Viewer to view the directory where the
      * current image is located
@@ -231,6 +233,10 @@ public class SelectImageViewController {
         Stage window = (Stage) (((Node) event.getSource()).getScene().getWindow());
         window.setScene(allTagsViewScene);
         window.show();
+    }
+
+    public void grayScaleImage() throws IOException {
+        FilterImage.grayScale(tagITModel.getCurrentImage());
     }
 }
 
