@@ -1,30 +1,54 @@
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import javax.swing.text.html.HTML;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.regex.Pattern;
+import java.io.File;
+import java.io.IOException;
+import java.awt.image.BufferedImage;
+import javax.imageio.ImageIO;
+
 
 /**
  * Keeps track of tags on a particular image
  */
 public class ImageFile extends Observable implements Serializable {
 
-    /** The tags given to the image */
+    /**
+     * The tags given to the image
+     */
     transient ObservableList<Tag> tags;
-    /** An ArrayList all the tags, for serialization purposes. */
+    /**
+     * An ArrayList all the tags, for serialization purposes.
+     */
     private ArrayList<Tag> arrayedTags;
-    /** The original image file's name */
+    /**
+     * The original image file's name
+     */
     private String fileName;
-    /** The image file's name with the added tags */
+    /**
+     * The image file's name with the added tags
+     */
     private String taggedName;
-    /** The absolute filepath for this Image */
+    /**
+     * The absolute filepath for this Image
+     */
     private String filePath;
-    /** Every name this image has had */
+    /**
+     * Every name this image has had
+     */
     private ArrayList<String> imageHistory = new ArrayList<>();
+
+    public BufferedImage original;
+    public BufferedImage current;
+    public File f;
+
 
     ObservableList<Tag> getTags() {
         return this.tags;
@@ -60,7 +84,7 @@ public class ImageFile extends Observable implements Serializable {
      * @param filePath The file path of the image that we are associating
      *                 this ImageFile with.
      */
-    public ImageFile(String filePath) {
+    public ImageFile(String filePath) throws IOException {
         this.tags = FXCollections.observableArrayList();
         this.filePath = filePath;
         File userFile = new File(this.filePath);
@@ -70,6 +94,10 @@ public class ImageFile extends Observable implements Serializable {
         if (!this.imageHistory.contains(this.taggedName)) {
             this.imageHistory.add(this.taggedName);
         }
+
+        File f = new File(this.getFilePath());
+        original = ImageIO.read(f);
+        current = ImageIO.read(f);
     }
 
     /**
@@ -82,10 +110,10 @@ public class ImageFile extends Observable implements Serializable {
         if (Pattern.matches("^[@]?[a-zA-Z0-9]+", newTag)) {
             String modifiedNewTag = newTag;
             //Checks to see if the user is typing in the tag, or were picking a tag with @sign already from sidebar
-            if (!newTag.contains("@")){
+            if (!newTag.contains("@")) {
                 modifiedNewTag = "@" + modifiedNewTag;
             }
-            if ((!this.hasTag(modifiedNewTag))){
+            if ((!this.hasTag(modifiedNewTag))) {
                 Tag imageTag = manager.findTag(modifiedNewTag);
                 if (imageTag == null) {
                     imageTag = new Tag(modifiedNewTag, manager);
