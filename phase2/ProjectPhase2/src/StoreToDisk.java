@@ -15,13 +15,41 @@ public class StoreToDisk implements Serializable {
 	 *
 	 * @throws IOException
 	 */
-	static void initSaveFile() throws IOException {
+	static void initSaveFiles() throws IOException {
 		File newFile1 = new File("programData.ser");
+		File newFile2 = new File(".history.txt");
 
 		if (!newFile1.exists()) {
 			new FileOutputStream("programData.ser");
 		}
+		if (!newFile2.exists()) {
+			new FileWriter(".history.txt");
+		}
 	}
+
+	static void readHistory(TagITModel model) throws IOException {
+		FileReader fileReader1 = new FileReader(".history.txt");
+		BufferedReader fileReader = new BufferedReader(fileReader1);
+		String newLine;
+		while(fileReader.readLine() != null) {
+			newLine = fileReader.readLine();
+			model.getHistoryManager().getRenamingList().add(newLine);
+		}
+		fileReader.close();
+
+	}
+
+	static void writeHistory(TagITModel model) throws IOException {
+		OutputStreamWriter writer = new FileWriter(".history.txt",false);
+		BufferedWriter buffer = new BufferedWriter(writer);
+
+		for (String s : model.getHistoryManager().getRenamingList()) {
+			buffer.write(s);
+			buffer.newLine();
+		}
+		buffer.close();
+	}
+
 	/**
 	 * Declares the input stream as a serialized file. Converts the
 	 * serialized binary data stored in programData.ser, and reads it into a
@@ -78,4 +106,5 @@ public class StoreToDisk implements Serializable {
 		saveState.saveImages(tagITModel.getImageManager().getCreatedImages());
 		return saveState;
 	}
+
 }

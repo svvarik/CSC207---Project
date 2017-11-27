@@ -52,6 +52,13 @@ public class TagITModel implements Observer{
     }
 
     /**
+     * A getter method to access the HistoryManager information.
+     */
+    HistoryManager getHistoryManager(){
+        return this.historyManager;
+    }
+
+    /**
      * A method to access the TagManager information
      * @return
      * 		The TagManager instance used in the program
@@ -87,25 +94,6 @@ public class TagITModel implements Observer{
         this.currentDirectory = dirPath;
         File[] dirFiles = FileManager.imageFilesFilter(new File(this.currentDirectory));
         currentDirectoryFiles = FXCollections.observableList(FileManager.filesToString(dirFiles));
-    }
-
-    /**
-     * Returns the list of files/folders represented by their file paths
-     * @return
-     * 		An observable list of file paths in the current directory
-     */
-    ObservableList<String> getCurrentDirectoryFiles() {
-        return this.currentDirectoryFiles;
-    }
-
-    /**
-     * A method to access the current save path of the History log.
-     *
-     * @return The String file path for the save file.
-     */
-
-    public String getHistorySaveLocation(){
-        return this.historyManager.getSaveLocation();
     }
 
     /**
