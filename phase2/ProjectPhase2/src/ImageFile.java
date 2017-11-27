@@ -90,7 +90,6 @@ public class ImageFile extends Observable implements Serializable {
                 if (imageTag == null) {
                     imageTag = new Tag(modifiedNewTag, manager);
                 }
-                HistoryManager.tagAdded(this, modifiedNewTag);
                 this.tags.add(imageTag);
                 String imagePath = this.newImagePath();
                 this.rename(imagePath);
