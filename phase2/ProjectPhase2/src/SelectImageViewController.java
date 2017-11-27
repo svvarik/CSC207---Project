@@ -1,6 +1,7 @@
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,6 +19,7 @@ import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
@@ -236,7 +238,9 @@ public class SelectImageViewController {
     }
 
     public void grayScaleImage() throws IOException {
-        FilterImage.grayScale(tagITModel.getCurrentImage());
+        BufferedImage img = FilterImage.grayScale(tagITModel.getCurrentImage());
+        Image newImage = SwingFXUtils.toFXImage(img, null);
+        imageToBeTagged.setImage(newImage);
     }
 }
 

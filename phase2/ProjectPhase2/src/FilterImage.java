@@ -9,7 +9,7 @@ public class FilterImage {
         public static void grayScale(ImageFile image)throws IOException{
             BufferedImage img = null;
             File f = null;
-
+            
             //read image
             try{
                 f = new File(image.getFilePath());
