@@ -1,3 +1,4 @@
+import com.sun.tools.javah.Gen;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -31,7 +32,7 @@ import java.io.IOException;
  * is able to perform different operations
  * including adding/removing tags, changing the directory and so on.
  */
-public class SelectImageViewController {
+public class SelectImageViewController extends GeneralController {
 
     /**
      * The following variables declare the annotation '@FXML', which means they

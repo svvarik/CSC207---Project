@@ -18,6 +18,10 @@ public class HistoryManager {
         this.renamingList = new ArrayList<>();
     }
 
+    public String getSaveFilePath() {
+        return saveFilePath;
+    }
+
     /**
      * Keeps an array list of all the renaming done, tags added and deleted, in the program and
      * updates history.txt with the changes once the program is exited.
@@ -50,5 +54,9 @@ public class HistoryManager {
         String timeStamp = new SimpleDateFormat().format(new Date());
         this.renamingList.add(
                 timeStamp + "Old Name: " + oldName + "New Name: " + newName + System.lineSeparator());
+    }
+
+    public String getSaveLocation(){
+        return this.saveFilePath;
     }
 }

@@ -14,23 +14,24 @@ import java.util.Observer;
  *
  */
 public class TagITModel implements Observer{
+
+    /** The HistoryManager instance that will be used throughout the program. */
+    private HistoryManager historyManager;
     /** The ImageManager instance that will be used throughout the program */
     private ImageManager imageManager;
     /** The TagManager instance that will be used throughout the program */
     private TagManager tagManager;
-
     /** The current ImageFile chosen by the user */
     private ImageFile currentImage;
-
     /** The current directory that the user has opened */
     private String currentDirectory;
-
     /** The images and directories in the current directory*/
     private ObservableList<String> currentDirectoryFiles;
 
     public TagITModel() {
-        imageManager = new ImageManager();
-        tagManager = new TagManager();
+        this.historyManager = new HistoryManager();
+        this.imageManager = new ImageManager();
+        this.tagManager = new TagManager();
     }
 
     /**
@@ -95,6 +96,16 @@ public class TagITModel implements Observer{
      */
     ObservableList<String> getCurrentDirectoryFiles() {
         return this.currentDirectoryFiles;
+    }
+
+    /**
+     * A method to access the current save path of the History log.
+     *
+     * @return The String file path for the save file.
+     */
+
+    public String getHistorySaveLocation(){
+        return this.historyManager.getSaveLocation();
     }
 
     /**
