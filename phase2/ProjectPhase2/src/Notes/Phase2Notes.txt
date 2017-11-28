@@ -25,6 +25,8 @@ Phase2 - Features, necessary to implement
   under that directory
     - Tags that aren’t in the TagManager class should be added
       to our TagsManaged
+    - Tags to add to TagsManaged: discuss with group, include in presentation!
+            - only add from the current directory? Only add top 10?
 
 - Absolute path should be visible in UI
 
@@ -71,3 +73,6 @@ Ask Paul
 
 Problem:
 1. Removing tags does not change file path properly.
+
+
+Presentation- talk about the dilemmas and decisions we made.

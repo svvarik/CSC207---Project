@@ -61,6 +61,8 @@ public class SelectImageViewController extends GeneralController {
 
     @FXML Button grayScale;
 
+    @FXML Button sepia;
+
     /**
      * An action to open a File System Viewer to view the directory where the
      * current image is located
@@ -234,6 +236,10 @@ public class SelectImageViewController extends GeneralController {
         }
         if (clickedButton.equals(defaultColour)) {
             img = ImageFilter.originalScale(tagITModel.getCurrentImage());
+        }
+
+        if (clickedButton.equals(sepia)){
+            img = ImageFilter.sepia(tagITModel.getCurrentImage());
         }
         this.tagITModel.setCurrentImagewithFilter(img);
         Image newImage = SwingFXUtils.toFXImage(img, null);

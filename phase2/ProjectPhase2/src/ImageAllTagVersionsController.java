@@ -47,7 +47,7 @@ public class ImageAllTagVersionsController {
 
         // Access the controller and call a method.
         SelectImageViewController controller = loader.getController();
-        controller.initImagePath(this.tagITModel.getCurrentImage().getFilePath(), this.tagITModel);
+        controller.initImagePath(this.tagITModel.getCurrentImage().getFilePath());
 
         Stage window = (Stage) (((Node) event.getSource()).getScene().getWindow());
 

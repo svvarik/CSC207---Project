@@ -29,7 +29,7 @@ abstract public class GeneralController {
         loader.setLocation(getClass().getResource("LogView.fxml"));
         Parent root = loader.load();
         LogViewController controller = loader.getController();
-        controller.initLogView(this.tagITModel);
+        controller.initController(this.tagITModel);
         Stage stage = new Stage();
         stage.setTitle("Tag History");
         stage.setScene(new Scene(root, 600, 400));

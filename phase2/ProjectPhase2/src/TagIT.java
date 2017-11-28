@@ -38,7 +38,7 @@ public class TagIT extends Application {
         loader.setLocation(getClass().getResource("SelectDirectory.fxml"));
         Parent root = loader.load();
         SelectDirectoryController controller = loader.getController();
-        controller.initModel(this.tagITModel);
+        controller.initController(this.tagITModel);
         primaryStage.setTitle("TagIT");
         primaryStage.setScene(new Scene(root, 650, 450));
         primaryStage.show();
