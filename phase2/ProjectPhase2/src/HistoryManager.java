@@ -1,9 +1,6 @@
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import org.omg.CosNaming.NamingContextExtPackage.StringNameHelper;
 
-import java.io.*;
-import java.util.ArrayList;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Observable;
@@ -17,7 +14,6 @@ public class HistoryManager implements Observer{
      * A formatted array list of all the renaming done in the program,
      */
     private ObservableList<String> renamingList;
-    private String saveFilePath;
 
     /**
      * A constructor for the HistoryManager class.
@@ -36,12 +32,13 @@ public class HistoryManager implements Observer{
      * @param oldName The old name of the image in a String format.
      * @param newName The new name added to the image, in a string format.
      */
-    public void addRenameEvent(String oldName, String newName) {
+    private void addRenameEvent(String oldName, String newName) {
         // Add the current timestamp, the Old Name, and the NewName into the
         // ArrayList.
         String timeStamp = new SimpleDateFormat().format(new Date());
         this.renamingList.add(
-                timeStamp + "Old Name: " + oldName + "New Name: " + newName + System.lineSeparator());
+                "Time: " + timeStamp + ", " + "Old Name: " + oldName + ", " +
+                        "New Name: " + newName + System.lineSeparator());
     }
 
     @Override
@@ -50,6 +47,12 @@ public class HistoryManager implements Observer{
         String oldName = namesToLog[0];
         String newName = namesToLog[1];
         this.addRenameEvent(oldName, newName);
-        System.out.println(this.renamingList);
+    }
+
+    public void testMethod() {
+        for (String s : this.renamingList ) {
+            System.out.println(s);
+
+        }
     }
 }

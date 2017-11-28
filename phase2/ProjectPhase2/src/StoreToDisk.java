@@ -1,5 +1,3 @@
-import javafx.collections.ObservableList;
-
 import java.io.*;
 
 /**
@@ -31,21 +29,23 @@ public class StoreToDisk implements Serializable {
 		FileReader fileReader1 = new FileReader(".history.txt");
 		BufferedReader fileReader = new BufferedReader(fileReader1);
 		String newLine;
-		while(fileReader.readLine() != null) {
-			newLine = fileReader.readLine();
-			model.getHistoryManager().getRenamingList().add(newLine);
+		while((newLine = fileReader.readLine()) != null) {
+		    if(!newLine.equals(System.lineSeparator())) {
+                model.getHistoryManager().getRenamingList().add(newLine);
+            }
 		}
 		fileReader.close();
-
 	}
 
 	static void writeHistory(TagITModel model) throws IOException {
-		OutputStreamWriter writer = new FileWriter(".history.txt",false);
+		OutputStreamWriter writer = new FileWriter(".history.txt");
 		BufferedWriter buffer = new BufferedWriter(writer);
 
 		for (String s : model.getHistoryManager().getRenamingList()) {
-			buffer.write(s);
-			buffer.newLine();
+		    if(s!=null) {
+                buffer.write(s);
+                buffer.newLine();
+            }
 		}
 		buffer.close();
 	}
