@@ -1,15 +1,18 @@
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import org.omg.CosNaming.NamingContextExtPackage.StringNameHelper;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Observable;
+import java.util.Observer;
 
 
 /** A History Manager class that keeps track of all renaming done, and logs data **/
 
-public class HistoryManager {
+public class HistoryManager implements Observer{
     /**
      * A formatted array list of all the renaming done in the program,
      */
@@ -39,5 +42,14 @@ public class HistoryManager {
         String timeStamp = new SimpleDateFormat().format(new Date());
         this.renamingList.add(
                 timeStamp + "Old Name: " + oldName + "New Name: " + newName + System.lineSeparator());
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        String[] namesToLog = (String[]) arg;
+        String oldName = namesToLog[0];
+        String newName = namesToLog[1];
+        this.addRenameEvent(oldName, newName);
+        System.out.println(this.renamingList);
     }
 }

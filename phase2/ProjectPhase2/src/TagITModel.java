@@ -54,6 +54,8 @@ public class TagITModel implements Observer{
      */
     void setCurrentImage(ImageFile newCurImage) {
         this.currentImage = newCurImage;
+        this.currentImage.addObserver(this);
+        this.currentImage.addObserver(this.historyManager);
     }
 
     void setCurrentImagewithFilter(BufferedImage curImageWithFilter) {

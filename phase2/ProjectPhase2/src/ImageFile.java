@@ -6,6 +6,7 @@ import javax.swing.text.html.HTML;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.Serializable;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.regex.Pattern;
@@ -44,10 +45,6 @@ public class ImageFile extends Observable implements Serializable {
      * Every name this image has had
      */
     private ArrayList<String> imageHistory = new ArrayList<>();
-
-//    public File f;
-//    public BufferedImage original;
-//    public BufferedImage current;
 
     /**
      * Construct a new ImageFile object.
@@ -169,10 +166,12 @@ public class ImageFile extends Observable implements Serializable {
 
         // to update the taggedName, in case there were any changes
         File file = new File(this.filePath);
+        //Save the old tagged name to add to log below
+        String oldTaggedName = this.taggedName;
         this.taggedName = file.getName();
         thisImage.renameTo(new File(this.filePath));
         setChanged();
-        notifyObservers();
+        notifyObservers(new String[]{oldTaggedName, this.taggedName});
     }
 
     /**

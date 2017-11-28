@@ -111,7 +111,6 @@ public class SelectImageViewController {
         this.tagITModel = model;
 
         this.tagITModel.setCurrentImage(this.tagITModel.getImageManager().findImage(imagePath));
-        this.tagITModel.getCurrentImage().addObserver(tagITModel);
 
         this.allTagsForCurrPic.setItems(this.tagITModel.getCurrentImage().getTags());
 
@@ -253,13 +252,13 @@ public class SelectImageViewController {
      */
     public void filterImage(ActionEvent event) throws IOException{
         Button clickedButton = (Button) event.getSource();
-        BufferedImage img = FilterImage.originalScale(tagITModel.getCurrentImage());
+        BufferedImage img = ImageFilter.originalScale(tagITModel.getCurrentImage());
 
         if (clickedButton.equals(grayScale)) {
-            img = FilterImage.grayScale(tagITModel.getCurrentImage());
+            img = ImageFilter.grayScale(tagITModel.getCurrentImage());
         }
         if (clickedButton.equals(defaultColour)) {
-            img = FilterImage.originalScale(tagITModel.getCurrentImage());
+            img = ImageFilter.originalScale(tagITModel.getCurrentImage());
         }
         this.tagITModel.setCurrentImagewithFilter(img);
         Image newImage = SwingFXUtils.toFXImage(img, null);
@@ -272,7 +271,8 @@ public class SelectImageViewController {
         //Image img = this.imageToBeTagged.getImage();
         //BufferedImage imageWithFilter = SwingFXUtils.fromFXImage(img, null);
         //imageToBeTagged.setImage(SwingFXUtils.toFXImage(imageWithFilter, null));
-        FilterImage.recolour(this.tagITModel.getCurrentImagewithFilter(), this.tagITModel.getCurrentImage().getFilePath());
+        ImageFilter.recolour(this.tagITModel.getCurrentImagewithFilter(),
+                this.tagITModel.getCurrentImage().getFilePath());
         //this.imageToBeTagged.setImage(new Image(new File(this.tagITModel.getCurrentImage().getFilePath()).toURI().toString()));
     }
 }

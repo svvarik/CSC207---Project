@@ -31,7 +31,7 @@ public class TagIT extends Application {
     public void start(Stage primaryStage) throws Exception {
         this.tagITModel = new TagITModel();
 
-        StoreToDisk.initSaveFile();
+        StoreToDisk.initSaveFiles();
         StoreToDisk.deserializeData(this.tagITModel);
 
         FXMLLoader loader = new FXMLLoader();
