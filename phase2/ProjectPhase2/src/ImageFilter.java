@@ -6,7 +6,7 @@ import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 
 
-public class FilterImage {
+public class ImageFilter {
 
     static void recolour(BufferedImage Img, String filePath) {
         try{
