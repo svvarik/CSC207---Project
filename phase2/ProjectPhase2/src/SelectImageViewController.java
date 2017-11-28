@@ -1,6 +1,3 @@
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
-import javafx.application.Platform;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
@@ -9,22 +6,18 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
 import javafx.scene.control.Button;
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.ListView;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
-import java.awt.geom.Arc2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileFilter;
 import java.io.IOException;
 
 /**
@@ -35,7 +28,7 @@ import java.io.IOException;
  * is able to perform different operations
  * including adding/removing tags, changing the directory and so on.
  */
-public class SelectImageViewController {
+public class SelectImageViewController extends GeneralController {
     /**
      * The following variables declare the annotation '@FXML', which means they
      * use an FXMLLoader to read values
@@ -56,9 +49,6 @@ public class SelectImageViewController {
 
     /** An action to remove a tag from an image */
     @FXML Button removeTag;
-
-    /** An action to close a menu */
-    @FXML public MenuItem close;
 
     /** Displays a preview of the current image */
     @FXML ImageView imageToBeTagged;
@@ -87,9 +77,6 @@ public class SelectImageViewController {
 
     @FXML Button setFilterButton;
 
-    /** The Model of the program */
-    private TagITModel tagITModel;
-
     /**
      * Tracks the number of windows to the user's computer's FileSystemViewer
      * open in the current scene
@@ -103,12 +90,10 @@ public class SelectImageViewController {
      * @param imagePath A string that is the file path for image that is to be
      *                  displayed.
      */
-    void initImagePath(String imagePath, TagITModel model) throws IOException {
+    void initImagePath(String imagePath) throws IOException {
         File f = new File(imagePath);
         Image imageNeedsToBeTagged = new Image(f.toURI().toString());
         imageToBeTagged.setImage(imageNeedsToBeTagged);
-
-        this.tagITModel = model;
 
         this.tagITModel.setCurrentImage(this.tagITModel.getImageManager().findImage(imagePath));
 
@@ -167,22 +152,12 @@ public class SelectImageViewController {
 
         // Access the controller and call a method.
         SelectDirectoryController controller = loader.getController();
-        controller.initModel(this.tagITModel);
+        controller.initController(this.tagITModel);
         controller.initRetrievingTreeView();
 
         Stage window = (Stage) (((Node) event.getSource()).getScene().getWindow());
         window.setScene(selectDirectoryScene);
         window.show();
-    }
-
-
-    /**
-     * Exits the application upon the user clicking close in the Menu bar.
-     *
-     * @param event Event when the user clicks the "close" menu option.
-     */
-    public void handleMenuClose(ActionEvent event) {
-        Platform.exit();
     }
 
     /**

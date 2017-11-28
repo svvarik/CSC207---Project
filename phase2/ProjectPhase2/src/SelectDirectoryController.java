@@ -1,10 +1,7 @@
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.geometry.Orientation;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -12,20 +9,12 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.DirectoryChooser;
-import javafx.event.ActionEvent;
 import javafx.stage.Stage;
-import sun.reflect.generics.tree.Tree;
 
 import java.io.File;
-import java.io.FileFilter;
 import java.io.IOException;
-import java.lang.reflect.Array;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
 
-public class SelectDirectoryController {
+public class SelectDirectoryController extends GeneralController {
 
     @FXML
     MenuItem close;
@@ -42,11 +31,6 @@ public class SelectDirectoryController {
     private static int numWindowsOpen = 0;
     //To Fix: Don't hardcord numWindowsOpen.
 
-    private TagITModel tagITModel;
-
-    void initModel(TagITModel model) {
-        this.tagITModel = model;
-    }
 
     /**
      * Function opens a window that allows the user to choose a Directory and
@@ -106,7 +90,8 @@ public class SelectDirectoryController {
 
         SelectImageViewController controller = loader.getController();
         if (!(listOfImages.getRoot().isLeaf())) {
-            controller.initImagePath(listOfImages.getSelectionModel().getSelectedItem().getValue(), this.tagITModel);
+            controller.initController(this.tagITModel);
+            controller.initImagePath(listOfImages.getSelectionModel().getSelectedItem().getValue());
 
             Stage window = (Stage) (((Node) event.getSource()).getScene().getWindow());
 
