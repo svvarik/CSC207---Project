@@ -9,65 +9,58 @@ import org.junit.Test;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class ImagefileTest{
+public class ImagefileTest {
+
+    //Set up Common to all tests
+    TagManager tm = new TagManager();
+    String path = new File(".").getAbsolutePath();
+    ImageFile image = new ImageFile(path +
+            File.separator + "ProjectPhase2" +
+            File.separator + "src" +
+            File.separator + "TestImages" +
+            File.separator + "Scenery.jpg");
 
     @Test
     public void getTagsTest() throws IOException {
-        String path = new File(".").getAbsolutePath();
-        ImageFile image = new ImageFile(path + File.separator + "TestImages"+ File.separator + "Scenery.jpg");
         assertEquals(image.getTags().size(), 0);
-
-        TagManager tm = new TagManager();
         image.addTag("tag1", tm);
+
+
         assertEquals(image.getTags().size(), 1);
         assertEquals(image.getTags().get(0).toString(), "@tag1");
+
+        //TearDown
+        image.removeImageTag(image.getTags().get(0));
+        image.getImageHistory().clear();
     }
 
     @Test
     public void setTagsToObservableListTest() {
         ObservableList<Tag> tags = FXCollections.observableArrayList();
-        TagManager tm = new TagManager();
         tags.add(new Tag("tag1", tm));
         tags.add(new Tag("tag2", tm));
 
-        ImageFile image = new ImageFile("TestImages/scenery.jpg");
         assertEquals(image.getTags().size(), 0);
         image.setTagsToObservableList(tags);
         assertEquals(image.getTags().size(), 2);
-    }
 
-    @Test
-    public void getArrayedTagsTest() {
-        ImageFile image = new ImageFile("TestImages/scenery.jpg");
-        assertEquals(image.getArrayedTags().size(), 0);
-        TagManager tm = new TagManager();
-        image.addTag("tag1", tm);
-        assertEquals(image.getArrayedTags().size(), 1);
-        assertEquals(image.getArrayedTags().get(0), "@tag1");
-    }
-
-    @Test
-    public void setTagsToArrayListTest() {
-        ImageFile image = new ImageFile("TestImages/scenery.jpg");
-        assertEquals(image.getArrayedTags().size(), 0);
-        ArrayList arr = new ArrayList();
-        arr.add("@tag1");
-        arr.add("@tag2");
-        //image.setTagsToArrayList(arr);
-        assertEquals(image.getArrayedTags().size(), 2);
+        image.tags.clear();
+        image.getImageHistory().clear();
     }
 
     @Test
     public void getImageHistory() {
-        ImageFile image = new ImageFile("TestImages/scenery.jpg");
-        TagManager tm = new TagManager();
         image.addTag("tag1", tm);
         image.addTag("tag2", tm);
-        assertEquals(image.getImageHistory().size(), 2);
-        assertEquals(image.getImageHistory().get(0), "@tag1");
-        assertEquals(image.getImageHistory().get(1), "@tag2");
+        assertEquals(image.getImageHistory().size(), 3);
+        assertEquals(image.getImageHistory().get(0), "Scenery.jpg");
+        assertEquals(image.getImageHistory().get(1), "Scenery@tag1.jpg");
+        assertEquals(image.getImageHistory().get(2),"Scenery@tag1@tag2.jpg");
         image.removeImageTag(image.getTags().get(0));
-        assertEquals(image.getImageHistory().size(), 2);
+        assertEquals(image.getImageHistory().size(), 4);
+
+        image.removeImageTag(image.getTags().get(0));
+        image.getImageHistory().clear();
     }
 
     @Test
@@ -78,24 +71,24 @@ public class ImagefileTest{
 
     @Test
     public void getTaggedNameTest() {
-        ImageFile image = new ImageFile("TestImages/scenery.jpg");
-        TagManager tm = new TagManager();
-        assertEquals(image.getTaggedName(), "scenery");
+
+        assertEquals(image.getTaggedName(), "Scenery.jpg");
         image.addTag("tag1", tm);
-        assertEquals(image.getTaggedName(), "scenery@tag1");
+        assertEquals(image.getTaggedName(), "Scenery@tag1.jpg");
         image.addTag("tag2", tm);
-        assertEquals(image.getTaggedName(), "scenery@tag1@tag2");
+        assertEquals(image.getTaggedName(), "Scenery@tag1@tag2.jpg");
         //TagManager tm = new TagManager();
         //Tag tag = new Tag("@tag1", tm);
         //image.removeImageTag(tag);
         //assertEquals(image.getTaggedName(), "scenery@tag2");
 
+        image.removeImageTag(image.getTags().get(0));
+        image.removeImageTag(image.getTags().get(0));
+        image.getImageHistory().clear();
     }
 
     @Test
     public void addTagTest() {
-        ImageFile image = new ImageFile("TestImages/scenery.jpg");
-        TagManager tm = new TagManager();
         image.addTag("@tag1", tm);
         assertEquals(image.getTags().size(), 1);
         image.addTag("tag1", tm);
@@ -103,18 +96,25 @@ public class ImagefileTest{
 
         image.addTag("tag2", tm);
         assertEquals(image.getTags().size(), 2);
+
+        image.removeImageTag(image.getTags().get(0));
+        image.removeImageTag(image.getTags().get(0));
+        image.getImageHistory().clear();
     }
 
     @Test
     public void hasTagTest() {
-        ImageFile image = new ImageFile("TestImages/scenery.jpg");
-        TagManager tm = new TagManager();
         image.addTag("@tag1", tm);
         image.addTag("@tag2", tm);
         image.addTag("tag3", tm);
-        assertTrue(image.hasTag("tag1"));
+
+        assertTrue(image.hasTag("@tag1"));
         assertFalse(image.hasTag("@tag4"));
 
+        image.removeImageTag(image.getTags().get(0));
+        image.removeImageTag(image.getTags().get(0));
+        image.removeImageTag(image.getTags().get(0));
+        image.getImageHistory().clear();
     }
 
 /*
@@ -132,30 +132,30 @@ public class ImagefileTest{
     }
 */
 
-    @Test
+/*    @Test
     public void renameTest() {
-        TagManager tm = new TagManager();
-        ImageFile image = new ImageFile("TestImages/scenery.jpg");
         image.addTag("@tag1", tm);
         image.addTag("@tag2", tm);
         image.addTag("tag3", tm);
 
-        image.rename("TestImages/newFolder");   // if the user moves image to a new directory
+        image.rename("TestImages/Notes");   // if the user moves image to a new directory
         assertEquals(image.getFilePath(), "TestImages/newFolder/scenery@tag1@tag2@tag3");
 
-    }
+    }*/
 
     @Test
     public void removeImageTagTest() {
-        ImageFile image = new ImageFile("TestImages/scenery.jpg");
-        TagManager tm = new TagManager();
         image.addTag("@tag1", tm);
         image.addTag("@tag2", tm);
         image.addTag("tag3", tm);
         //TagManager tm = new TagManager();
         //Tag tag = new Tag("tag1", tm);
         image.removeImageTag(image.getTags().get(0));
-        assertEquals(image.getTaggedName(), "scenery@tag2@tag3");
+        assertEquals(image.getTaggedName(), "Scenery@tag2@tag3.jpg");
+
+        image.removeImageTag(image.getTags().get(0));
+        image.removeImageTag(image.getTags().get(0));
+        image.getImageHistory().clear();
     }
 }
 
