@@ -13,19 +13,37 @@ import java.io.IOException;
 
 public class SelectDirectoryController extends GeneralController {
 
-    @FXML
-    MenuItem close;
+
+    /**
+     * The Button the user clicks to choose a directory
+     */
     @FXML
     public Button selectDirectory;
+    /**
+     * A TreeView of a list of all subdirectories and images in the chosen directory.
+     */
     @FXML
     public TreeView<String> listOfImages;
+    /**
+     * Allows user to preview the image chosen.
+     */
     @FXML
     public javafx.scene.image.ImageView imagePreview;
+    /**
+     * Button allowing user to select the image for tagging.
+     */
     @FXML
     public Button selectImage;
+    /**
+     * Button allowing User to see the list of directories and images in the
+     * current directory's parent directory.
+     */
     @FXML
     public Button backButtonDirectory;
 
+    /**
+     * The number of pop up windows currently open.
+     */
     private int numWindowsOpen;
 
     /**
@@ -94,6 +112,11 @@ public class SelectDirectoryController extends GeneralController {
         }
     }
 
+    /**
+     * Returns a TreeItem with the directory as the first node and all its subdirectories as its children.
+     * @param directory the directory to set the first node at.
+     * @return the TreeItem representing the directory given.
+     */
     private TreeItem<String> getChildrenDirectory(String directory) {
         TreeItem<String> rootDirectory = new TreeItem<String>(directory);
         for (File item : FileManager.imageFilesFilter(new File(directory))) {
@@ -114,7 +137,10 @@ public class SelectDirectoryController extends GeneralController {
         return rootDirectory;
     }
 
-    public void goBackDirectory(ActionEvent event) {
+    /**
+     * Go back to the one directory in the listView listOfImages.
+     */
+    public void goBackDirectory() {
         String parentDirectory = FileManager.getParentDirectory(this.tagITModel.getCurrentDirectory());
         if (this.tagITModel.getCurrentDirectory() != null && parentDirectory != null) {
             this.tagITModel.setCurrentDirectory(parentDirectory);
