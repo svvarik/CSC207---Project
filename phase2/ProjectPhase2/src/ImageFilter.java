@@ -107,6 +107,42 @@ public class ImageFilter {
         }
         return defaultColourImage;
     }
+
+    static BufferedImage inverse(ImageFile image) throws IOException {
+        File originalImage = new File(image.getFilePath());
+        BufferedImage defaultColourImage = ImageIO.read(originalImage);
+
+        //get image width and height
+        int width = defaultColourImage.getWidth();
+        int height = defaultColourImage.getHeight();
+
+        for (int x = 0; x < defaultColourImage.getWidth(); x++) {
+            for (int y = 0; y < defaultColourImage.getHeight(); y++) {
+
+                int p = defaultColourImage.getRGB(x, y);
+
+                int a = (p>>24)&0xff;
+                int r = (p>>16)&0xff;
+                int g = (p>>8)&0xff;
+                int b = p&0xff;
+
+                //calculate average
+                int r1 = 255 -r;
+                int g1 = 255 -g;
+                int b1 = 255 -b;
+
+
+                //replace RGB value with avg
+                p = (a<<24) | (r1<<16) | (g1<<8) | b1;
+
+                defaultColourImage.setRGB(x, y, p);
+                
+            }
+        }
+        return defaultColourImage;
+    }
+
+
 }
 
 
