@@ -92,11 +92,9 @@ public class ImageFilter {
         int sepiaDepth = 20;
         int sepiaIntensity = 20;
         // We need 3 integers (for R,G,B color values) per pixel.
-        int[] pixels = new int[width * height * 3];
-        defaultColourImage.getRaster().getPixels(0, 0, width, height, pixels);
 
-        for (int x = 0; x < defaultColourImage.getWidth(); x++) {
-            for (int y = 0; y < defaultColourImage.getHeight(); y++) {
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
 
                 int rgb = defaultColourImage.getRGB(x, y);
                 Color color = new Color(rgb, true);
