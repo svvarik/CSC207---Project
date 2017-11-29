@@ -95,6 +95,11 @@ public class ImageFile extends Observable implements Serializable {
         return this.taggedName;
     }
 
+    public String getImagePath(){return this.newImagePath();}
+
+
+
+
     /**
      * Add a new tag to the ImageFile and rename the ImageFile to include the tag
      *
@@ -196,7 +201,7 @@ public class ImageFile extends Observable implements Serializable {
      * @param setOfTags an ArrayList of tags to add to this ImageFile's tags.
      * @param manager   the TagManager currently used to manage all the tags.
      */
-    private void addSetOfTags(ArrayList<String> setOfTags, TagManager manager) {
+    public void addSetOfTags(ArrayList<String> setOfTags, TagManager manager) {
         for (String tag : setOfTags) {
             if (!this.hasTag(tag)) {
                 Tag imageTag = manager.findTag(tag);
