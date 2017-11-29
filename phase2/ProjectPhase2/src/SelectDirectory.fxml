@@ -9,9 +9,15 @@
     <children>
         <MenuBar AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
             <menus>
+                <Menu mnemonicParsing="false" text="TagIT">
+                    <items>
+                        <MenuItem fx:id="closeButton" onAction="#closeWindow" mnemonicParsing="false" text="Close" />
+                    </items>
+                </Menu>
                 <Menu mnemonicParsing="false" text="Options">
                     <items>
-                        <MenuItem fx:id="close" mnemonicParsing="false" onAction="#handleMenuClose" text="Close" />
+                        <MenuItem fx:id="manageAllTagsButton" onAction="#openManageTagWindow" mnemonicParsing="false" text="Manage All Tags" />
+                        <MenuItem fx:id="viewHistoryButton" onAction="#openHistoryWindow" mnemonicParsing="false" text="View Log History" />
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Help">
@@ -24,7 +30,7 @@
         </MenuBar>
         <Button fx:id="selectDirectory" layoutX="30.0" layoutY="49.0" mnemonicParsing="false" onAction="#selectDirectoryAction" prefHeight="27.0" prefWidth="200.0" text="Select Directory" />
         <ImageView fx:id="imagePreview" fitHeight="334.0" fitWidth="380.0" layoutX="256.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true" />
-        <Button fx:id="selectImage" layoutX="250.0" layoutY="403.0" mnemonicParsing="false" onAction="#selectImageAction" prefHeight="27.0" prefWidth="380.0" text="Select Image" />
+        <Button fx:id="selectImage" layoutX="250.0" layoutY="403.0" mnemonicParsing="false" onAction="#goToSelectImageScreen" prefHeight="27.0" prefWidth="380.0" text="Select Image" />
         <Button fx:id="backButtonDirectory" layoutX="30.0" layoutY="96.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#goBackDirectory" prefHeight="27.0" prefWidth="27.0" text="&lt;" textAlignment="CENTER" />
       <TreeView fx:id="listOfImages" layoutX="31.0" layoutY="126.0" onMouseClicked="#displayPreviewImage" prefHeight="318.0" prefWidth="200.0" />
     </children>

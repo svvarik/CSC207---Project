@@ -1,18 +1,15 @@
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 
 abstract public class GeneralController {
+
     protected TagITModel tagITModel;
     @FXML protected MenuItem closeButton;
-    @FXML protected MenuItem manageAllTagsButton;
     @FXML protected MenuItem viewHistoryButton;
+    @FXML protected MenuItem manageAllTagsButton;
     @FXML protected MenuItem helpButton;
     @FXML protected MenuItem aboutButton;
 
@@ -25,22 +22,20 @@ abstract public class GeneralController {
      * history.
      */
     @FXML void openHistoryWindow() throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("LogView.fxml"));
-        Parent root = loader.load();
-        LogViewController controller = loader.getController();
-        controller.initLogView(this.tagITModel);
-        Stage stage = new Stage();
-        stage.setTitle("Tag History");
-        stage.setScene(new Scene(root, 600, 400));
-        stage.show();
+        ControllerHelper controllerHelper = new ControllerHelper();
+        LogViewController controller = new LogViewController();
+        controllerHelper.openNewWindow(controller, "LogView.fxml",
+                this.tagITModel, "TagIT History");
     }
 
     /**
      * This method opens a new window which allows the user to manage all the
      * Tags they currently have stored.
      */
-    void openManageTagWindow() {
+    @FXML void openManageTagWindow() {
+        ControllerHelper controllerHelper = new ControllerHelper();
+        ManageTagsController controller = new ManageTagsController();
+        controllerHelper.openNewWindow(controller, "ManageTags.fxml", this.tagITModel, "Manage Tags", 350, 500);
     }
 
     /**
@@ -49,5 +44,14 @@ abstract public class GeneralController {
     @FXML void closeWindow() {
         Platform.exit();
     }
+
+    /**
+     * This method sets up the controller prior to switching scenes. It takes in
+     * an object
+     * @param object
+     */
+    abstract void setUpController(Object object);
+
+    abstract void setUpController();
 }
 

@@ -1,12 +1,8 @@
 import javafx.application.Application;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-
-import java.io.IOException;
 
 /**
  * The Main class.
@@ -23,7 +19,7 @@ public class TagIT extends Application {
      * It is called when the system is ready for the application to begin running.
      * This method deserializes previous data(if any), stored from the last run, creates and displays the first scene.
      *
-     * @paramA Stage object to create the first scene with
+     * @param primaryStage object to create the first scene with
      * @throws Exception
      * @return void
      */
@@ -32,13 +28,14 @@ public class TagIT extends Application {
         this.tagITModel = new TagITModel();
 
         StoreToDisk.initSaveFiles();
+        StoreToDisk.readHistory(this.tagITModel);
         StoreToDisk.deserializeData(this.tagITModel);
 
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("SelectDirectory.fxml"));
         Parent root = loader.load();
         SelectDirectoryController controller = loader.getController();
-        controller.initModel(this.tagITModel);
+        controller.initController(this.tagITModel);
         primaryStage.setTitle("TagIT");
         primaryStage.setScene(new Scene(root, 650, 450));
         primaryStage.show();
@@ -52,7 +49,7 @@ public class TagIT extends Application {
      */
     @Override
     public void stop() throws Exception{
-        new HistoryManager();
+        StoreToDisk.writeHistory(this.tagITModel);
         StoreToDisk.serializeData(this.tagITModel);
     }
 

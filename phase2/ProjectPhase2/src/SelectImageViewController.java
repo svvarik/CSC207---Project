@@ -2,10 +2,6 @@ import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
@@ -13,7 +9,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.DirectoryChooser;
-import javafx.stage.Stage;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -59,6 +54,7 @@ public class SelectImageViewController extends GeneralController {
     /** An action to change the directory of the current image */
     @FXML Button changeLocation;
 
+    /** Allows the user to apply a Gray Scale filter over an image. */
     @FXML Button grayScale;
 
     /**
@@ -87,18 +83,21 @@ public class SelectImageViewController extends GeneralController {
      * Set the ImageView object on this screen to display an image given a
      * string file path to the desired image.
      *
-     * @param imagePath A string that is the file path for image that is to be
+     * @param path A string that is the file path for image that is to be
      *                  displayed.
      */
-    void initImagePath(String imagePath) throws IOException {
+    @Override
+    void setUpController(Object path) {
+        String imagePath = (String) path;
         File f = new File(imagePath);
         Image imageNeedsToBeTagged = new Image(f.toURI().toString());
         imageToBeTagged.setImage(imageNeedsToBeTagged);
-
-        this.tagITModel.setCurrentImage(this.tagITModel.getImageManager().findImage(imagePath));
-
+        try {
+            this.tagITModel.setCurrentImage(this.tagITModel.getImageManager().findImage(imagePath));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         this.allTagsForCurrPic.setItems(this.tagITModel.getCurrentImage().getTags());
-
         this.allTagsUsed.setItems(this.tagITModel.getTagManager().getAllTags());
         this.allTagsUsed.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
     }
@@ -133,31 +132,6 @@ public class SelectImageViewController extends GeneralController {
         if (tagToRemove != null) {
             this.tagITModel.getCurrentImage().removeImageTag(tagToRemove);
         }
-    }
-
-    /**
-     * This method allows a user to return to the previous screen when the button
-     * is clicked.
-     *
-     * @param event An event when the Back button is clicked.
-     * @throws IOException
-     */
-    public void goBack(ActionEvent event) throws IOException {
-
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("SelectDirectory.fxml"));
-        Parent selectDirectoryView = loader.load();
-
-        Scene selectDirectoryScene = new Scene(selectDirectoryView);
-
-        // Access the controller and call a method.
-        SelectDirectoryController controller = loader.getController();
-        controller.initController(this.tagITModel);
-        controller.initRetrievingTreeView();
-
-        Stage window = (Stage) (((Node) event.getSource()).getScene().getWindow());
-        window.setScene(selectDirectoryScene);
-        window.show();
     }
 
     /**
@@ -199,28 +173,8 @@ public class SelectImageViewController extends GeneralController {
     }
 
     /**
-     * Moves to a new scene to display a history of previous file names for the current image
-     *
-     * @param event An event to display older filenames and tags
-     * @throws IOException
-     */
-    public void changeToAllTagsView(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("ImageAllTagVersions.fxml"));
-        Parent allTagsViewParent = loader.load();
-        Scene allTagsViewScene = new Scene(allTagsViewParent);
-
-        // Access the controller and call a method.
-        ImageAllTagVersionsController controller = loader.getController();
-        controller.initImageFile(this.tagITModel);
-        Stage window = (Stage) (((Node) event.getSource()).getScene().getWindow());
-        window.setScene(allTagsViewScene);
-        window.show();
-    }
-
-    /**
-     * Applies the given Filter to the image displayed in imageToBeTagged. It does not modify the original file the
-     * image is stored in.
+     * Applies the given Filter to the image displayed in imageToBeTagged.
+     * It does not modify the original file the image is stored in.
      *
      * @param event the action of the button being clicked.
      * @throws IOException IOException from creating BufferedImage
@@ -241,7 +195,10 @@ public class SelectImageViewController extends GeneralController {
     }
 
 
-    /** Modifies the image being edited to include the filter. The image with the filter replaces the original image.*/
+    /**
+     * Modifies the image being edited to include the filter.
+     * The image with the filter replaces the original image.
+     */
     public void setFilter() {
         //Image img = this.imageToBeTagged.getImage();
         //BufferedImage imageWithFilter = SwingFXUtils.fromFXImage(img, null);
@@ -250,5 +207,33 @@ public class SelectImageViewController extends GeneralController {
                 this.tagITModel.getCurrentImage().getFilePath());
         //this.imageToBeTagged.setImage(new Image(new File(this.tagITModel.getCurrentImage().getFilePath()).toURI().toString()));
     }
+
+
+    /**
+     * This method allows a user to return to the previous screen when the button
+     * is clicked.
+     *
+     * @param event An event when the Back button is clicked.
+     * @throws IOException
+     */
+    public void goBack(ActionEvent event) throws IOException {
+        ControllerHelper controllerHelper = new ControllerHelper();
+        SelectDirectoryController controller = new SelectDirectoryController();
+        controllerHelper.openSameWindow(controller, "SelectDirectory.fxml", this.tagITModel, event);
+    }
+
+    /**
+     * Moves to a new scene to display a history of previous file names for the current image
+     *
+     * @param event An event to display older filenames and tags
+     * @throws IOException
+     */
+    public void goToAllVersionsView(ActionEvent event) throws IOException {
+        ControllerHelper controllerHelper = new ControllerHelper();
+        ManageTagsController controller = new ManageTagsController();
+        controllerHelper.openSameWindow(controller, "ImageAllTagVersions.fxml", this.tagITModel, event);
+    }
+
+    void setUpController(){}
 }
 

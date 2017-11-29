@@ -20,8 +20,8 @@
                 </Menu>
             <Menu mnemonicParsing="false" text="Options">
               <items>
-                <MenuItem mnemonicParsing="false" text="Manage All Tags" />
-                  <MenuItem mnemonicParsing="false" text="View Log History" />
+                <MenuItem fx:id="manageAllTagsButton" onAction="#openManageTagWindow" mnemonicParsing="false" text="Manage All Tags" />
+                  <MenuItem fx:id="viewHistoryButton" onAction="#openHistoryWindow" mnemonicParsing="false" text="View Log History" />
               </items>
             </Menu>
                 <Menu mnemonicParsing="false" text="Help">
@@ -41,7 +41,7 @@
         <Button fx:id="changeLocation" layoutX="467.0" layoutY="410.0" mnemonicParsing="false" onAction="#changeImageLocation" text="Change Image Location" />
         <Button fx:id="openEnclosingFolder" layoutX="71.0" layoutY="410.0" mnemonicParsing="false" onAction="#openFolder" text="Open in Enclosing Folder" />
         <Button fx:id="backButton" layoutX="20.0" layoutY="410.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#goBack" prefWidth="41.0" text="&lt;--" />
-        <Button fx:id="changeToPastTags" layoutX="252.0" layoutY="410.0" mnemonicParsing="false" onAction="#changeToAllTagsView" text="Choose From Past Set of Tags" />
+        <Button fx:id="changeToPastTags" layoutX="252.0" layoutY="410.0" mnemonicParsing="false" onAction="#goToAllVersionsView" text="Choose From Past Set of Tags" />
       <Button fx:id="grayScale" layoutX="22.0" layoutY="282.0" mnemonicParsing="false" onAction="#filterImage" text="Gray Scale" />
       <Button fx:id="defaultColour" layoutX="144.0" layoutY="282.0" mnemonicParsing="false" onAction="#filterImage" text="Default" />
       <Button fx:id="setFilterButton" layoutX="402.0" layoutY="282.0" mnemonicParsing="false" onAction="#setFilter" text="Set Filter" />

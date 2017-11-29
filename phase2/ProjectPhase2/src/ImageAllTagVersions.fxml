@@ -6,9 +6,15 @@
 <children>
     <MenuBar AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
         <menus>
+            <Menu mnemonicParsing="false" text="TagIT">
+                <items>
+                    <MenuItem fx:id="closeButton" onAction="#closeWindow" mnemonicParsing="false" text="Close" />
+                </items>
+            </Menu>
             <Menu mnemonicParsing="false" text="Options">
                 <items>
-                    <MenuItem fx:id="close" mnemonicParsing="false" onAction="#handleMenuClose" text="Close" />
+                    <MenuItem fx:id="manageAllTagsButton" onAction="#openManageTagWindow" mnemonicParsing="false" text="Manage All Tags" />
+                    <MenuItem fx:id="viewHistoryButton" onAction="#openHistoryWindow" mnemonicParsing="false" text="View Log History" />
                 </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Help">
