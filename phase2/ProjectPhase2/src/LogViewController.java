@@ -8,22 +8,15 @@ public class LogViewController extends GeneralController{
 
     @FXML private ListView<String> listViewHistory;
 
-    @Override
-    void initController(TagITModel model) {
-        this.tagITModel = model;
-        try {
-            this.initListView();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     /**
      * This method sets the ListView to the ObservableList in the TagITModel's
      * HistoryManager class.
      * @throws IOException An InputOutput exception.
      */
-    private void initListView() throws IOException {
+    void setUpController() {
         this.listViewHistory.setItems(tagITModel.getHistoryManager().getRenamingList());
     }
+
+    void setUpController(Object object){}
+
 }

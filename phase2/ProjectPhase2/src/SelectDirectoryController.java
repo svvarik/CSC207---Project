@@ -1,15 +1,9 @@
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.DirectoryChooser;
-import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
@@ -28,12 +22,55 @@ public class SelectDirectoryController extends GeneralController {
     public Button selectImage;
     @FXML
     public Button backButtonDirectory;
-    private static int numWindowsOpen = 0;
-    //To Fix: Don't hardcord numWindowsOpen.
 
+    private int numWindowsOpen;
 
     /**
-     * Function opens a window that allows the user to choose a Directory and
+     * This method sets up the controller prior to switching to this scene, and
+     * sets up any needed UI elements.
+     */
+    void setUpController() {
+        listOfImages.setRoot(getChildrenDirectory(tagITModel.getCurrentDirectory()));
+        this.numWindowsOpen = 0;
+    }
+
+    void setUpController(Object object) {}
+
+    /** Moves to the next screen where the user can add / remove Tags for the
+     * selected image.
+     *
+     * @param event Event when the "Select Image" button is clicked.
+     * @throws IOException
+     */
+    @FXML public void goToSelectImageScreen(ActionEvent event) throws IOException {
+        if (!(listOfImages.getRoot().isLeaf())) {
+            String path = listOfImages.getSelectionModel().getSelectedItem().getValue();
+            ControllerHelper controllerHelper = new ControllerHelper();
+            SelectImageViewController controller = new SelectImageViewController();
+            controllerHelper.openSameWindow(controller, "SelectImage.fxml", this.tagITModel, event, path);
+        }
+    }
+
+    /**
+     * Displays a preview of the image when the user clicks on it in the
+     * list view.
+     *
+     * @param event Event when the user clicks on an item in the listview.
+     * @throws IOException
+     */
+
+    @FXML public void displayPreviewImage (MouseEvent event) throws IOException {
+        if (!(listOfImages.getRoot() == null || listOfImages.getSelectionModel().getSelectedItem() == null)) {
+            File filePath = new File(listOfImages.getSelectionModel().getSelectedItem().getValue());
+            if (!filePath.isDirectory()) {
+                Image preview = new Image(filePath.toURI().toString());
+                imagePreview.setImage(preview);
+            }
+        }
+    }
+
+    /**
+     * Method opens a window that allows the user to choose a Directory and
      * open it in the program. The application then displays all image files in
      * it along with directories.
      *
@@ -74,72 +111,12 @@ public class SelectDirectoryController extends GeneralController {
         return rootDirectory;
     }
 
-    /** Moves to the next screen where the user can add / remove Tags for the
-     * selected image.
-     *
-     * @param event Event when the "Select Image" button is clicked.
-     * @throws IOException
-     */
-
-    @FXML public void selectImageAction (ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("SelectImage.fxml"));
-        Parent selectImageLoad = loader.load();
-
-        Scene selectImageScene = new Scene(selectImageLoad);
-
-        SelectImageViewController controller = loader.getController();
-        if (!(listOfImages.getRoot().isLeaf())) {
-            controller.initController(this.tagITModel);
-            controller.initImagePath(listOfImages.getSelectionModel().getSelectedItem().getValue());
-
-            Stage window = (Stage) (((Node) event.getSource()).getScene().getWindow());
-
-            window.setScene(selectImageScene);
-            window.show();
-        }
-    }
-
-        /**
-         * Displays a preview of the image when the user clicks on it in the
-         * listview.
-         *
-         * @param event Event when the user clicks on an item in the listview.
-         * @throws IOException
-         */
-
-        @FXML
-        public void displayPreviewImage (MouseEvent event) throws IOException {
-            if (!(listOfImages.getRoot() == null || listOfImages.getSelectionModel().getSelectedItem() == null)) {
-                File filePath = new File(listOfImages.getSelectionModel().getSelectedItem().getValue());
-
-                if (!filePath.isDirectory()) {
-                    Image preview = new Image(filePath.toURI().toString());
-                    imagePreview.setImage(preview);
-                }
-            }
-        }
-
-    public void goBackDirectory(ActionEvent event){
+    public void goBackDirectory(ActionEvent event) {
         String parentDirectory = FileManager.getParentDirectory(this.tagITModel.getCurrentDirectory());
-        if (this.tagITModel.getCurrentDirectory()!= null && parentDirectory != null){
+        if (this.tagITModel.getCurrentDirectory() != null && parentDirectory != null) {
             this.tagITModel.setCurrentDirectory(parentDirectory);
             this.listOfImages.setRoot(getChildrenDirectory(tagITModel.getCurrentDirectory()));
         }
         listOfImages.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-        }
-
-    void initRetrievingTreeView() {
-        //listOfImages.setItems(this.tagITModel.getCurrentDirectoryFiles());
-        listOfImages.setRoot(getChildrenDirectory(tagITModel.getCurrentDirectory()));
-    }
-
-    /**
-     * Exits the application upon the user clicking close in the Menu bar.
-     *
-     * @param event Event when the user clicks the "close" menu option.
-     */
-    @FXML public void handleMenuClose(ActionEvent event){
-        Platform.exit();
     }
 }

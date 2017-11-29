@@ -1,62 +1,47 @@
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuItem;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 
 
-public class ImageAllTagVersionsController {
+public class ImageAllTagVersionsController extends GeneralController {
 
-    private TagITModel tagITModel;
-    @FXML MenuItem close;
     @FXML ListView imageNames;
     @FXML Button changeTags;
     @FXML Button backButton;
 
-
     /**
-     * This method initializes the controller.
-     *
-     * @param tagITModel The model
+     * This method sets up the controller prior to switching to this scene, and
+     * sets up any needed UI elements.
      */
-    public void initImageFile(TagITModel tagITModel) {
-        this.tagITModel = tagITModel;
+    void setUpController(){
         this.imageNames.setItems(FXCollections.observableList(this.tagITModel.getCurrentImage().getImageHistory()));
     }
 
-    public void listViewSelected(ActionEvent event) {
+    /**
+     * This method reverts the ImageFile's name & Tags to a previous version
+     * selected in the ListView.
+     */
+    public void listViewSelected() {
         String changeToName = (String) this.imageNames.getSelectionModel().getSelectedItem();
         this.tagITModel.getCurrentImage().revertToOlderTags(changeToName, this.tagITModel.getTagManager());
     }
 
+    /**
+     * This method allows the user to go back to the previous screen.
+     *
+     * @param event The event when the user clicks the back button.
+     * @throws IOException
+     */
     public void goBack(ActionEvent event) throws IOException{
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("SelectImage.fxml"));
-        Parent allTagsViewParent = loader.load();
-        Scene allTagsViewScene = new Scene(allTagsViewParent);
-
-        // Access the controller and call a method.
-        SelectImageViewController controller = loader.getController();
-        controller.initImagePath(this.tagITModel.getCurrentImage().getFilePath());
-
-        Stage window = (Stage) (((Node) event.getSource()).getScene().getWindow());
-
-        window.setScene(allTagsViewScene);
-        window.show();
+        ControllerHelper controllerHelper = new ControllerHelper();
+        SelectImageViewController controller = new SelectImageViewController();
+        String path = this.tagITModel.getCurrentImage().getFilePath();
+        controllerHelper.openSameWindow(controller, "SelectImage.fxml", this.tagITModel, event, path);
     }
 
-    @FXML public void handleMenuClose(ActionEvent event){
-        Platform.exit();
-    }
-
+    void setUpController(Object object){}
 }
