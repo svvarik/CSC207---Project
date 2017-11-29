@@ -10,19 +10,40 @@ import javax.imageio.ImageIO;
 
 public class ImageFilter {
 
-    static void recolour(BufferedImage Img, String filePath) {
+    /**
+     * Replaced the image at the given filePath by the BufferedImage img.
+     * @param bufferedImg the BufferedImage to replace the image at the
+     *                    given file path.
+     * @param filePath the file path of the image to replace with bufferedimg. 
+     */
+    static void recolour(BufferedImage bufferedImg, String filePath) {
         try{
-            ImageIO.write(Img, "jpg", new File(filePath));
+            ImageIO.write(bufferedImg, "jpg", new File(filePath));
         }catch(IOException e){
         }
-
-    }
-    static BufferedImage originalScale(ImageFile image) throws IOException{
-        return ImageIO.read(new File(image.getFilePath()));
     }
 
-    static BufferedImage grayScale(ImageFile image)throws IOException{
-        File originalImage = new File(image.getFilePath());
+    /**
+     * Returns a BufferedImage of the Image associated with the ImageFile img.
+     *
+     * @param img the ImageFile associated with the image to return a BufferedImage of.
+     * @return a BufferedImage of the image associated with ImageFile img.
+     * @throws IOException
+     */
+    static BufferedImage originalScale(ImageFile img) throws IOException{
+        return ImageIO.read(new File(img.getFilePath()));
+    }
+
+    /**
+     * Returns a BufferedImage of the Image associated with the ImageFile img
+     * with colours changed to the grayScale filter.
+     *
+     * @param img the ImageFile associated with the image to apply the grayScale filter to.
+     * @return a BufferedImage of the image with the grayScale filter applied
+     * @throws IOException
+     */
+    static BufferedImage grayScale(ImageFile img)throws IOException{
+        File originalImage = new File(img.getFilePath());
         BufferedImage defaultColourImage = ImageIO.read(originalImage);
 
         //get image width and height
@@ -51,8 +72,16 @@ public class ImageFilter {
     }
 
 
-    static BufferedImage sepia(ImageFile image) throws IOException {
-        File originalImage = new File(image.getFilePath());
+    /**
+     * Returns a BufferedImage of the Image associated with the ImageFile img
+     * with colours changed to the sepia filter.
+     *
+     * @param img the ImageFile associated with the image to apply the sepia filter to.
+     * @return a BufferedImage of the image with the sepia filter applied
+     * @throws IOException
+     */
+    static BufferedImage sepia(ImageFile img) throws IOException {
+        File originalImage = new File(img.getFilePath());
         BufferedImage defaultColourImage = ImageIO.read(originalImage);
 
         //get image width and height
