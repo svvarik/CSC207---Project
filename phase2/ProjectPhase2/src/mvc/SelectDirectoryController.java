@@ -1,3 +1,6 @@
+package mvc;
+import filemanager.FileManager;
+import tag.Tag;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;

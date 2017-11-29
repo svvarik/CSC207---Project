@@ -1,3 +1,4 @@
+package tag;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -20,7 +21,7 @@ public class TagManager {
 	 *
 	 * @return the observableList allTags
 	 */
-	ObservableList<Tag> getAllTags() {
+	public ObservableList<Tag> getAllTags() {
 		return this.allTags;
 	}
 
@@ -30,7 +31,7 @@ public class TagManager {
 	 * @param list
 	 *            the observableList to set allTags to.
 	 */
-	void setAllTags(ObservableList<Tag> list) {
+	public void setAllTags(ObservableList<Tag> list) {
 		this.allTags = list;
 	}
 
@@ -47,7 +48,7 @@ public class TagManager {
 	}
 
 	// This allows users to add their own tags independent of images
-	void addTag(String tagToBeAdded) {
+	public void addTag(String tagToBeAdded) {
 		new Tag(tagToBeAdded, this);
 	}
 
@@ -58,7 +59,7 @@ public class TagManager {
 	 * @param tagToBeRemoved
 	 *            The Tag specified to be removed from the list.
 	 */
-	void removeTag(String tagToBeRemoved) {
+	public void removeTag(String tagToBeRemoved) {
 		for (int i = 0; i < this.allTags.size(); i++) {
 			if (this.allTags.get(i).toString().equals(tagToBeRemoved)) {
 				this.allTags.remove(i);
@@ -74,7 +75,7 @@ public class TagManager {
 	 *            A string object that represents the information in the tag.
 	 * @return Tag
 	 */
-	Tag findTag(String tagToBeFound) {
+	public Tag findTag(String tagToBeFound) {
 		for (int i = 0; i < this.allTags.size(); i = i + 1) {
 			if (this.allTags.get(i).toString().equals(tagToBeFound)) {
 				return this.allTags.get(i);

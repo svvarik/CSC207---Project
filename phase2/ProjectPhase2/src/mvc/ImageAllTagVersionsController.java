@@ -1,3 +1,8 @@
+package mvc;
+import image.ImageFile;
+import image.ImageManager;
+import history.HistoryManager;
+
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -5,7 +10,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 
 import java.io.IOException;
-
 
 public class ImageAllTagVersionsController extends GeneralController {
 

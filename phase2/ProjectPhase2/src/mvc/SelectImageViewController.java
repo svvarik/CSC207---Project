@@ -1,3 +1,7 @@
+package mvc;
+import tag.Tag;
+import graphics.ImageFilter;
+
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;

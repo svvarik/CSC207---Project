@@ -1,3 +1,4 @@
+package history;
 import java.util.logging.*;
 
 /** The custom Formatter that is used in HistoryManager.java to log the renaming in history.txt */

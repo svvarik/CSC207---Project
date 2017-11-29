@@ -1,3 +1,9 @@
+package mvc;
+import history.HistoryManager;
+import image.ImageFile;
+import image.ImageManager;
+import filemanager.FileManager;
+import tag.TagManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -69,7 +75,7 @@ public class TagITModel implements Observer{
     /**
      * A getter method to access the HistoryManager information.
      */
-    HistoryManager getHistoryManager(){
+    public HistoryManager getHistoryManager(){
         return this.historyManager;
     }
 
@@ -78,7 +84,7 @@ public class TagITModel implements Observer{
      * @return
      * 		The TagManager instance used in the program
      */
-    TagManager getTagManager() {
+    public TagManager getTagManager() {
         return this.tagManager;
     }
 
@@ -87,7 +93,7 @@ public class TagITModel implements Observer{
      * @return
      * 		The ImageManager instance used in the program
      */
-    ImageManager getImageManager() {
+    public ImageManager getImageManager() {
         return this.imageManager;
     }
 

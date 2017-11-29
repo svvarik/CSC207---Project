@@ -1,3 +1,7 @@
+package mvc;
+
+import tag.TagManager;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;

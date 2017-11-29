@@ -1,3 +1,10 @@
+package history;
+
+import image.ImageFile;
+import image.ImageManager;
+import tag.Tag;
+import tag.TagManager;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import java.util.ArrayList;

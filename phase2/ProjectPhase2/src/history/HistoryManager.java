@@ -1,5 +1,7 @@
+package history;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -22,7 +24,7 @@ public class HistoryManager implements Observer{
         this.renamingList = FXCollections.observableArrayList();
     }
 
-    ObservableList<String> getRenamingList() {
+    public ObservableList<String> getRenamingList() {
         return renamingList;
     }
 

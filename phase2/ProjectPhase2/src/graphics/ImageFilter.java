@@ -1,4 +1,6 @@
-import javafx.scene.image.Image;
+package graphics;
+
+import image.ImageFile;
 
 import java.awt.*;
 import java.awt.image.WritableRaster;
@@ -14,9 +16,9 @@ public class ImageFilter {
      * Replaced the image at the given filePath by the BufferedImage img.
      * @param bufferedImg the BufferedImage to replace the image at the
      *                    given file path.
-     * @param filePath the file path of the image to replace with bufferedimg. 
+     * @param filePath the file path of the image to replace with bufferedImg.
      */
-    static void recolour(BufferedImage bufferedImg, String filePath) {
+    public static void recolour(BufferedImage bufferedImg, String filePath) {
         try{
             ImageIO.write(bufferedImg, "jpg", new File(filePath));
         }catch(IOException e){
@@ -30,7 +32,7 @@ public class ImageFilter {
      * @return a BufferedImage of the image associated with ImageFile img.
      * @throws IOException
      */
-    static BufferedImage originalScale(ImageFile img) throws IOException{
+    public static BufferedImage originalScale(ImageFile img) throws IOException{
         return ImageIO.read(new File(img.getFilePath()));
     }
 
@@ -42,7 +44,7 @@ public class ImageFilter {
      * @return a BufferedImage of the image with the grayScale filter applied
      * @throws IOException
      */
-    static BufferedImage grayScale(ImageFile img)throws IOException{
+    public static BufferedImage grayScale(ImageFile img)throws IOException{
         File originalImage = new File(img.getFilePath());
         BufferedImage defaultColourImage = ImageIO.read(originalImage);
 
@@ -80,7 +82,7 @@ public class ImageFilter {
      * @return a BufferedImage of the image with the sepia filter applied
      * @throws IOException
      */
-    static BufferedImage sepia(ImageFile img) throws IOException {
+    public static BufferedImage sepia(ImageFile img) throws IOException {
         File originalImage = new File(img.getFilePath());
         BufferedImage defaultColourImage = ImageIO.read(originalImage);
 

@@ -1,3 +1,7 @@
+package image;
+import tag.TagManager;
+import tag.Tag;
+
 import java.util.ArrayList;
 
 /**

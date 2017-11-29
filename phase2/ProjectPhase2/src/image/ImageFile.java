@@ -1,20 +1,15 @@
+package image;
+
+import tag.Tag;
+import tag.TagManager;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
-import javax.swing.text.html.HTML;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.Serializable;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.regex.Pattern;
-import java.io.File;
-import java.io.IOException;
-import java.awt.image.BufferedImage;
-import javax.imageio.ImageIO;
-
 
 /**
  * Keeps track of tags on a particular image
@@ -65,31 +60,31 @@ public class ImageFile extends Observable implements Serializable {
     }
 
 
-    ObservableList<Tag> getTags() {
+    public ObservableList<Tag> getTags() {
         return this.tags;
     }
 
-    void setTagsToObservableList(ObservableList<Tag> tags) {
+    public void setTagsToObservableList(ObservableList<Tag> tags) {
         this.tags = tags;
     }
 
-    ArrayList<Tag> getArrayedTags() {
+    public ArrayList<Tag> getArrayedTags() {
         return this.arrayedTags;
     }
 
-    void setTagsToArrayList(ArrayList<Tag> tags) {
+    public void setTagsToArrayList(ArrayList<Tag> tags) {
         this.arrayedTags = tags;
     }
 
-    ArrayList<String> getImageHistory() {
+    public ArrayList<String> getImageHistory() {
         return this.imageHistory;
     }
 
-    String getFilePath() {
+    public String getFilePath() {
         return this.filePath;
     }
 
-    String getTaggedName() {
+    public String getTaggedName() {
         return this.taggedName;
     }
 
@@ -99,7 +94,7 @@ public class ImageFile extends Observable implements Serializable {
      * @param newTag  the new Tag to tag the ImageFile with.
      * @param manager the TagManager currently used to manage all Tags.
      */
-    void addTag(String newTag, TagManager manager) {
+    public void addTag(String newTag, TagManager manager) {
         if (Pattern.matches("^[@]?[a-zA-Z0-9]+", newTag)) {
             String modifiedNewTag = newTag;
             //Checks to see if the user is typing in the tag, or were picking a tag with @sign already from sidebar
@@ -127,7 +122,7 @@ public class ImageFile extends Observable implements Serializable {
      * @param tag the tag to check for.
      * @return true iff this ImageFile does not have the given tag.
      */
-    boolean hasTag(String tag) {
+    public boolean hasTag(String tag) {
         for (Tag t : this.tags) {
             if (tag.equals(t.toString())) {
                 return true;
@@ -160,7 +155,7 @@ public class ImageFile extends Observable implements Serializable {
      *
      * @param imagePath the new file path to change the associated image's filepath to.
      */
-    void rename(String imagePath) {
+    public void rename(String imagePath) {
         File thisImage = new File(filePath);
         this.filePath = imagePath;
 
@@ -179,7 +174,7 @@ public class ImageFile extends Observable implements Serializable {
      *
      * @param deletedTag the Tag to remove from the ImageFile.
      */
-    void removeImageTag(Tag deletedTag) {
+    public void removeImageTag(Tag deletedTag) {
         this.tags.remove(deletedTag);
         String imagePath = this.newImagePath();
         this.rename(imagePath);
@@ -215,7 +210,7 @@ public class ImageFile extends Observable implements Serializable {
      * @param oldFileName the FileName the user wants to revert back to.
      * @param manager     the TagManager currently used to manage all the tags.
      */
-    void revertToOlderTags(String oldFileName, TagManager manager) {
+    public void revertToOlderTags(String oldFileName, TagManager manager) {
 
         int end = oldFileName.lastIndexOf(".");
         String[] oldFileParts = oldFileName.substring(0, end).split("@");

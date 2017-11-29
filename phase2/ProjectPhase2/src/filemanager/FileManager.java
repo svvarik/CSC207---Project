@@ -1,3 +1,4 @@
+package filemanager;
 import javax.imageio.ImageIO;
 import java.io.FileFilter;
 import java.util.*;
@@ -22,13 +23,13 @@ public class FileManager {
 	// }
 
 	/**
-	 * Filters the contents in a directory, only returning a list of files whose full path is to folders 
+	 * Filters the contents in a directory, only returning a list of files whose full path is to folders
 	 * and/or image files in that directory.
 	 * @param directory
 	 * 			The current directory chosen by the user
 	 * @return a list of files, whose file paths are to an image and/or folder in the current directory
 	 */
-	static File[] imageFilesFilter(File directory) {
+	public static File[] imageFilesFilter(File directory) {
 		String[] imageSuffix = ImageIO.getReaderFileSuffixes();
 		FileFilter imageFilter = new FileFilter() {
 			@Override
@@ -55,7 +56,7 @@ public class FileManager {
 	 * 			
 	 * @return the array list of file paths
 	 */
-	static ArrayList<String> filesToString(File[] fileList) {
+	public static ArrayList<String> filesToString(File[] fileList) {
 		ArrayList<String> dirFilePaths = new ArrayList<String>();
 		for (File f : fileList) {
 			dirFilePaths.add(f.getAbsolutePath());
@@ -83,7 +84,7 @@ public class FileManager {
 	 * 			The file path whose parent directory will be determined
 	 * @return  The parent directory's file path
 	 */
-	static String getParentDirectory(String filePath) {
+	public static String getParentDirectory(String filePath) {
 		if (filePath != null) {
 			File childFile = new File(filePath);
 			return childFile.getParent();

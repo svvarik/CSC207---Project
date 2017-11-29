@@ -1,3 +1,6 @@
+package history;
+import tag.Tag;
+import image.ImageFile;
 import javafx.collections.ObservableList;
 
 import java.io.Serializable;

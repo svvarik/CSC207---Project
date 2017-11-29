@@ -1,3 +1,7 @@
+package history;
+
+import mvc.TagITModel;
+
 import java.io.*;
 
 /**
@@ -13,7 +17,7 @@ public class StoreToDisk implements Serializable {
 	 *
 	 * @throws IOException
 	 */
-	static void initSaveFiles() throws IOException {
+	public static void initSaveFiles() throws IOException {
 		File newFile1 = new File("programData.ser");
 		File newFile2 = new File(".history.txt");
 
@@ -25,7 +29,7 @@ public class StoreToDisk implements Serializable {
 		}
 	}
 
-	static void readHistory(TagITModel model) throws IOException {
+	public static void readHistory(TagITModel model) throws IOException {
 		FileReader fileReader1 = new FileReader(".history.txt");
 		BufferedReader fileReader = new BufferedReader(fileReader1);
 		String newLine;
@@ -37,7 +41,7 @@ public class StoreToDisk implements Serializable {
 		fileReader.close();
 	}
 
-	static void writeHistory(TagITModel model) throws IOException {
+	public static void writeHistory(TagITModel model) throws IOException {
 		OutputStreamWriter writer = new FileWriter(".history.txt");
 		BufferedWriter buffer = new BufferedWriter(writer);
 
@@ -59,7 +63,7 @@ public class StoreToDisk implements Serializable {
 	 * @param tagITModel: a model that keeps track of TagManager and ImageManager
 	 */
 
-	static void deserializeData(TagITModel tagITModel) throws Exception {
+	public static void deserializeData(TagITModel tagITModel) throws Exception {
 		
 		InputStream file = new FileInputStream("programData.ser");
 		InputStream buffer = new BufferedInputStream(file);
@@ -81,7 +85,7 @@ public class StoreToDisk implements Serializable {
 	 * @throws Exception
 	 * @param tagITModel: provides information about tag and image changes
 	 */
-	static void serializeData(TagITModel tagITModel) throws Exception {
+	public static void serializeData(TagITModel tagITModel) throws Exception {
 		
 		OutputStream file = new FileOutputStream("programData.ser", false);
 		OutputStream buffer = new BufferedOutputStream(file);

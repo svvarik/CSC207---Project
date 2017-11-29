@@ -1,3 +1,5 @@
+package image;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -9,11 +11,11 @@ public class ImageManager {
         this.createdImages = new ArrayList<ImageFile>();
     }
 
-    ArrayList<ImageFile> getCreatedImages() {
+    public ArrayList<ImageFile> getCreatedImages() {
         return this.createdImages;
     }
 
-    void setCreatedImages(ArrayList<ImageFile> list) {
+    public void setCreatedImages(ArrayList<ImageFile> list) {
         this.createdImages = list;
     }
 
@@ -21,7 +23,7 @@ public class ImageManager {
         this.createdImages.add(image);
     }
 
-    boolean containsImage(String imagePath) {
+    public boolean containsImage(String imagePath) {
         for (ImageFile i : this.createdImages) {
             if (imagePath.equals(i.getFilePath())) {
                 return true;
@@ -30,7 +32,7 @@ public class ImageManager {
         return false;
     }
 
-    ImageFile findImage(String imagePath) throws IOException {
+    public ImageFile findImage(String imagePath) throws IOException {
         for (ImageFile i : this.createdImages) {
             if (imagePath.equals(i.getFilePath())) {
                 return i;

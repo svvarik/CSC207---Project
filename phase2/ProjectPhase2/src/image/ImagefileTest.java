@@ -1,13 +1,15 @@
-import static org.junit.Assert.*;
+package image;
 
+import javafx.collections.ObservableList;
+import tag.Tag;
+import tag.TagManager;
+
+import static org.junit.Assert.*;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-
 import org.junit.Test;
 
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 
 public class ImagefileTest {
 
