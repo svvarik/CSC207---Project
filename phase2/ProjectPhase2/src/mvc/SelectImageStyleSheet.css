@@ -1,0 +1,89 @@
+.root {
+    -fx-background-color: #FFFFFF;
+    }
+
+.menu {
+    -fx-background-color: #BA0011
+}
+
+.menu-bar {
+    -fx-background-color: #BA0011
+}
+
+.menu .label {
+    -fx-text-fill: #FFFFFF
+}
+
+.menu:showing .label {
+    -fx-text-fill: #000000;
+}
+
+.button {
+    -fx-background-color:
+            #BA0011
+            linear-gradient(#DE0027, #BA0011);
+        -fx-background-insets: 0,1,2;
+        -fx-background-radius: 3,2,1;
+        -fx-text-fill: #FFFFFF;
+        -fx-font-size: 12px;
+}
+
+.button:hover {
+        -fx-border-fill: #FFFFFF;
+        -fx-background-color: #BA0011;
+        -fx-scale-x: 1.08;
+        -fx-scale-y: 1.08;
+}
+
+#backButton {
+    -fx-background-radius: 0,0,0;
+    -fx-background-color:
+            #BA0011
+            linear-gradient(#DE0027, #BA0011);
+    -fx-text-fill: #FFFFFF;
+    -fx-font-family: Helvetica Neue;
+    -fx-font-size: 12px;
+    -fx-border-style: none none none solid;
+    -fx-border-width: 1;
+    -fx-border-color: white;
+}
+
+#openEnclosingFolder {
+     -fx-background-radius: 0,0,0;
+     -fx-background-color:
+             #BA0011
+             linear-gradient(#DE0027, #BA0011);
+     -fx-text-fill: #FFFFFF;
+     -fx-font-family: Helvetica Neue;
+     -fx-font-size: 12px;
+     -fx-border-style: none none none solid;
+     -fx-border-width: 1;
+     -fx-border-color: white;
+ }
+
+#changeToPastTags {
+    -fx-background-radius: 0,0,0;
+    -fx-background-color:
+          #BA0011
+          linear-gradient(#DE0027, #BA0011);
+    -fx-text-fill: #FFFFFF;
+    -fx-font-family: Helvetica Neue;
+    -fx-font-size: 12px;
+    -fx-border-style: none none none solid;
+    -fx-border-width: 1;
+    -fx-border-color: white;
+}
+
+#changeLocation {
+    -fx-background-radius: 0,0,0;
+    -fx-background-color:
+            #BA0011
+            linear-gradient(#DE0027, #BA0011);
+    -fx-text-fill: #FFFFFF;
+    -fx-font-family: Helvetica Neue;
+    -fx-font-size: 12px;
+    -fx-border-style: none none none solid;
+    -fx-border-width: 1;
+    -fx-border-color: white;
+   }
+

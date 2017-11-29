@@ -2,12 +2,11 @@ package graphics;
 
 import image.ImageFile;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
-import java.awt.image.WritableRaster;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.awt.image.BufferedImage;
-import javax.imageio.ImageIO;
 
 
 public class ImageFilter {
@@ -139,7 +138,7 @@ public class ImageFilter {
         return defaultColourImage;
     }
 
-    static BufferedImage inverse(ImageFile image) throws IOException {
+    public static BufferedImage inverse(ImageFile image) throws IOException {
         File originalImage = new File(image.getFilePath());
         BufferedImage defaultColourImage = ImageIO.read(originalImage);
 

@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
@@ -12,8 +9,11 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mvc.SelectImageViewController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="700.0" stylesheets="@SelectImageStyleSheet.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mvc.SelectImageViewController">
     <children>
         <MenuBar AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
             <menus>
@@ -24,8 +24,8 @@
                 </Menu>
             <Menu mnemonicParsing="false" text="Options">
               <items>
-                <MenuItem fx:id="manageAllTagsButton" onAction="#openManageTagWindow" mnemonicParsing="false" text="Manage All Tags" />
-                  <MenuItem fx:id="viewHistoryButton" onAction="#openHistoryWindow" mnemonicParsing="false" text="View Log History" />
+                <MenuItem fx:id="manageAllTagsButton" mnemonicParsing="false" onAction="#openManageTagWindow" text="Manage All Tags" />
+                  <MenuItem fx:id="viewHistoryButton" mnemonicParsing="false" onAction="#openHistoryWindow" text="View Log History" />
               </items>
             </Menu>
                 <Menu mnemonicParsing="false" text="Help">
@@ -36,19 +36,49 @@
                 </Menu>
             </menus>
         </MenuBar>
-        <ImageView fx:id="imageToBeTagged" fitHeight="213.0" fitWidth="460.0" layoutX="20.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="188.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="170.0" AnchorPane.topAnchor="49.0" />
-        <ListView fx:id="allTagsUsed" layoutX="500.0" layoutY="49.0" prefHeight="213.0" prefWidth="130.0" />
-        <TextField fx:id="userInputtedTag" layoutX="500.0" layoutY="282.0" prefHeight="27.0" prefWidth="130.0" />
-        <Button fx:id="addTag" layoutX="500.0" layoutY="329.0" mnemonicParsing="false" onAction="#enterTagAction" prefHeight="27.0" prefWidth="130.0" text="Add Tag" />
-        <Button fx:id="removeTag" layoutX="500.0" layoutY="362.0" mnemonicParsing="false" onAction="#removeTagAction" prefHeight="27.0" prefWidth="130.0" text="Remove Tag" />
-        <ListView fx:id="allTagsForCurrPic" layoutX="20.0" layoutY="329.0" orientation="HORIZONTAL" prefHeight="60.0" prefWidth="460.0" />
-        <Button fx:id="changeLocation" layoutX="467.0" layoutY="410.0" mnemonicParsing="false" onAction="#changeImageLocation" text="Change Image Location" />
-        <Button fx:id="openEnclosingFolder" layoutX="71.0" layoutY="410.0" mnemonicParsing="false" onAction="#openFolder" text="Open in Enclosing Folder" />
-        <Button fx:id="backButton" layoutX="20.0" layoutY="410.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#goBack" prefWidth="41.0" text="&lt;--" />
-        <Button fx:id="changeToPastTags" layoutX="252.0" layoutY="410.0" mnemonicParsing="false" onAction="#goToAllVersionsView" text="Choose From Past Set of Tags" />
-      <Button fx:id="grayScale" layoutX="22.0" layoutY="282.0" mnemonicParsing="false" onAction="#filterImage" text="Gray Scale" />
-      <Button fx:id="defaultColour" layoutX="144.0" layoutY="282.0" mnemonicParsing="false" onAction="#filterImage" text="Default" />
-      <Button fx:id="setFilterButton" layoutX="402.0" layoutY="282.0" mnemonicParsing="false" onAction="#setFilter" text="Set Filter" />
-      <Button fx:id="sepia" layoutX="225.0" layoutY="282.0" mnemonicParsing="false" onAction="#filterImage" text="Sepia" />
+        <ImageView fx:id="imageToBeTagged" fitHeight="331.0" fitWidth="532.0" layoutX="18.0" layoutY="76.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="123.0" AnchorPane.leftAnchor="18.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="76.0" />
+        <ListView fx:id="allTagsUsed" layoutX="575.0" layoutY="122.0" prefHeight="401.0" prefWidth="105.0" />
+        <TextField fx:id="userInputtedTag" layoutX="430.0" layoutY="449.0" prefHeight="27.0" prefWidth="116.0" />
+        <Button fx:id="addTag" layoutX="370.0" layoutY="426.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#enterTagAction" prefHeight="25.0" prefWidth="25.0" text="+" wrapText="true" />
+        <Button fx:id="removeTag" layoutX="370.0" layoutY="451.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#removeTagAction" prefHeight="25.0" prefWidth="25.0" text="-" wrapText="true" />
+        <ListView fx:id="allTagsForCurrPic" layoutX="20.0" layoutY="426.0" orientation="HORIZONTAL" prefHeight="50.0" prefWidth="352.0" />
+      <Button fx:id="grayScale" layoutX="179.0" layoutY="501.0" mnemonicParsing="false" onAction="#filterImage" text="Gray Scale" />
+      <Button fx:id="defaultColour" layoutX="20.0" layoutY="500.0" mnemonicParsing="false" onAction="#filterImage" prefHeight="24.0" prefWidth="67.0" text="Default" />
+      <Button fx:id="setFilterButton" layoutX="328.0" layoutY="501.0" mnemonicParsing="false" onAction="#setFilter" text="Set Filter" />
+      <Button fx:id="sepia" layoutX="270.0" layoutY="501.0" mnemonicParsing="false" onAction="#filterImage" text="Sepia" />
+      <HBox layoutY="29.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <children>
+              <Button id="backButton" fx:id="backButton" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#goBack" prefHeight="40.0" prefWidth="78.0" text="&lt;--" wrapText="true" />
+              <Button id="openEnclosingFolder" fx:id="openEnclosingFolder" mnemonicParsing="false" onAction="#openFolder" prefHeight="40.0" prefWidth="156.0" text="Open in Enclosing Folder" textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font name="Helvetica Neue" size="12.0" />
+               </font>
+            </Button>
+              <Button id="changeToPastTags" fx:id="changeToPastTags" alignment="CENTER" graphicTextGap="1.0" mnemonicParsing="false" onAction="#goToAllVersionsView" prefHeight="40.0" prefWidth="150.0" text="Choose From Past Set of Tags" wrapText="true">
+               <font>
+                  <Font name="Helvetica Neue" size="12.0" />
+               </font>
+            </Button>
+              <Button id="changeLocation" fx:id="changeLocation" mnemonicParsing="false" onAction="#changeImageLocation" prefHeight="40.0" prefWidth="146.0" text="Change Image Location" textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font name="Helvetica Neue" size="12.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
+      <Label layoutX="405.0" layoutY="454.0" text="\@" wrapText="true">
+         <font>
+            <Font name="Helvetica Neue" size="14.0" />
+         </font>
+      </Label>
+      <Button fx:id="inverse" layoutX="97.0" layoutY="501.0" mnemonicParsing="false" onAction="#filterImage" prefHeight="23.0" prefWidth="67.0" text="Inverse " />
+      <Rectangle arcHeight="1.0" arcWidth="1.0" fill="WHITE" height="13.0" layoutX="382.0" layoutY="432.0" rotate="90.0" stroke="WHITE" strokeType="INSIDE" width="3.0" />
+      <Rectangle arcHeight="1.0" arcWidth="1.0" fill="WHITE" height="13.0" layoutX="382.0" layoutY="432.0" stroke="WHITE" strokeType="INSIDE" width="3.0" />
+      <Rectangle arcHeight="1.0" arcWidth="1.0" fill="WHITE" height="13.0" layoutX="382.0" layoutY="457.0" rotate="-90.0" stroke="WHITE" strokeType="INSIDE" width="3.0" />
+      <Label layoutX="594.0" layoutY="86.0" text="All Tags">
+         <font>
+            <Font name="Helvetica Neue Medium" size="18.0" />
+         </font>
+      </Label>
     </children>
 </AnchorPane>

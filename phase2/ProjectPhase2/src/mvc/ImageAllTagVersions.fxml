@@ -1,20 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="450.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mvc.ImageAllTagVersionsController">
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<?import javafx.scene.shape.Polygon?>
+<AnchorPane prefHeight="450.0" prefWidth="650.0" stylesheets="@SelectImageStyleSheet.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mvc.ImageAllTagVersionsController">
 <children>
     <MenuBar AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
         <menus>
             <Menu mnemonicParsing="false" text="TagIT">
                 <items>
-                    <MenuItem fx:id="closeButton" onAction="#closeWindow" mnemonicParsing="false" text="Close" />
+                    <MenuItem fx:id="closeButton" mnemonicParsing="false" onAction="#closeWindow" text="Close" />
                 </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Options">
                 <items>
-                    <MenuItem fx:id="manageAllTagsButton" onAction="#openManageTagWindow" mnemonicParsing="false" text="Manage All Tags" />
-                    <MenuItem fx:id="viewHistoryButton" onAction="#openHistoryWindow" mnemonicParsing="false" text="View Log History" />
+                    <MenuItem fx:id="manageAllTagsButton" mnemonicParsing="false" onAction="#openManageTagWindow" text="Manage All Tags" />
+                    <MenuItem fx:id="viewHistoryButton" mnemonicParsing="false" onAction="#openHistoryWindow" text="View Log History" />
                 </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Help">
@@ -25,9 +32,9 @@
             </Menu>
         </menus>
     </MenuBar>
-    <ListView fx:id="imageNames" layoutX="40.0" layoutY="60.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="310.0" prefWidth="570.0" />
+    <ListView fx:id="imageNames" layoutX="40.0" layoutY="75.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="295.0" prefWidth="570.0" />
     <Button fx:id="changeTags" layoutX="261.0" layoutY="390.0" mnemonicParsing="false" onAction="#listViewSelected" text="Select Older Tags" />
-    <Label layoutX="40.0" layoutY="33.0" text="All older names for this image, select one to revert to an older set of tags. " />
+    <Label layoutX="40.0" layoutY="47.0" text="All older names for this image, select one to revert to an older set of tags. " />
     <Button fx:id="backButton" layoutX="40.0" layoutY="390.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#goBack" prefWidth="48.0" text="&lt;--" />
 </children>
 </AnchorPane>
