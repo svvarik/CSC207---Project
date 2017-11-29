@@ -53,17 +53,24 @@ public class ImageFile extends Observable implements Serializable {
         File userFile = new File(this.filePath);
         this.fileName = userFile.getName();
         this.taggedName = this.fileName;
-        // TODO: What is this???? Add this to JavaDoc??
+
         if (!this.imageHistory.contains(this.taggedName)) {
             this.imageHistory.add(this.taggedName);
         }
     }
 
-
+    /**
+     * Returns the tags this ImageFile is tagged with.
+     * @return the list of tags the ImageFile is tagged with.
+     */
     public ObservableList<Tag> getTags() {
         return this.tags;
     }
 
+    /**
+     * Set this ImageFile's tags to the given tags.
+     * @param tags an ObservableList of tags to set this ImageFile's tags to.
+     */
     public void setTagsToObservableList(ObservableList<Tag> tags) {
         this.tags = tags;
     }
