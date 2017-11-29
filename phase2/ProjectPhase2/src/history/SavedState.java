@@ -11,13 +11,9 @@ import java.util.ArrayList;
  * serialized prior to closing the program. All the persistent data will be
  * saved to this object prior to serialization, through the save methods.
  */
-public class SavedState implements Serializable{
+class SavedState implements Serializable{
     private ArrayList<Tag> savedTags;
     private ArrayList<ImageFile> savedImages;
-
-
-    public SavedState(){
-    }
 
     /**
      * Stores all the program's Tags, by calling a SerializationHelper method to

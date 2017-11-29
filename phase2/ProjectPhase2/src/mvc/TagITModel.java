@@ -39,7 +39,7 @@ public class TagITModel implements Observer{
     /** The images and directories in the current directory*/
     private ObservableList<String> currentDirectoryFiles;
 
-    public TagITModel() {
+    TagITModel() {
         this.historyManager = new HistoryManager();
         this.imageManager = new ImageManager();
         this.tagManager = new TagManager();
