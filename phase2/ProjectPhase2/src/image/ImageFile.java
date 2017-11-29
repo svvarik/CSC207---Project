@@ -107,7 +107,7 @@ public class ImageFile extends Observable implements Serializable {
      * @param manager the TagManager currently used to manage all Tags.
      */
     public void addTag(String newTag, TagManager manager) {
-        if (Pattern.matches("^[@]?[a-zA-Z0-9]+", newTag)) {
+        if (Pattern.matches("^[@]?[a-zA-Z0-9 ]+", newTag) && newTag.trim() != ("") && newTag.trim() !="@"){
             String modifiedNewTag = newTag;
             //Checks to see if the user is typing in the tag, or were picking a tag with @sign already from sidebar
             if (!newTag.contains("@")) {

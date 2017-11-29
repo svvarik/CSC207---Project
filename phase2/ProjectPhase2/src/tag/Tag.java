@@ -17,7 +17,8 @@ public class Tag implements Serializable {
      * @param tagName The name of the tag
      */
     public Tag(String tagName, TagManager tagManager) {
-        if (Pattern.matches("^[@]?[a-zA-Z0-9]+", tagName)) {
+        if (Pattern.matches("^[@]?[a-zA-Z0-9 ]+", tagName) && tagName.trim().equals("") && tagName.trim().equals("@")){
+            System.out.println("  @    ".trim());
             if (tagName.contains("@")) {
                 this.tag = tagName;
             }
