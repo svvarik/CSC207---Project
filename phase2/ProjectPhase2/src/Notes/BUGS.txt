@@ -13,5 +13,8 @@ location. If you then go back, and re enter the image, the program loses track o
 a new imagefile for this image)
 
 - When you open a directory that has an image with two same tags, both tags get added to All Tags
-    |-> stupid bug, but I mean if we have time, might as well attempt a fix. 
+    |-> stupid bug, but I mean if we have time, might as well attempt a fix.
+
+- Betty says Moving photos laterally
+    |-> WTF does this even mean??? ¯\_(ツ)_/¯
 
