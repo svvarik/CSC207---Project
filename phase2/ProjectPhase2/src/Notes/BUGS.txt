@@ -1,8 +1,9 @@
-- Plus Button on Add Tag
+- Plus Button on Add Tag - MOSTLY DONE (Now you can't click the exact center spot
+                                        but guys, who tf cares)
 
 - Open Enclosing Folder, linux CDF
 
-- Select Image on directory / null click
+- Select Image on directory / null click - DONE
 
 - Help menu, TagITHelp.txt, About -> Hook up paypal account (y) Buy us coffee!!
 
@@ -18,3 +19,5 @@ a new imagefile for this image)
 - Betty says Moving photos laterally
     |-> WTF does this even mean??? ¯\_(ツ)_/¯
 
+- Able add too multiple tags of the same to an ImageFile. By typing it out and then by selecting it from AllTags again,
+  it adds a Tag twice. (It is in All Tags originally because it was read from the directory viewer prior to selecting an Image.)
