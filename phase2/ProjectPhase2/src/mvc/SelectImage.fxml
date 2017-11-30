@@ -62,6 +62,11 @@
                   <Font name="Helvetica Neue" size="12.0" />
                </font>
             </Button>
+            <Button id="changeLocation" fx:id="stripAllTags" mnemonicParsing="false" onAction="#stripAllNames" prefHeight="40.0" prefWidth="146.0" text="Strip All Tags" textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font name="Helvetica Neue" size="12.0" />
+               </font>
+            </Button>
          </children>
       </HBox>
       <Label layoutX="444.0" layoutY="502.0" text="\@" wrapText="true">
