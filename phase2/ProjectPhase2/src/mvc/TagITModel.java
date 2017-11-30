@@ -1,16 +1,15 @@
 package mvc;
+import filemanager.FileManager;
 import history.HistoryManager;
 import image.ImageFile;
 import image.ImageManager;
-import filemanager.FileManager;
-import tag.TagManager;
+import javafx.beans.value.ObservableStringValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import tag.TagManager;
 
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -38,6 +37,8 @@ public class TagITModel implements Observer{
     private String currentDirectory;
     /** The images and directories in the current directory*/
     private ObservableList<String> currentDirectoryFiles;
+    /** The observable filepath */
+    private ObservableStringValue observableFilePath;
 
     TagITModel() {
         this.historyManager = new HistoryManager();
