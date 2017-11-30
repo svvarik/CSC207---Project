@@ -1,26 +1,26 @@
 package mvc;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.scene.control.Label;
-import tag.Tag;
 import graphics.ImageFilter;
-
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.SelectionMode;
+import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.DirectoryChooser;
+import tag.Tag;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Optional;
+import java.util.regex.Pattern;
 
 /**
  * This SelectImageViewController class manages and defines all the
@@ -86,7 +86,16 @@ public class SelectImageViewController extends GeneralController {
     /** Allows user to set the currently displayed Filter on the image.*/
     @FXML Button setFilterButton;
 
+    /**
+     * The absolute path of the current image being displayed. It is dynamic
+     * and changes as image is renamed.
+     */
     @FXML Label absolutePath;
+
+    /**
+     * Button that allows user to strip all Tags from the current image.
+     */
+    @FXML Button stripAllTags;
 
     /**
      * Tracks the number of windows to the user's computer's FileSystemViewer
@@ -227,15 +236,76 @@ public class SelectImageViewController extends GeneralController {
     /**
      * Modifies the image being edited to include the filter.
      * The image with the filter replaces the original image.
+     *
+     * Alert feature was adapted from CodeMakery tutorial here:
+     * [http://code.makery.ch/blog/javafx-dialogs-official/]
      */
     public void setFilter() {
-        if (this.tagITModel.getCurrentImagewithFilter() != null) {
-            ImageFilter.recolour(this.tagITModel.getCurrentImagewithFilter(),
-                    this.tagITModel.getCurrentImage().getFilePath());
-            this.tagITModel.setCurrentImagewithFilter(null);
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Set Filter Confirmation");
+        alert.setHeaderText("Are You Sure You Want to Set This Filter? ");
+        alert.setContentText("This will PERMANENTLY CHANGE the image to the new selected Filter");
+
+        ButtonType buttonTypeOne = new ButtonType("Go Ahead, I love this new look!");
+        ButtonType buttonTypeTwo = new ButtonType("Yikes, no thanks!");
+
+        alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo);
+
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if (result.get() == buttonTypeOne) {
+            if (this.tagITModel.getCurrentImagewithFilter() != null) {
+                ImageFilter.recolour(this.tagITModel.getCurrentImagewithFilter(),
+                        this.tagITModel.getCurrentImage().getFilePath());
+                this.tagITModel.setCurrentImagewithFilter(null);
+            }
         }
     }
 
+    /**
+     * Removes all existing Tags from an image and removes Tags that do not
+     * exist in the ImageFile but simply the image name.
+     *
+     * Thus, DSC23123 @Banners@CSC4Lyfe.jpg with no actual Tags having been
+     * added in the program would still revert to DSC23123.jpg.
+     *
+     * Alert feature was adapted from CodeMakery tutorial here:
+     * [http://code.makery.ch/blog/javafx-dialogs-official/]
+     */
+    public void stripAllNames(){
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Remove Tags Confirmation");
+        alert.setHeaderText("Removing Tags Warning");
+        alert.setContentText("This feature will work by removing by removing anything after an @ sign." +
+                "Please only use this if the only @(s) in your file name are used for Tags.");
+
+        ButtonType buttonTypeOne = new ButtonType("Remove anyways");
+        ButtonType buttonTypeTwo = new ButtonType("Yikes, no thanks!");
+
+        alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo);
+
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if (result.get() == buttonTypeOne) {
+            ArrayList<Tag> allTagsTemp = new ArrayList();
+            for (Tag t : this.tagITModel.getCurrentImage().getTags()) {
+                allTagsTemp.add(t);
+            }
+            for (Tag t : allTagsTemp) {
+                this.tagITModel.getCurrentImage().removeImageTag(t);
+            }
+            String oldFilePath = this.tagITModel.getImageFilePath();
+            String[] extensionRetrieval = oldFilePath.split(Pattern.quote("."));
+            String[] tagRemoval = oldFilePath.split("@");
+            StringBuilder newName = new StringBuilder();
+            newName.append(tagRemoval[0]);
+            newName.append("." + extensionRetrieval[Array.getLength(extensionRetrieval) - 1]);
+            this.absolutePath.setText(newName.toString());
+            this.tagITModel.getCurrentImage().rename(newName.toString());
+        }
+    }
 
     /**
      * This method allows a user to return to the previous screen when the button
