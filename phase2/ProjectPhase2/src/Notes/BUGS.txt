@@ -1,0 +1,9 @@
+- Plus Button on Add Tag
+
+- Open Enclosing Folder, linux CDF
+
+- Select Image on directory / null click
+
+- Help menu, TagITHelp.txt, About -> Hook up paypal account (y) Buy us coffee!!
+
+- Text Runover
