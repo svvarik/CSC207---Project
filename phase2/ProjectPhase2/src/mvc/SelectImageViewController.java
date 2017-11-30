@@ -172,13 +172,21 @@ public class SelectImageViewController extends GeneralController {
             File sourcePath = new File(this.tagITModel.getCurrentImage().getFilePath());
             File parentDirectory = sourcePath.getParentFile();
             try {
-                Desktop.getDesktop().open(parentDirectory);
+                if (Desktop.isDesktopSupported()) {
+                    Desktop.getDesktop().open(parentDirectory);
+                }
             } catch (IOException ignored) {
-                //I don't know what to put in the catch block...
             }
+
+//            try {
+//                Desktop.getDesktop().open(parentDirectory);
+//            } catch (IOException ignored) {
+//                //I don't know what to put in the catch block...
+//            }
             numWindowsOpen = 0;
         }
     }
+
 
     /**
      * Applies the given Filter to the image displayed in imageToBeTagged.
@@ -216,12 +224,11 @@ public class SelectImageViewController extends GeneralController {
      * The image with the filter replaces the original image.
      */
     public void setFilter() {
-        //Image img = this.imageToBeTagged.getImage();
-        //BufferedImage imageWithFilter = SwingFXUtils.fromFXImage(img, null);
-        //imageToBeTagged.setImage(SwingFXUtils.toFXImage(imageWithFilter, null));
-        ImageFilter.recolour(this.tagITModel.getCurrentImagewithFilter(),
-                this.tagITModel.getCurrentImage().getFilePath());
-        //this.imageToBeTagged.setImage(new Image(new File(this.tagITModel.getCurrentImage().getFilePath()).toURI().toString()));
+        if (this.tagITModel.getCurrentImagewithFilter() != null) {
+            ImageFilter.recolour(this.tagITModel.getCurrentImagewithFilter(),
+                    this.tagITModel.getCurrentImage().getFilePath());
+            this.tagITModel.setCurrentImagewithFilter(null);
+        }
     }
 
 
