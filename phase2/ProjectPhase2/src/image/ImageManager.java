@@ -33,9 +33,9 @@ public class ImageManager {
     }
 
     public ImageFile findImage(String imagePath) throws IOException {
-        for (ImageFile i : this.createdImages) {
-            if (imagePath.equals(i.getFilePath())) {
-                return i;
+        for (ImageFile img : this.createdImages) {
+            if (imagePath.equals(img.getFilePath())) {
+                return img;
             }
         }
         ImageFile thisImage = new ImageFile(imagePath);

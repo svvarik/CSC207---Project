@@ -39,7 +39,7 @@ public class ImageFile extends Observable implements Serializable {
     /**
      * Every name this image has had
      */
-    private ArrayList<String> imageHistory = new ArrayList<>();
+    private ArrayList<String> imageHistory;
 
     /**
      * Construct a new ImageFile object.
@@ -53,6 +53,7 @@ public class ImageFile extends Observable implements Serializable {
         File userFile = new File(this.filePath);
         this.fileName = userFile.getName();
         this.taggedName = this.fileName;
+        this.imageHistory = new ArrayList<>();
 
         if (!this.imageHistory.contains(this.taggedName)) {
             this.imageHistory.add(this.taggedName);
@@ -94,8 +95,6 @@ public class ImageFile extends Observable implements Serializable {
     public String getTaggedName() {
         return this.taggedName;
     }
-
-    public String getImagePath(){return this.newImagePath();}
 
 
 
@@ -203,7 +202,7 @@ public class ImageFile extends Observable implements Serializable {
      * @param setOfTags an ArrayList of tags to add to this ImageFile's tags.
      * @param manager   the TagManager currently used to manage all the tags.
      */
-    public void addSetOfTags(ArrayList<String> setOfTags, TagManager manager) {
+    private void addSetOfTags(ArrayList<String> setOfTags, TagManager manager) {
         for (String tag : setOfTags) {
             if (!this.hasTag(tag)) {
                 Tag imageTag = manager.findTag(tag);

@@ -1,4 +1,6 @@
 package mvc;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.control.Label;
 import tag.Tag;
 import graphics.ImageFilter;
@@ -110,8 +112,9 @@ public class SelectImageViewController extends GeneralController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         //TODO: THIS LINE SETS THE LABEL TO AN OBSERVABLE STRING VALUE, WHICH SHOULD BE THE ABSOLUTE PATH FOR CURRENT IMAGE
-        // this.absolutePath.textProperty().bind(this.tagITModel.getCurrentImage().getFilePath());
+        this.setAbsolutePath();
         this.allTagsForCurrPic.setItems(this.tagITModel.getCurrentImage().getTags());
         this.allTagsUsed.setItems(this.tagITModel.getTagManager().getAllTags());
         this.allTagsUsed.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
@@ -134,6 +137,7 @@ public class SelectImageViewController extends GeneralController {
             }
             allTagsUsed.getSelectionModel().clearSelection();
         }
+        this.setAbsolutePath();
     }
 
     /**
@@ -147,6 +151,7 @@ public class SelectImageViewController extends GeneralController {
         if (tagToRemove != null) {
             this.tagITModel.getCurrentImage().removeImageTag(tagToRemove);
         }
+        this.setAbsolutePath();
     }
 
     /**
@@ -165,6 +170,7 @@ public class SelectImageViewController extends GeneralController {
             }
             numWindowsOpen = 0;
         }
+        this.setAbsolutePath();
     }
 
     /**
@@ -256,21 +262,8 @@ public class SelectImageViewController extends GeneralController {
         controllerHelper.openSameWindow(controller, "ImageAllTagVersions.fxml", this.tagITModel, event);
     }
 
-    private void setAbsolutePathLabel() {
-
-
-
-        //TODO: SET LABEL TO OBSERVABLE STRING
-        /**
-         * PULLED FROM STACK OVERFLOW:
-         *
-         * There are numerous ways to achieve that, the most convenient would be to use JavaFX's DataBinding mechanism:
-
-         // assuming you have defined a StringProperty called "valueProperty"
-         Label myLabel = new Label("Start");
-         myLabel.textProperty().bind(valueProperty);
-         This way, every time your valueProperty gets changed by calling it's set method, the label's text is updated.
-         */
+    private void setAbsolutePath() {
+        this.absolutePath.setText(this.tagITModel.getImageFilePath());
     }
 
     void setUpController(){}

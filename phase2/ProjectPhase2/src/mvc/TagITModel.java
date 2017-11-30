@@ -3,11 +3,12 @@ package mvc;
 import history.HistoryManager;
 import image.ImageFile;
 import image.ImageManager;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import tag.TagManager;
 
 import java.awt.image.BufferedImage;
 import javafx.beans.value.ObservableStringValue;
-import javafx.collections.ObservableList;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -46,7 +47,7 @@ public class TagITModel implements Observer {
     private String currentDirectory;
 
     /** The observable filepath */
-    private ObservableStringValue observableFilePath;
+    private String imageFilePath;
 
     TagITModel() {
         this.historyManager = new HistoryManager();
@@ -72,6 +73,7 @@ public class TagITModel implements Observer {
         this.currentImage = newCurImage;
         this.currentImage.addObserver(this);
         this.currentImage.addObserver(this.historyManager);
+        this.setImageFilePath();
     }
 
     /**
@@ -133,6 +135,14 @@ public class TagITModel implements Observer {
         this.currentDirectory = dirPath;
     }
 
+    private void setImageFilePath() {
+        this.imageFilePath = this.currentImage.getFilePath();
+    }
+
+    String getImageFilePath() {
+        return this.imageFilePath;
+    }
+
     /**
      * A method from the Observer interface that is overridden to update the
      * current directory based on the user's actions.
@@ -140,5 +150,6 @@ public class TagITModel implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         this.setCurrentDirectory(this.currentDirectory);
+        this.setImageFilePath();
     }
 }

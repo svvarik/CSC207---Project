@@ -68,7 +68,9 @@ public class SelectDirectoryController extends GeneralController {
      */
     @FXML
     public void goToSelectImageScreen(ActionEvent event) throws IOException {
-        if (!(listOfImages.getRoot().isLeaf())) {
+        //Making sure the user has selected an image before switching to the image editing scene.
+        if (!(this.listOfImages.getExpandedItemCount() == 0) &&
+                !(this.listOfImages.getSelectionModel().getSelectedItems().isEmpty())) {
             String path = listOfImages.getSelectionModel().getSelectedItem().getValue();
             if ((new File(path).isDirectory())){  //Checking that its not a directory before switching scenes
                 return;
