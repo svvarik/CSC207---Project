@@ -16,8 +16,20 @@ public class ImageFilter {
     *Author: Yusuf Shakeel
     *Date: 26-01-2014
     *Code version: 1.0
-    *Availability: https://github.com/yusufshakeel/Java-Image-Processing-Project*/
-
+    *Availability: https://github.com/yusufshakeel/Java-Image-Processing-Project
+    *
+    *Title: Algorithm for calculating inverse RGB colour
+    *Author: Mark Ransom
+    *Date: 05-08-2011
+    *Code version: 1.0
+    *Availability: https://stackoverflow.com/questions/6961725/algorithm-for-calculating-inverse-color
+    *
+    *Title: Sepia tone image filter for java
+    *Author: Macky G
+    *Date: 30-06-2009
+    *Code version: 1.0
+    *Availability: https://groups.google.com/forum/#!topic/comp.lang.java.programmer/nSCnLECxGdA*/
+    
     /**
      * Replaced the image at the given filePath by the BufferedImage img.
      * @param bufferedImg the BufferedImage to replace the image at the

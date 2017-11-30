@@ -70,6 +70,9 @@ public class SelectDirectoryController extends GeneralController {
     public void goToSelectImageScreen(ActionEvent event) throws IOException {
         if (!(listOfImages.getRoot().isLeaf())) {
             String path = listOfImages.getSelectionModel().getSelectedItem().getValue();
+            if ((new File(path).isDirectory())){  //Checking that its not a directory before switching scenes
+                return;
+            }
             ControllerHelper controllerHelper = new ControllerHelper();
             SelectImageViewController controller = new SelectImageViewController();
             controllerHelper.openSameWindow(controller, "SelectImage.fxml", this.tagITModel, event, path);
