@@ -1,4 +1,5 @@
 package mvc;
+import javafx.scene.control.Label;
 import tag.Tag;
 import graphics.ImageFilter;
 
@@ -83,6 +84,8 @@ public class SelectImageViewController extends GeneralController {
     /** Allows user to set the currently displayed Filter on the image.*/
     @FXML Button setFilterButton;
 
+    @FXML Label absolutePath;
+
     /**
      * Tracks the number of windows to the user's computer's FileSystemViewer
      * open in the current scene
@@ -107,6 +110,8 @@ public class SelectImageViewController extends GeneralController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        //TODO: THIS LINE SETS THE LABEL TO AN OBSERVABLE STRING VALUE, WHICH SHOULD BE THE ABSOLUTE PATH FOR CURRENT IMAGE
+        // this.absolutePath.textProperty().bind(this.tagITModel.getCurrentImage().getFilePath());
         this.allTagsForCurrPic.setItems(this.tagITModel.getCurrentImage().getTags());
         this.allTagsUsed.setItems(this.tagITModel.getTagManager().getAllTags());
         this.allTagsUsed.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
@@ -249,6 +254,23 @@ public class SelectImageViewController extends GeneralController {
         ControllerHelper controllerHelper = new ControllerHelper();
         ManageTagsController controller = new ManageTagsController();
         controllerHelper.openSameWindow(controller, "ImageAllTagVersions.fxml", this.tagITModel, event);
+    }
+
+    private void setAbsolutePathLabel() {
+
+
+
+        //TODO: SET LABEL TO OBSERVABLE STRING
+        /**
+         * PULLED FROM STACK OVERFLOW:
+         *
+         * There are numerous ways to achieve that, the most convenient would be to use JavaFX's DataBinding mechanism:
+
+         // assuming you have defined a StringProperty called "valueProperty"
+         Label myLabel = new Label("Start");
+         myLabel.textProperty().bind(valueProperty);
+         This way, every time your valueProperty gets changed by calling it's set method, the label's text is updated.
+         */
     }
 
     void setUpController(){}

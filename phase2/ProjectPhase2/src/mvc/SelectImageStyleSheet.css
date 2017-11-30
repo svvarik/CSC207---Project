@@ -3,11 +3,11 @@
     }
 
 .menu {
-    -fx-background-color: #BA0011
+    -fx-background-color: #A60312
 }
 
 .menu-bar {
-    -fx-background-color: #BA0011
+    -fx-background-color: #A60312
 }
 
 .menu .label {
@@ -20,8 +20,8 @@
 
 .button {
     -fx-background-color:
-            #BA0011
-            linear-gradient(#DE0027, #BA0011);
+            #A60312
+            linear-gradient(#DE0027, #A60312);
         -fx-background-insets: 0,1,2;
         -fx-background-radius: 3,2,1;
         -fx-text-fill: #FFFFFF;
@@ -30,7 +30,7 @@
 
 .button:hover {
         -fx-border-fill: #FFFFFF;
-        -fx-background-color: #BA0011;
+        -fx-background-color: #A60312;
         -fx-scale-x: 1.08;
         -fx-scale-y: 1.08;
 }
@@ -38,8 +38,8 @@
 #backButton {
     -fx-background-radius: 0,0,0;
     -fx-background-color:
-            #BA0011
-            linear-gradient(#DE0027, #BA0011);
+            #A60312
+            linear-gradient(#DE0027, #A60312);
     -fx-text-fill: #FFFFFF;
     -fx-font-family: Helvetica Neue;
     -fx-font-size: 12px;
@@ -51,8 +51,8 @@
 #openEnclosingFolder {
      -fx-background-radius: 0,0,0;
      -fx-background-color:
-             #BA0011
-             linear-gradient(#DE0027, #BA0011);
+             #A60312
+             linear-gradient(#DE0027, #A60312);
      -fx-text-fill: #FFFFFF;
      -fx-font-family: Helvetica Neue;
      -fx-font-size: 12px;
@@ -64,8 +64,8 @@
 #changeToPastTags {
     -fx-background-radius: 0,0,0;
     -fx-background-color:
-          #BA0011
-          linear-gradient(#DE0027, #BA0011);
+          #A60312
+          linear-gradient(#DE0027, #A60312);
     -fx-text-fill: #FFFFFF;
     -fx-font-family: Helvetica Neue;
     -fx-font-size: 12px;
@@ -77,8 +77,8 @@
 #changeLocation {
     -fx-background-radius: 0,0,0;
     -fx-background-color:
-            #BA0011
-            linear-gradient(#DE0027, #BA0011);
+            #A60312
+            linear-gradient(#DE0027, #A60312);
     -fx-text-fill: #FFFFFF;
     -fx-font-family: Helvetica Neue;
     -fx-font-size: 12px;

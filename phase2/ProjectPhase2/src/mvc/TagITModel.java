@@ -6,6 +6,8 @@ import image.ImageManager;
 import tag.TagManager;
 
 import java.awt.image.BufferedImage;
+import javafx.beans.value.ObservableStringValue;
+import javafx.collections.ObservableList;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -42,6 +44,9 @@ public class TagITModel implements Observer {
      * The current directory that the user has opened
      */
     private String currentDirectory;
+
+    /** The observable filepath */
+    private ObservableStringValue observableFilePath;
 
     TagITModel() {
         this.historyManager = new HistoryManager();
