@@ -247,7 +247,7 @@ public class SelectImageViewController extends GeneralController {
         alert.setHeaderText("Are You Sure You Want to Set This Filter? ");
         alert.setContentText("This will PERMANENTLY CHANGE the image to the new selected Filter");
 
-        ButtonType buttonTypeOne = new ButtonType("Go Ahead, I love this new look!");
+        ButtonType buttonTypeOne = new ButtonType("Go Ahead, I love it!!");
         ButtonType buttonTypeTwo = new ButtonType("Yikes, no thanks!");
 
         alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo);
