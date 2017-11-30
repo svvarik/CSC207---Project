@@ -6,8 +6,12 @@
 
 - Help menu, TagITHelp.txt, About -> Hook up paypal account (y) Buy us coffee!!
 
-- Text Runover (WRAPPING LISTVIEWS) 
+- Text Runover (WRAPPING LISTVIEWS)
 
 - When you move an image to a new location, and then you try to tag it after its been moved, it disappears from the new
 location. If you then go back, and re enter the image, the program loses track of this images tags(appears to be making
 a new imagefile for this image)
+
+- When you open a directory that has an image with two same tags, both tags get added to All Tags
+    |-> stupid bug, but I mean if we have time, might as well attempt a fix. 
+
