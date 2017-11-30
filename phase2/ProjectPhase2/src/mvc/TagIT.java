@@ -52,7 +52,7 @@ public class TagIT extends Application {
      * @throws Exception
      */
     @Override
-    public void stop() throws Exception{
+    public void stop() throws Exception {
         StoreToDisk.writeHistory(this.tagITModel);
         StoreToDisk.serializeData(this.tagITModel);
     }

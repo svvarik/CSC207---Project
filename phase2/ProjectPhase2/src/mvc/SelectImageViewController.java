@@ -62,24 +62,26 @@ public class SelectImageViewController extends GeneralController {
     /** Allows the user to apply a Gray Scale filter over an image. */
     @FXML Button grayScale;
 
+    /** Allows the user to apply a Sepia filter over an image.*/
     @FXML Button sepia;
 
+    /** Allows user to apply a Inverse filter over an image*/
     @FXML Button inverse;
 
-    /**
-     * An action to open a File System Viewer to view the directory where the
+    /** An action to open a File System Viewer to view the directory where the
      * current image is located
      */
     @FXML Button openEnclosingFolder;
 
-    /**
-     * An action to change the file name to one of its previous names,
+    /** An action to change the file name to one of its previous names,
      * with the set of tags
      * */
     @FXML Button changeToPastTags;
 
+    /** Allows user to apply the defaultColour to the image.*/
     @FXML Button defaultColour;
 
+    /** Allows user to set the currently displayed Filter on the image.*/
     @FXML Button setFilterButton;
 
     @FXML Label absolutePath;
@@ -150,9 +152,8 @@ public class SelectImageViewController extends GeneralController {
     /**
      * Changes the directory of the current image to the newly selected directory
      *
-     * @param actionEvent The event when Change Image Location Button is clicked
      */
-    public void changeImageLocation(ActionEvent actionEvent) {
+    public void changeImageLocation() {
         numWindowsOpen++;
         if (numWindowsOpen <= 1) {
 
@@ -169,9 +170,8 @@ public class SelectImageViewController extends GeneralController {
     /**
      * Opens the directory with the user's FileSystemViewer in which the current image is located in.
      *
-     * @param actionEvent The event in which the user wants to open the directory containing the image file
      */
-    public void openFolder(ActionEvent actionEvent) {
+    public void openFolder() {
         numWindowsOpen++;
         if (numWindowsOpen <= 1) {
             File sourcePath = new File(this.tagITModel.getCurrentImage().getFilePath());
@@ -182,12 +182,6 @@ public class SelectImageViewController extends GeneralController {
                 }
             } catch (IOException ignored) {
             }
-
-//            try {
-//                Desktop.getDesktop().open(parentDirectory);
-//            } catch (IOException ignored) {
-//                //I don't know what to put in the catch block...
-//            }
             numWindowsOpen = 0;
         }
     }

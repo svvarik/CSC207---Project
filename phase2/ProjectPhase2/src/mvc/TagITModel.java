@@ -1,42 +1,50 @@
 package mvc;
-import filemanager.FileManager;
+
 import history.HistoryManager;
 import image.ImageFile;
 import image.ImageManager;
-import javafx.beans.value.ObservableStringValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import tag.TagManager;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
+import javafx.beans.value.ObservableStringValue;
+import javafx.collections.ObservableList;
 import java.util.Observable;
 import java.util.Observer;
 
 /**
- * A system that models the information being passed when the program is run. 
- * It keeps track of the changes made to TagManager, ImageManager when a user is 
- * adding/removing tags, changing the image location in the computer's file system. 
- * It also keeps track of the current ImageFile and that ImageFile's directory 
- * the user chooses. 
- *
+ * A system that models the information being passed when the program is run.
+ * It keeps track of the changes made to TagManager, ImageManager when a user is
+ * adding/removing tags, changing the image location in the computer's file system.
+ * It also keeps track of the current ImageFile and that ImageFile's directory
+ * the user chooses.
  */
-public class TagITModel implements Observer{
+public class TagITModel implements Observer {
 
-    /** The HistoryManager instance that will be used throughout the program. */
+    /**
+     * The HistoryManager instance that will be used throughout the program.
+     */
     private HistoryManager historyManager;
-    /** The ImageManager instance that will be used throughout the program */
+    /**
+     * The ImageManager instance that will be used throughout the program
+     */
     private ImageManager imageManager;
-    /** The TagManager instance that will be used throughout the program */
+    /**
+     * The TagManager instance that will be used throughout the program
+     */
     private TagManager tagManager;
-    /** The current ImageFile chosen by the user */
+    /**
+     * The current ImageFile chosen by the user
+     */
     private ImageFile currentImage;
-    /** The BufferedImage with original colours the user is viewing */
-    private BufferedImage currentImagewithFilter;
-    /** The current directory that the user has opened */
+    /**
+     * The BufferedImage with original colours the user is viewing
+     */
+    private BufferedImage currentImageWithFilter;
+    /**
+     * The current directory that the user has opened
+     */
     private String currentDirectory;
-    /** The images and directories in the current directory*/
-    private ObservableList<String> currentDirectoryFiles;
+
     /** The observable filepath */
     private ObservableStringValue observableFilePath;
 
@@ -48,6 +56,7 @@ public class TagITModel implements Observer{
 
     /**
      * A getter method to access the current ImageFile
+     *
      * @return The current ImageFile
      */
     ImageFile getCurrentImage() {
@@ -56,8 +65,8 @@ public class TagITModel implements Observer{
 
     /**
      * A setter method to set the current ImageFile to a new ImageFile
-     * @param newCurImage
-     * 			The new ImageFile to set
+     *
+     * @param newCurImage The new ImageFile to set
      */
     void setCurrentImage(ImageFile newCurImage) {
         this.currentImage = newCurImage;
@@ -65,25 +74,33 @@ public class TagITModel implements Observer{
         this.currentImage.addObserver(this.historyManager);
     }
 
+    /**
+     * A setter method to set the currentImageWithFilter to curImageWithFilter.
+     * @param curImageWithFilter the BufferedImage to set currentImageWithFilter to.
+     */
     void setCurrentImagewithFilter(BufferedImage curImageWithFilter) {
-        this.currentImagewithFilter = curImageWithFilter;
+        this.currentImageWithFilter = curImageWithFilter;
     }
 
+    /**
+     * A getter method to access the currentImageWithFilter.
+     * @return the BufferedImage stored in currentImageWithFilter.
+     */
     BufferedImage getCurrentImagewithFilter() {
-        return this.currentImagewithFilter;
+        return this.currentImageWithFilter;
     }
 
     /**
      * A getter method to access the HistoryManager information.
      */
-    public HistoryManager getHistoryManager(){
+    public HistoryManager getHistoryManager() {
         return this.historyManager;
     }
 
     /**
      * A method to access the TagManager information
-     * @return
-     * 		The TagManager instance used in the program
+     *
+     * @return The TagManager instance used in the program
      */
     public TagManager getTagManager() {
         return this.tagManager;
@@ -91,8 +108,8 @@ public class TagITModel implements Observer{
 
     /**
      * A method to access the ImageManager information
-     * @return
-     * 		The ImageManager instance used in the program
+     *
+     * @return The ImageManager instance used in the program
      */
     public ImageManager getImageManager() {
         return this.imageManager;
@@ -100,8 +117,8 @@ public class TagITModel implements Observer{
 
     /**
      * A getter method to access the current directory chosen by the user
-     * @return
-     * 		A string representation of the directory, the file path
+     *
+     * @return A string representation of the directory, the file path
      */
     String getCurrentDirectory() {
         return this.currentDirectory;
@@ -109,18 +126,16 @@ public class TagITModel implements Observer{
 
     /**
      * A setter method to set the current directory to a new one
-     * @param dirPath
-     * 			The new file path to set
+     *
+     * @param dirPath The new file path to set
      */
     void setCurrentDirectory(String dirPath) {
         this.currentDirectory = dirPath;
-        File[] dirFiles = FileManager.imageFilesFilter(new File(this.currentDirectory));
-        currentDirectoryFiles = FXCollections.observableList(FileManager.filesToString(dirFiles));
     }
 
     /**
      * A method from the Observer interface that is overridden to update the
-     * current directory based on the user's actions. 
+     * current directory based on the user's actions.
      */
     @Override
     public void update(Observable o, Object arg) {

@@ -1,4 +1,5 @@
 package mvc;
+
 import filemanager.FileManager;
 import tag.Tag;
 import javafx.event.ActionEvent;
@@ -55,15 +56,18 @@ public class SelectDirectoryController extends GeneralController {
         this.numWindowsOpen = 0;
     }
 
-    void setUpController(Object object) {}
+    void setUpController(Object object) {
+    }
 
-    /** Moves to the next screen where the user can add / remove Tags for the
+    /**
+     * Moves to the next screen where the user can add / remove Tags for the
      * selected image.
      *
      * @param event Event when the "Select Image" button is clicked.
      * @throws IOException
      */
-    @FXML public void goToSelectImageScreen(ActionEvent event) throws IOException {
+    @FXML
+    public void goToSelectImageScreen(ActionEvent event) throws IOException {
         if (!(listOfImages.getRoot().isLeaf())) {
             String path = listOfImages.getSelectionModel().getSelectedItem().getValue();
             if ((new File(path).isDirectory())){  //Checking that its not a directory before switching scenes
@@ -83,7 +87,8 @@ public class SelectDirectoryController extends GeneralController {
      * @throws IOException
      */
 
-    @FXML public void displayPreviewImage (MouseEvent event) throws IOException {
+    @FXML
+    public void displayPreviewImage(MouseEvent event) throws IOException {
         if (!(listOfImages.getRoot() == null || listOfImages.getSelectionModel().getSelectedItem() == null)) {
             File filePath = new File(listOfImages.getSelectionModel().getSelectedItem().getValue());
             if (!filePath.isDirectory()) {
@@ -117,6 +122,7 @@ public class SelectDirectoryController extends GeneralController {
 
     /**
      * Returns a TreeItem with the directory as the first node and all its subdirectories as its children.
+     *
      * @param directory the directory to set the first node at.
      * @return the TreeItem representing the directory given.
      */
