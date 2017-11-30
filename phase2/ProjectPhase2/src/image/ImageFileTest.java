@@ -13,13 +13,9 @@ import javafx.collections.ObservableList;
 public class ImageFileTest {
 
     //Set up Common to all tests
-    TagManager tm = new TagManager();
-    String path = new File(".").getAbsolutePath();
-    ImageFile image = new ImageFile(path +
-            File.separator + "ProjectPhase2" +
-            File.separator + "src" +
-            File.separator + "TestImages" +
-            File.separator + "Scenery.jpg");
+    private File file = new File("." + File.separator + "src" + File.separator + "TestImages" + File.separator + "Scenery.jpg");
+    private ImageFile image = new ImageFile(file.getAbsolutePath());
+    private TagManager tm = new TagManager();
 
     @Test
     public void getTagsTest() throws IOException {
@@ -54,7 +50,7 @@ public class ImageFileTest {
         assertEquals(image.getImageHistory().size(), 3);
         assertEquals(image.getImageHistory().get(0), "Scenery.jpg");
         assertEquals(image.getImageHistory().get(1), "Scenery@tag1.jpg");
-        assertEquals(image.getImageHistory().get(2),"Scenery@tag1@tag2.jpg");
+        assertEquals(image.getImageHistory().get(2),"Scenery@tag1 @tag2.jpg");
         image.removeImageTag(image.getTags().get(0));
         assertEquals(image.getImageHistory().size(), 4);
 
@@ -75,7 +71,7 @@ public class ImageFileTest {
         image.addTag("tag1", tm);
         assertEquals(image.getTaggedName(), "Scenery@tag1.jpg");
         image.addTag("tag2", tm);
-        assertEquals(image.getTaggedName(), "Scenery@tag1@tag2.jpg");
+        assertEquals(image.getTaggedName(), "Scenery@tag1 @tag2.jpg");
 
         image.removeImageTag(image.getTags().get(0));
         image.removeImageTag(image.getTags().get(0));
@@ -146,7 +142,7 @@ public class ImageFileTest {
         //TagManager tm = new TagManager();
         //Tag tag = new Tag("tag1", tm);
         image.removeImageTag(image.getTags().get(0));
-        assertEquals(image.getTaggedName(), "Scenery@tag2@tag3.jpg");
+        assertEquals(image.getTaggedName(), "Scenery@tag2 @tag3.jpg");
 
         image.removeImageTag(image.getTags().get(0));
         image.removeImageTag(image.getTags().get(0));
