@@ -7,6 +7,8 @@ import java.util.regex.Pattern;
  */
 public class Tag implements Serializable {
 
+    private static final long serialVersionUID = 546799;
+
     /**
      * The String name of the tag.
      */

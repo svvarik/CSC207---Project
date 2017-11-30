@@ -10,6 +10,8 @@ import java.io.*;
  */
 public class StoreToDisk implements Serializable {
 
+    private static final long serialVersionUID = 546798;
+
 	/**
 	 * Initializes a file to save data to, when program is run. Creates a new
 	 * 'save' file if it does not exist. PRECONDITION: Save file does not exist

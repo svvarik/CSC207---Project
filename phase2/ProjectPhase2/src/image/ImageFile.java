@@ -16,6 +16,8 @@ import java.util.regex.Pattern;
  */
 public class ImageFile extends Observable implements Serializable {
 
+    private static final long serialVersionUID = 546794;
+
     /**
      * The tags given to the image
      */
