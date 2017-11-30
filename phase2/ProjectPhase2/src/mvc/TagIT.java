@@ -4,9 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import java.io.File;
 
 /**
  * The Main class.
@@ -41,7 +39,7 @@ public class TagIT extends Application {
         SelectDirectoryController controller = loader.getController();
         controller.initController(this.tagITModel);
         primaryStage.setTitle("TagIT");
-        primaryStage.setScene(new Scene(root, 650, 450));
+        primaryStage.setScene(new Scene(root, 900, 600));
         primaryStage.show();
     }
 
