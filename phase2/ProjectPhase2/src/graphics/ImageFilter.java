@@ -11,6 +11,13 @@ import java.io.IOException;
 
 public class ImageFilter {
 
+    /*
+    *Title: Converting a colour image into grayscale using RGB algorithm
+    *Author: Yusuf Shakeel
+    *Date: 26-01-2014
+    *Code version: 1.0
+    *Availability: https://github.com/yusufshakeel/Java-Image-Processing-Project*/
+
     /**
      * Replaced the image at the given filePath by the BufferedImage img.
      * @param bufferedImg the BufferedImage to replace the image at the
@@ -169,8 +176,6 @@ public class ImageFilter {
         }
         return defaultColourImage;
     }
-
-
 }
 
 
