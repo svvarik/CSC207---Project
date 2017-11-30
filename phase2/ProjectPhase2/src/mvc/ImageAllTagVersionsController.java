@@ -1,7 +1,4 @@
 package mvc;
-import image.ImageFile;
-import image.ImageManager;
-import history.HistoryManager;
 
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -13,7 +10,8 @@ import java.io.IOException;
 
 public class ImageAllTagVersionsController extends GeneralController {
 
-    @FXML ListView imageNames;
+    @FXML
+    ListView<String> imageNames;
     @FXML Button changeTags;
     @FXML Button backButton;
 
@@ -30,7 +28,7 @@ public class ImageAllTagVersionsController extends GeneralController {
      * selected in the ListView.
      */
     public void listViewSelected() {
-        String changeToName = (String) this.imageNames.getSelectionModel().getSelectedItem();
+        String changeToName = this.imageNames.getSelectionModel().getSelectedItem();
         this.tagITModel.getCurrentImage().revertToOlderTags(changeToName, this.tagITModel.getTagManager());
     }
 

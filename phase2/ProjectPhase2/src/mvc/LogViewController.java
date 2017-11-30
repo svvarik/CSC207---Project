@@ -1,6 +1,5 @@
 package mvc;
 
-import history.HistoryManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 
