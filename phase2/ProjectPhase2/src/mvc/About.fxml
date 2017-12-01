@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mvc.AboutController">
+   <children>
+      <Label alignment="TOP_LEFT" layoutX="42.0" layoutY="106.0" prefHeight="63.0" prefWidth="517.0" text="This project was put together by four students at the University of Toronto, for the CSC207 course. If you see any of them on campus, feel free to offer some coffee, we can ALWAYS use some!" wrapText="true" />
+      <Label alignment="TOP_LEFT" layoutX="42.0" layoutY="169.0" prefHeight="63.0" prefWidth="517.0" text="This program was written in Java8, and with JavaFX2.0. The UI was put together using SceneBuilder and some manual fxml editing, along with some basic CSS styling and vector graphics created specifically for the program. " wrapText="true" />
+      <Label alignment="TOP_LEFT" layoutX="42.0" layoutY="229.0" prefHeight="63.0" prefWidth="517.0" text="Authors: Betty Wang, Arshia Mahmoodi, Priyanka Narasimhan, Sai V. Varikooty" wrapText="true" />
+      <Label layoutX="282.0" layoutY="72.0" text="About" />
+      <Label alignment="TOP_LEFT" layoutX="42.0" layoutY="251.0" prefHeight="17.0" prefWidth="517.0" text="Last Updated: Nov 30, 2017" wrapText="true" />
+   </children>
+</AnchorPane>
