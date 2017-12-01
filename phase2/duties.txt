@@ -7,14 +7,11 @@ Arshia Mahmoodi
 -Help write unit tests
 -Debugging and writing javadoc for a few classes
 
-Sai Vinay V: 
-- CSS / UI 
-- UI hookup with some methods, UI for adding / removing tags
-- Strip Tags feature
-- Javadocs
-- Controller class inheritance features
-- Updated HistoryManager to read / write from textfile and display in UI. 
-
-
-
+Runtian Wang
+- Help implement image filtering feature 
+- Filling in javadocs
+- Debugging classes, preventing runtime exceptions. 
+- Allowing user to select multiple tags to add. 
+- Help implement packaging 
+- Making logging/HistoryManager observable
 
