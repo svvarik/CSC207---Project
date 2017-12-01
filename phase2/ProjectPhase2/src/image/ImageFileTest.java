@@ -137,4 +137,23 @@ public class ImageFileTest {
 
         image.getImageHistory().clear();
     }
+
+    @Test
+    public void getImageHistoryTest() {
+        image.addTag("Test", tm);
+        assertEquals(image.getImageHistory().get(0), "Scenery.jpg");
+        assertEquals(image.getImageHistory().get(1), "Scenery@Test.jpg");
+
+        image.removeImageTag(image.getTags().get(0));
+        image.getImageHistory().clear();
+    }
+
+    @Test
+    public void setFileNameTest() {
+        assertEquals(image.fileName, "Scenery.jpg");
+        image.setFileName("SceneryTest.jpg");
+        assertEquals(image.fileName, "SceneryTest.jpg");
+
+        image.setFileName("Scenery.jpg");
+    }
 }
