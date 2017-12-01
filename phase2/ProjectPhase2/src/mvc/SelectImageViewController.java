@@ -254,7 +254,7 @@ public class SelectImageViewController extends GeneralController {
 
         Optional<ButtonType> result = alert.showAndWait();
 
-        if (result.get() == buttonTypeOne) {
+        if (result.isPresent() && result.get() == buttonTypeOne) {
             if (this.tagITModel.getCurrentImagewithFilter() != null) {
                 ImageFilter.recolour(this.tagITModel.getCurrentImagewithFilter(),
                         this.tagITModel.getCurrentImage().getFilePath());
@@ -288,21 +288,34 @@ public class SelectImageViewController extends GeneralController {
 
         Optional<ButtonType> result = alert.showAndWait();
 
-        if (result.get() == buttonTypeOne) {
-            ArrayList<Tag> allTagsTemp = new ArrayList();
-            for (Tag t : this.tagITModel.getCurrentImage().getTags()) {
-                allTagsTemp.add(t);
-            }
+        if (result.isPresent() && result.get() == buttonTypeOne) {
+            ArrayList<Tag> allTagsTemp = new ArrayList<Tag>();
+            allTagsTemp.addAll(this.tagITModel.getCurrentImage().getTags());
             for (Tag t : allTagsTemp) {
                 this.tagITModel.getCurrentImage().removeImageTag(t);
             }
             String oldFilePath = this.tagITModel.getImageFilePath();
-            String[] extensionRetrieval = oldFilePath.split(Pattern.quote("."));
-            String[] tagRemoval = oldFilePath.split("@");
+            String[] onlyFile = oldFilePath.split(Pattern.quote(File.separator));
             StringBuilder newName = new StringBuilder();
-            newName.append(tagRemoval[0]);
-            newName.append("." + extensionRetrieval[Array.getLength(extensionRetrieval) - 1]);
-            this.absolutePath.setText(newName.toString());
+            // Get everything but the last chunk after the last file separator
+            for(int i = 0; i < Array.getLength(onlyFile) - 1; i = i + 1) {
+                newName.append(onlyFile[i]);
+                newName.append(File.separator);
+            }
+            // Split the last chunk to get the extension
+            String[] extensionRetrieval = onlyFile[Array.getLength(onlyFile)-1].split(Pattern.quote("."));
+            // Look to see if the last chunk has an @ sign (we are assuming it is a tag)
+            if(onlyFile[Array.getLength(onlyFile)-1].contains("@")) {
+                String[] tagRemoval = onlyFile[Array.getLength(onlyFile) - 1].split("@");
+                // Append everything before the first @
+                newName.append(tagRemoval[0]);
+                // Append a "." + everything after the last "." (the extension)
+                newName.append(".");
+                newName.append(extensionRetrieval[Array.getLength(extensionRetrieval) - 1]);
+            } else {
+                newName.append(onlyFile[Array.getLength(onlyFile)-1]);
+            }
+            this.setAbsolutePath();
             this.tagITModel.getCurrentImage().rename(newName.toString());
         }
     }
