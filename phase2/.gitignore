@@ -4,6 +4,8 @@
 .settings
 .classpath
 .metadata
+.iml
+.idea
 BUGS.txt
 Phase2Notes.txt
 ToDoByNov26.txt

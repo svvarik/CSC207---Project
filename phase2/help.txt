@@ -1,0 +1,22 @@
+Instructions: 
+
+In terminal window, move to phase2/ProjectPhase2/src of repo. 
+
+Before the first time compiling, if there is a file in src called programData.ser, please delete it, then proceed.
+
+Enter: 
+javac mvc/TagIT.java
+
+Then enter: 
+java mvc.TagIT
+
+Notes:
+- Manage set of all tags/see log of name changes: <<Options>> in Menu bar.
+
+- Tagimage: 1) type in Textfield, click <<+>>
+      2) selecting from existing tags. To add multiple from list at once: Hold down Ctrl and click on multiple tags, then <<+>>. 
+
+- Adding Filters: Preview by clicking on: GrayScale/Inverse/Sepia/Default. <<Set Filter>> adds the filter permanently.
+
+- <<Open in enclosing folder>> opens window to File System Viewer with directory containing current image
+***There is a Linux specific issue with this. This works for windows and Mac***
