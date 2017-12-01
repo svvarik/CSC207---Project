@@ -28,6 +28,10 @@
         -fx-font-size: 12px;
 }
 
+.backButton SVGPath{
+   -fx-fill: white;
+}
+
 .button:hover {
         -fx-border-fill: #FFFFFF;
         -fx-background-color: #A60312;
