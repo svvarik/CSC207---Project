@@ -29,7 +29,7 @@ public class ImageFile extends Observable implements Serializable {
     /**
      * The original image file's name
      */
-    private String fileName;
+    public String fileName;
     /**
      * The image file's name with the added tags
      */
@@ -98,6 +98,9 @@ public class ImageFile extends Observable implements Serializable {
         return this.taggedName;
     }
 
+    public void setFileName(String name){
+        this.fileName = name;
+    }
 
 
 

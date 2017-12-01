@@ -278,7 +278,7 @@ public class SelectImageViewController extends GeneralController {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Remove Tags Confirmation");
         alert.setHeaderText("Removing Tags Warning");
-        alert.setContentText("This feature will work by removing by removing anything after an @ sign." +
+        alert.setContentText("This feature works by removing anything after an @ sign." +
                 "Please only use this if the only @(s) in your file name are used for Tags.");
 
         ButtonType buttonTypeOne = new ButtonType("Remove anyways");
@@ -304,19 +304,23 @@ public class SelectImageViewController extends GeneralController {
             }
             // Split the last chunk to get the extension
             String[] extensionRetrieval = onlyFile[Array.getLength(onlyFile)-1].split(Pattern.quote("."));
+            // Prep the fileName change
+            String fileName = " ";
             // Look to see if the last chunk has an @ sign (we are assuming it is a tag)
             if(onlyFile[Array.getLength(onlyFile)-1].contains("@")) {
                 String[] tagRemoval = onlyFile[Array.getLength(onlyFile) - 1].split("@");
+                // New File Name
                 // Append everything before the first @
-                newName.append(tagRemoval[0]);
+                newName.append(tagRemoval[0].trim());
                 // Append a "." + everything after the last "." (the extension)
-                newName.append(".");
-                newName.append(extensionRetrieval[Array.getLength(extensionRetrieval) - 1]);
+                newName.append("." + extensionRetrieval[Array.getLength(extensionRetrieval) - 1]);
+                fileName = fileName + tagRemoval[0].trim() + "." + extensionRetrieval[Array.getLength(extensionRetrieval) - 1].trim();
             } else {
                 newName.append(onlyFile[Array.getLength(onlyFile)-1]);
             }
-            this.setAbsolutePath();
+            this.tagITModel.getCurrentImage().setFileName(fileName);
             this.tagITModel.getCurrentImage().rename(newName.toString());
+            this.setAbsolutePath();
         }
     }
 
