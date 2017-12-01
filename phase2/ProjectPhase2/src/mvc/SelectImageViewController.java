@@ -254,7 +254,7 @@ public class SelectImageViewController extends GeneralController {
 
         Optional<ButtonType> result = alert.showAndWait();
 
-        if (result.get() == buttonTypeOne) {
+        if (result.isPresent() && result.get() == buttonTypeOne) {
             if (this.tagITModel.getCurrentImagewithFilter() != null) {
                 ImageFilter.recolour(this.tagITModel.getCurrentImagewithFilter(),
                         this.tagITModel.getCurrentImage().getFilePath());
@@ -288,11 +288,9 @@ public class SelectImageViewController extends GeneralController {
 
         Optional<ButtonType> result = alert.showAndWait();
 
-        if (result.get() == buttonTypeOne) {
-            ArrayList<Tag> allTagsTemp = new ArrayList<>();
-            for (Tag t : this.tagITModel.getCurrentImage().getTags()) {
-                allTagsTemp.add(t);
-            }
+        if (result.isPresent() && result.get() == buttonTypeOne) {
+            ArrayList<Tag> allTagsTemp = new ArrayList<Tag>();
+            allTagsTemp.addAll(this.tagITModel.getCurrentImage().getTags());
             for (Tag t : allTagsTemp) {
                 this.tagITModel.getCurrentImage().removeImageTag(t);
             }
@@ -313,16 +311,16 @@ public class SelectImageViewController extends GeneralController {
                 String[] tagRemoval = onlyFile[Array.getLength(onlyFile) - 1].split("@");
                 // New File Name
                 // Append everything before the first @
-                newName.append(tagRemoval[0]);
+                newName.append(tagRemoval[0].trim());
                 // Append a "." + everything after the last "." (the extension)
                 newName.append("." + extensionRetrieval[Array.getLength(extensionRetrieval) - 1]);
-                fileName = fileName + tagRemoval[0] + "." + extensionRetrieval[Array.getLength(extensionRetrieval) - 1];
+                fileName = fileName + tagRemoval[0].trim() + "." + extensionRetrieval[Array.getLength(extensionRetrieval) - 1].trim();
             } else {
                 newName.append(onlyFile[Array.getLength(onlyFile)-1]);
             }
             this.tagITModel.getCurrentImage().setFileName(fileName);
-            this.absolutePath.setText(newName.toString());
             this.tagITModel.getCurrentImage().rename(newName.toString());
+            this.setAbsolutePath();
         }
     }
 
