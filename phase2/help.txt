@@ -2,6 +2,8 @@ Instructions:
 
 In terminal window, move to phase2/ProjectPhase2/src of repo. 
 
+Before the first time compiling, if there is a file in src called programData.ser, please delete it, then proceed.
+
 Enter: 
 javac mvc/TagIT.java
 
