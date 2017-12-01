@@ -297,11 +297,25 @@ public class SelectImageViewController extends GeneralController {
                 this.tagITModel.getCurrentImage().removeImageTag(t);
             }
             String oldFilePath = this.tagITModel.getImageFilePath();
-            String[] extensionRetrieval = oldFilePath.split(Pattern.quote("."));
-            String[] tagRemoval = oldFilePath.split("@");
+            String[] onlyFile = oldFilePath.split(Pattern.quote(File.separator));
             StringBuilder newName = new StringBuilder();
-            newName.append(tagRemoval[0]);
-            newName.append("." + extensionRetrieval[Array.getLength(extensionRetrieval) - 1]);
+            // Get everything but the last chunk after the last file separator
+            for(int i = 0; i < Array.getLength(onlyFile) - 1; i = i + 1) {
+                newName.append(onlyFile[i]);
+                newName.append(File.separator);
+            }
+            // Split the last chunk to get the extension
+            String[] extensionRetrieval = onlyFile[Array.getLength(onlyFile)-1].split(Pattern.quote("."));
+            // Look to see if the last chunk has an @ sign (we are assuming it is a tag)
+            if(onlyFile[Array.getLength(onlyFile)-1].contains("@")) {
+                String[] tagRemoval = onlyFile[Array.getLength(onlyFile) - 1].split("@");
+                // Append everything before the first @
+                newName.append(tagRemoval[0]);
+                // Append a "." + everything after the last "." (the extension)
+                newName.append("." + extensionRetrieval[Array.getLength(extensionRetrieval) - 1]);
+            } else {
+                newName.append(onlyFile[Array.getLength(onlyFile)-1]);
+            }
             this.absolutePath.setText(newName.toString());
             this.tagITModel.getCurrentImage().rename(newName.toString());
         }
