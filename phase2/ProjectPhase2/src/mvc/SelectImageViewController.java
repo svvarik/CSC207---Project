@@ -254,7 +254,7 @@ public class SelectImageViewController extends GeneralController {
 
         Optional<ButtonType> result = alert.showAndWait();
 
-        if (result.get() == buttonTypeOne) {
+        if (result.isPresent() && result.get() == buttonTypeOne) {
             if (this.tagITModel.getCurrentImagewithFilter() != null) {
                 ImageFilter.recolour(this.tagITModel.getCurrentImagewithFilter(),
                         this.tagITModel.getCurrentImage().getFilePath());
@@ -288,11 +288,9 @@ public class SelectImageViewController extends GeneralController {
 
         Optional<ButtonType> result = alert.showAndWait();
 
-        if (result.get() == buttonTypeOne) {
-            ArrayList<Tag> allTagsTemp = new ArrayList();
-            for (Tag t : this.tagITModel.getCurrentImage().getTags()) {
-                allTagsTemp.add(t);
-            }
+        if (result.isPresent() && result.get() == buttonTypeOne) {
+            ArrayList<Tag> allTagsTemp = new ArrayList<Tag>();
+            allTagsTemp.addAll(this.tagITModel.getCurrentImage().getTags());
             for (Tag t : allTagsTemp) {
                 this.tagITModel.getCurrentImage().removeImageTag(t);
             }
@@ -312,11 +310,12 @@ public class SelectImageViewController extends GeneralController {
                 // Append everything before the first @
                 newName.append(tagRemoval[0]);
                 // Append a "." + everything after the last "." (the extension)
-                newName.append("." + extensionRetrieval[Array.getLength(extensionRetrieval) - 1]);
+                newName.append(".");
+                newName.append(extensionRetrieval[Array.getLength(extensionRetrieval) - 1]);
             } else {
                 newName.append(onlyFile[Array.getLength(onlyFile)-1]);
             }
-            this.absolutePath.setText(newName.toString());
+            this.setAbsolutePath();
             this.tagITModel.getCurrentImage().rename(newName.toString());
         }
     }
