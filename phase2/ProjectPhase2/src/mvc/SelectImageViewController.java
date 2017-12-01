@@ -315,10 +315,10 @@ public class SelectImageViewController extends GeneralController {
                 // Append a "." + everything after the last "." (the extension)
                 newName.append("." + extensionRetrieval[Array.getLength(extensionRetrieval) - 1]);
                 fileName = fileName + tagRemoval[0].trim() + "." + extensionRetrieval[Array.getLength(extensionRetrieval) - 1].trim();
+                this.tagITModel.getCurrentImage().setFileName(fileName);
             } else {
                 newName.append(onlyFile[Array.getLength(onlyFile)-1]);
             }
-            this.tagITModel.getCurrentImage().setFileName(fileName);
             this.tagITModel.getCurrentImage().rename(newName.toString());
             this.setAbsolutePath();
         }
