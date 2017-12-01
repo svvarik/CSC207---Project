@@ -10,6 +10,14 @@ javac mvc/TagIT.java
 Then enter: 
 java mvc.TagIT
 
+Linux/cdf specific problems: ***These problems do not occur on Mac or Windows.***
+1. When scenes are switched, there is an UI error appearing that we've spoken to Professor Shorser and System Admins about.
+They are investigating the issue. 
+2. <<Choose From Past Set of Tags>> has an error when Application is run from terminal. However, this does not happen when TagIT
+is run through IntelliJ. 
+3. <<Open in enclosing folder>>, which opens window to File System Viewer with directory containing current image
+	This does not work on cdf computers, but works on Mac and Windows. 
+
 Notes:
 - Manage set of all tags/see log of name changes: <<Options>> in Menu bar.
 
@@ -18,5 +26,3 @@ Notes:
 
 - Adding Filters: Preview by clicking on: GrayScale/Inverse/Sepia/Default. <<Set Filter>> adds the filter permanently.
 
-- <<Open in enclosing folder>> opens window to File System Viewer with directory containing current image
-***There is a Linux specific issue with this. This works for windows and Mac***

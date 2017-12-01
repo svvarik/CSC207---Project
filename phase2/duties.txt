@@ -15,3 +15,9 @@ Runtian Wang
 - Help implement packaging 
 - Making logging/HistoryManager observable
 
+Priyanka Narasimhan
+- Wrote full unit test for TagManager class, and majority of ImageFile Test class
+- filled in javadocs for some classes 
+- updated UML diagram
+
+
