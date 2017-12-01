@@ -36,7 +36,19 @@ abstract public class GeneralController {
     @FXML void openManageTagWindow() {
         ControllerHelper controllerHelper = new ControllerHelper();
         ManageTagsController controller = new ManageTagsController();
-        controllerHelper.openNewWindow(controller, "ManageTags.fxml", this.tagITModel, "Manage Tags", 350, 500);
+        controllerHelper.openNewWindow(controller, "ManageTags.fxml", this.tagITModel, "Manage Tags", 500, 350);
+    }
+
+    @FXML void openHelp(){
+        ControllerHelper controllerHelper = new ControllerHelper();
+        HelpController controller = new HelpController();
+        controllerHelper.openNewWindow(controller, "Help.fxml", this.tagITModel, "Help", 500, 350);
+    }
+
+    @FXML void openAbout(){
+        ControllerHelper controllerHelper = new ControllerHelper();
+        AboutController controller = new AboutController();
+        controllerHelper.openNewWindow(controller,"About.fxml", this.tagITModel, "About TagIT", 600, 400);
     }
 
     /**
